@@ -39,4 +39,9 @@ public class StateMenu extends State {
         s.draw(playButton, Gdx.graphics.getWidth()/2-playButton.getWidth()/2, Gdx.graphics.getHeight()/2-playButton.getHeight()/2);
         s.end();
     }
+
+    @Override
+    public void dispose() {
+        playButton.dispose();
+    }
 }

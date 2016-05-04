@@ -15,4 +15,6 @@ public abstract class State {
     public abstract void update(double dt);
 
     public abstract void render(SpriteBatch s);
+
+    public abstract void dispose();
 }
