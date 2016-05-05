@@ -31,10 +31,28 @@ public class Player extends Object {
 
         shape.set(vertices.toArray(new Vector2[8]));
 
+
+
         body.createFixture(shape,100f);
 
+        vertices.clear();
+
+        vertices.add(new Vector2(6,0));
+        vertices.add(new Vector2(-6,0));
+        vertices.add(new Vector2(-6,-1));
+        vertices.add(new Vector2(6,-1));
+
+        shape.set(vertices.toArray(new Vector2[4]));
+
+        body.createFixture(shape,0f);
+
+        shape.dispose();
+        body.getFixtureList().get(0).setFriction(10f);
+
+        body.getFixtureList().get(1).setSensor(true);
+
+
         body.getFixtureList().get(0).setRestitution(0f);
-
-
     }
+
 }

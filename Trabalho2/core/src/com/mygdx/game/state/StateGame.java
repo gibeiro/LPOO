@@ -9,8 +9,10 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.Functions;
 import com.mygdx.game.body.Ball;
 import com.mygdx.game.body.Obstacle;
 import com.mygdx.game.body.Player;
@@ -37,19 +39,36 @@ public class StateGame extends State{
         camera.setToOrtho(false,100*SCREENRESPROP,100);
         world = new World(new Vector2(0,GRAVITY),false);
         b2dr = new Box2DDebugRenderer();
-        ball = new Ball(world,50,50);
-        player1 = new Player(world,30,10);
+        ball = new Ball(world,90,90);
+        player1 = new Player(world,30,15);
         floor = new Obstacle(world);
     }
 
     @Override
     public void handleInput(){
 
+        if(Functions.leftButtonPressed() && player1.body.getLinearVelocity().x > -50){
+            float impulse = player1.body.getMass() * -5;
+            player1.body.applyLinearImpulse(new Vector2(impulse,0),player1.body.getWorldCenter(),false);
+        }
+        if(Functions.rightButtonPressed() && player1.body.getLinearVelocity().x < 50){
+            float impulse = player1.body.getMass() * 5;
+            player1.body.applyLinearImpulse(new Vector2(impulse,0),player1.body.getWorldCenter(),false);
+        }
+        if(Functions.jumpButtonPressed() && Functions.PlayerColidingWithGround(world, player1,floor) && Math.abs(player1.body.getLinearVelocity().y) < 0.2){
+            float impulse = player1.body.getMass() * 70;
+            player1.body.applyLinearImpulse(new Vector2(0,impulse),player1.body.getWorldCenter(),false);
+        }
+
+
+
+
     }
 
 
     @Override
     public void update(double dt) {
+
 
         world.step((float)dt,6,2);
 

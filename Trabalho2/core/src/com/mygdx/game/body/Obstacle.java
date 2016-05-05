@@ -24,10 +24,12 @@ public class Obstacle extends Object {
         PolygonShape shape = new PolygonShape();
 
         ArrayList<Vector2> vertices = new ArrayList<Vector2>();
-        vertices.add(new Vector2(50,6));
-        vertices.add(new Vector2(-50,6));
+        vertices.add(new Vector2(50,10));
+        vertices.add(new Vector2(-50,10));
         vertices.add(new Vector2(-50,0));
         vertices.add(new Vector2(50,0));
+
+
 
         shape.set(vertices.toArray(new Vector2[4]));
 

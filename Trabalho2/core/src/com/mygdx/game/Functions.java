@@ -2,6 +2,10 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.body.Object;
+import com.mygdx.game.body.Obstacle;
+import com.mygdx.game.body.Player;
 import com.mygdx.game.state.StateGame;
 
 /**
@@ -16,6 +20,63 @@ public class Functions {
                     x < x2 &&
                     y > y1 &&
                     y < y2){
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean leftButtonPressed(){
+        if(!Gdx.input.isTouched())
+            return false;
+        for(int i = 0;i < 4;i++){
+            int x = Gdx.input.getX(i);
+            int y = Gdx.input.getY(i);
+            System.out.println(x+" "+y);
+            if(x > (float)Gdx.graphics.getWidth()*0.0 &&
+                    x < (float)Gdx.graphics.getWidth()*0.15 &&
+                    y > (float)Gdx.graphics.getHeight()*0.7 &&
+                    y < (float)Gdx.graphics.getHeight()*1){
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean rightButtonPressed(){
+        if(!Gdx.input.isTouched())
+            return false;
+        for(int i = 0;i < 4;i++){
+            int x = Gdx.input.getX(i);
+            int y = Gdx.input.getY(i);
+            System.out.println(x+" "+y);
+            if(x > (float)Gdx.graphics.getWidth()*0.15 &&
+                    x < (float)Gdx.graphics.getWidth()*0.30 &&
+                    y > (float)Gdx.graphics.getHeight()*0.7 &&
+                    y < (float)Gdx.graphics.getHeight()*1){
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean jumpButtonPressed(){
+        if(!Gdx.input.isTouched())
+            return false;
+        for(int i = 0;i < 4;i++){
+            int x = Gdx.input.getX(i);
+            int y = Gdx.input.getY(i);
+            System.out.println(x+" "+y);
+            if(x > (float)Gdx.graphics.getWidth()*0.85 &&
+                    x < (float)Gdx.graphics.getWidth()*1 &&
+                    y > (float)Gdx.graphics.getHeight()*0.7 &&
+                    y < (float)Gdx.graphics.getHeight()*1){
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean PlayerColidingWithGround(World world, Player o1, Obstacle o2){
+        for(int i = 0;i < world.getContactList().size;i++){
+            if((world.getContactList().get(i).getFixtureA() == o1.body.getFixtureList().get(1) && world.getContactList().get(i).getFixtureB() == o2.body.getFixtureList().get(0))||
+                    (world.getContactList().get(i).getFixtureB() == o1.body.getFixtureList().get(1) && world.getContactList().get(i).getFixtureA() == o2.body.getFixtureList().get(0) )){
                 return true;
             }
         }
