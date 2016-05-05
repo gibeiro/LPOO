@@ -38,10 +38,14 @@ public class StateGame extends State{
         world = new World(new Vector2(0,GRAVITY),false);
         b2dr = new Box2DDebugRenderer();
         ball = new Ball(world,50,50);
+        player1 = new Player(world,30,10);
         floor = new Obstacle(world);
     }
 
+    @Override
+    public void handleInput(){
 
+    }
 
 
     @Override

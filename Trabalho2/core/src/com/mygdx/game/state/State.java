@@ -16,5 +16,7 @@ public abstract class State {
 
     public abstract void render(SpriteBatch s);
 
+    public abstract void handleInput();
+
     public abstract void dispose();
 }

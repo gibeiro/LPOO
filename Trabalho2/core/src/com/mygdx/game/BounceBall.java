@@ -20,6 +20,7 @@ public class BounceBall extends ApplicationAdapter {
 
 	@Override
 	public void render () {
+		states.handleInput();
 		states.update(Gdx.graphics.getDeltaTime());
         states.render(batch);
 	}

@@ -25,9 +25,10 @@ public class Ball extends Object {
         circle.setRadius(3);
 
 
-        body.createFixture(circle,10.0f);
+        body.createFixture(circle,1.0f);
 
         body.getFixtureList().get(0).setRestitution(0.7f);//Para a bola saltar
+        body.getFixtureList().get(0).setFriction(0.1f);
         circle.dispose();
         texture = new Texture("ball.png");
     }

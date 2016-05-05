@@ -28,4 +28,6 @@ public class StateManager {
     public void render(SpriteBatch s){
         states.peek().render(s);
     }
+
+    public void handleInput(){states.peek().handleInput();}
 }
