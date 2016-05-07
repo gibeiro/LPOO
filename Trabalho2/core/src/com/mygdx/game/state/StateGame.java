@@ -96,16 +96,19 @@ public class StateGame extends State{
          */
         world.step((float)dt,6,2);
         if(player1.movingLeft){
-            float impulse = player1.body.getMass() * -5;
-            player1.body.applyLinearImpulse(new Vector2(impulse,0),player1.body.getWorldCenter(),false);
+            //float impulse = player1.body.getMass() * -5;
+            //player1.body.applyLinearImpulse(new Vector2(impulse,0),player1.body.getWorldCenter(),false);
+            player1.body.setLinearVelocity(player1.body.getLinearVelocity().x-0.5f*(float)dt*1000,player1.body.getLinearVelocity().y);
         }
         if(player1.movingRight){
-            float impulse = player1.body.getMass() * 5;
-            player1.body.applyLinearImpulse(new Vector2(impulse,0),player1.body.getWorldCenter(),false);
+            //float impulse = player1.body.getMass() * 5;
+            //player1.body.applyLinearImpulse(new Vector2(impulse,0),player1.body.getWorldCenter(),false);
+            player1.body.setLinearVelocity(player1.body.getLinearVelocity().x+0.5f*(float)dt*1000,player1.body.getLinearVelocity().y);
         }
         if(player1.jump && Math.abs(player1.body.getLinearVelocity().y) < 0.2 && Functions.PlayerColidingWithGround(world, player1,field)){
-            float impulse = player1.body.getMass() * 60;
-            player1.body.applyLinearImpulse(new Vector2(0,impulse),player1.body.getWorldCenter(),false);
+            //float impulse = player1.body.getMass() * 60;
+            //player1.body.applyLinearImpulse(new Vector2(0,impulse),player1.body.getWorldCenter(),false);
+            player1.body.setLinearVelocity(player1.body.getLinearVelocity().x,player1.body.getLinearVelocity().y+3.5f*(float)dt*1000);
             player1.jump = false;
 
         }else player1.jump = false;
