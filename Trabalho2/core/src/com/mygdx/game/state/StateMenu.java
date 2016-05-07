@@ -10,26 +10,30 @@ import com.mygdx.game.Functions;
  * Created by Nuno on 02/05/2016.
  */
 public class StateMenu extends State {
+    Boolean playButtonPressed;
     Texture playButton;
     public StateMenu(StateManager s) {
         super(s);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         playButton = new Texture("playBtn.png");
+        playButtonPressed = false;
     }
 
     @Override
     public void handleInput(){
 
         if(Functions.rectanglePressed(Gdx.graphics.getWidth()/2-playButton.getWidth()/2,Gdx.graphics.getHeight()/2-playButton.getHeight()/2,Gdx.graphics.getWidth()/2+playButton.getWidth()/2,Gdx.graphics.getHeight()/2+playButton.getHeight()/2)){
-            sm.pop();
-            sm.push(new StateGame(sm));
+            playButtonPressed = true;
         }
 
     }
 
     @Override
     public void update(double dt) {
-
+        if(playButtonPressed){
+            sm.pop();
+            sm.push(new StateGame(sm));
+        }
     }
 
     @Override

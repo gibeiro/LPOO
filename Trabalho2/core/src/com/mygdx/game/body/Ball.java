@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
@@ -21,15 +22,24 @@ public class Ball extends Object {
 
         body = world.createBody(def);
 
+        FixtureDef f = new FixtureDef();
+        f.filter.categoryBits = 1;
+        f.filter.maskBits = 7;
+        f.density = 0.1f;
+        f.restitution = 0.65f;
+        f.friction = 0.1f;
+
         CircleShape circle = new CircleShape();
-        circle.setRadius(3);
+        circle.setRadius(2.5f);
 
 
-        body.createFixture(circle,1.0f);
+        f.shape = circle;
+        body.createFixture(f);
 
-        body.getFixtureList().get(0).setRestitution(0.7f);//Para a bola saltar
-        body.getFixtureList().get(0).setFriction(0.1f);
+
+
         circle.dispose();
         texture = new Texture("ball.png");
     }
+
 }
