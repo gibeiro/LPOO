@@ -53,6 +53,7 @@ public class Obstacle extends Object {
 
         shape.set(vertices.toArray(new Vector2[4]));
 
+        f.friction = 0;
         f.shape = shape;
         body.createFixture(f);
         //right wall
@@ -82,6 +83,7 @@ public class Obstacle extends Object {
          * Beacons
          */
         //left beacon
+        f.friction = 0.2f;
         f.filter.maskBits = 3;
         vertices.clear();
         vertices.add(new Vector2(-46,28));

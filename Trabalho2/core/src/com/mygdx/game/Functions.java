@@ -31,7 +31,6 @@ public class Functions {
         for(int i = 0;i < 4;i++){
             int x = Gdx.input.getX(i);
             int y = Gdx.input.getY(i);
-            System.out.println(x+" "+y);
             if(x > (float)Gdx.graphics.getWidth()*0.0 &&
                     x < (float)Gdx.graphics.getWidth()*0.15 &&
                     y > (float)Gdx.graphics.getHeight()*0.7 &&
@@ -47,7 +46,6 @@ public class Functions {
         for(int i = 0;i < 4;i++){
             int x = Gdx.input.getX(i);
             int y = Gdx.input.getY(i);
-            System.out.println(x+" "+y);
             if(x > (float)Gdx.graphics.getWidth()*0.15 &&
                     x < (float)Gdx.graphics.getWidth()*0.30 &&
                     y > (float)Gdx.graphics.getHeight()*0.7 &&
@@ -63,7 +61,6 @@ public class Functions {
         for(int i = 0;i < 4;i++){
             int x = Gdx.input.getX(i);
             int y = Gdx.input.getY(i);
-            System.out.println(x+" "+y);
             if(x > (float)Gdx.graphics.getWidth()*0.85 &&
                     x < (float)Gdx.graphics.getWidth()*1 &&
                     y > (float)Gdx.graphics.getHeight()*0.7 &&
