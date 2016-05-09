@@ -7,11 +7,12 @@ import java.rmi.Naming;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.mygdx.game.BounceBall;
+import com.mygdx.game.game.Game;
 
 public class Server extends UnicastRemoteObject implements ServerInterface {
 
     private ArrayList<ClientInterface> players = new ArrayList<ClientInterface>();
-    public BounceBall game = new BounceBall();
+    private Game game;
 
     protected Server() throws RemoteException {
         super();
@@ -25,16 +26,28 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
             players.add(client);
             int n = players.size() - 1;
             System.out.println("Player " + n + " joined." );
+            if(players.size() == 2)
+                game = new Game();
             return n;
         }
     }
 
+
     public static void main(String args[]) {
         try {
-
             Server server = new Server();
             Naming.rebind("rmi://localhost:1099/Server", server);
             System.err.println("Server ready");
+
+            while(server.players.size() != 2){
+            }
+
+            server.game = new Game();
+
+            while(!server.game.gameEnd){
+                server.game.update();
+                server.game.
+            }
 
         } catch (Exception e) {
             System.err.println("Server exception: " + e.toString());

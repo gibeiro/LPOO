@@ -1,5 +1,7 @@
 package com.mygdx.game.state;
 
+import com.mygdx.game.client.Client;
+import com.mygdx.game.game.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,7 +14,6 @@ import com.mygdx.game.Functions;
 import com.mygdx.game.body.Ball;
 import com.mygdx.game.body.Obstacle;
 import com.mygdx.game.body.Player;
-import com.mygdx.game.game.Game;
 
 import java.util.ArrayList;
 
@@ -23,11 +24,23 @@ import java.util.ArrayList;
  */
 public class StateGame extends State{
 
-    private Game game;
+    private World world;
+    private Client client;
+
     public StateGame(StateManager s) {
         super(s);
-        game = new Game();
+
+
+        try {
+            client = new Client();
+        }
+        catch(Exception e){
+
+        }
+
+
     }
+
 
     @Override
     public void handleInput(){
@@ -49,12 +62,12 @@ public class StateGame extends State{
 
     @Override
     public void update(double dt) {
-        game.updateGame(dt);
+        game.update(dt);
     }
 
     @Override
     public void render(SpriteBatch s) {
-        game.renderGame(s);
+        game.render(s);
     }
 
     @Override
