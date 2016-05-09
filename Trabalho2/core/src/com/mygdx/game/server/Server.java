@@ -1,5 +1,7 @@
 package com.mygdx.game.server;
 
+import com.badlogic.gdx.Gdx;
+import com.mygdx.game.Inputs;
 import com.mygdx.game.client.ClientInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -32,6 +34,23 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
         }
     }
 
+    @Override
+    public void handleInput(int id,Inputs i) throws RemoteException {
+        if(id == 0){
+            game.player1.movingLeft = i.movingLeft;
+            game.player1.movingRight = i.movingRight;
+            game.player1.jump = i.jump;
+        }else if(id == 1){
+            game.player2.movingLeft = i.movingLeft;
+            game.player2.movingRight = i.movingRight;
+            game.player2.jump = i.jump;
+        }
+    }
+
+    public void sendWorlds() throws RemoteException{
+        players.get(0).sendWorld(game.world);
+        players.get(1).sendWorld(game.world);
+    }
 
     public static void main(String args[]) {
         try {
@@ -45,8 +64,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
             server.game = new Game();
 
             while(!server.game.gameEnd){
-                server.game.update();
-                server.game.
+                server.game.update(Gdx.graphics.getDeltaTime());
             }
 
         } catch (Exception e) {

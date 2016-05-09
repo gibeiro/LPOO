@@ -1,5 +1,6 @@
 package com.mygdx.game.state;
 
+import com.mygdx.game.Inputs;
 import com.mygdx.game.client.Client;
 import com.mygdx.game.game.Game;
 import com.badlogic.gdx.Gdx;
@@ -14,7 +15,9 @@ import com.mygdx.game.Functions;
 import com.mygdx.game.body.Ball;
 import com.mygdx.game.body.Obstacle;
 import com.mygdx.game.body.Player;
+import com.mygdx.game.server.ServerInterface;
 
+import java.rmi.Naming;
 import java.util.ArrayList;
 
 //import lipermi.handler.CallHandler;
@@ -24,12 +27,14 @@ import java.util.ArrayList;
  */
 public class StateGame extends State{
 
-    private World world;
+    private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
     private Client client;
+    private ServerInterface proxy;
+    private OrthographicCamera camera;
+    private Box2DDebugRenderer b2dr;
 
     public StateGame(StateManager s) {
         super(s);
-
 
         try {
             client = new Client();
@@ -38,40 +43,56 @@ public class StateGame extends State{
 
         }
 
+        try {
 
+            proxy = (ServerInterface) Naming.lookup("rmi://localhost:1099/Server");
+
+            System.out.print("Joining server ...");
+
+            client.id = proxy.join(client);
+            if ( client.id == -1) {
+                System.out.println("Server full.");
+                return;
+            }
+            else
+                System.out.println("Connected.");
+
+        } catch (Exception e) {
+            System.err.println("Client exception: " + e.toString());
+            e.printStackTrace();
+        }
+        camera.setToOrtho(false,100,100*SCREENRESPROP);
+        b2dr = new Box2DDebugRenderer();
     }
 
 
     @Override
     public void handleInput(){
-        /*
-         * Verifica teclas premidas pelo jogador 1
-         */
-        if(Functions.leftButtonPressed()){
-            game.player1.movingLeft = true;
-        }else game.player1.movingLeft = false;
-        if(Functions.rightButtonPressed()){
-            game.player1.movingRight = true;
-        }else game.player1.movingRight = false;
-        if(Functions.jumpButtonPressed()){
-            game.player1.jump = true;
-        }else game.player1.jump = false;
+        Inputs i = new Inputs(Functions.leftButtonPressed(),Functions.rightButtonPressed(),Functions.jumpButtonPressed());
+        try{
+            proxy.handleInput(client.id,i);
+        }catch(Exception e){
+
+        }
 
     }
 
 
     @Override
     public void update(double dt) {
-        game.update(dt);
+
+        client.world.step((float)dt,6,2);
+
     }
 
     @Override
     public void render(SpriteBatch s) {
-        game.render(s);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        b2dr.render(client.world,camera.combined);//render fixtures only
     }
 
     @Override
-    public void dispose() {
-        game.dispose();
+    public void dispose(){
     }
 }

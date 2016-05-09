@@ -1,5 +1,7 @@
 package com.mygdx.game.client;
 
+import com.mygdx.game.Inputs;
+import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.BounceBall;
 import com.mygdx.game.server.Server;
 import com.mygdx.game.server.ServerInterface;
@@ -12,14 +14,24 @@ import com.badlogic.gdx.ApplicationAdapter;
 
 public class Client extends UnicastRemoteObject implements ClientInterface {
 
+    public World world;
+    public Inputs input;
+    public static ServerInterface proxy;
+    public int id;
+
     public Client() throws RemoteException {
         super( );
+    }
+
+    @Override
+    public void sendWorld(World o) throws RemoteException{
+        world = o;
     }
 
     public static void main(String[] args) {
         try {
 
-            ServerInterface proxy = (ServerInterface)Naming.lookup("rmi://localhost:1099/Server");
+            proxy = (ServerInterface)Naming.lookup("rmi://localhost:1099/Server");
 
             System.out.print("Joining server ...");
 
@@ -32,6 +44,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
                 System.out.println("Connected.");
 
             //Client loop here
+
 
             System.exit(0);
 

@@ -22,7 +22,7 @@ public class Game {
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
     private OrthographicCamera camera;
     private Box2DDebugRenderer b2dr;
-    private World world;
+    public World world;
     public Player player1;
     public Player player2;
     private Ball ball;
