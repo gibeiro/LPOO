@@ -1,7 +1,6 @@
 package com.mygdx.game.state;
 
 import com.mygdx.game.Inputs;
-import com.mygdx.game.client.Client;
 import com.mygdx.game.game.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,7 +14,7 @@ import com.mygdx.game.Functions;
 import com.mygdx.game.body.Ball;
 import com.mygdx.game.body.Obstacle;
 import com.mygdx.game.body.Player;
-import com.mygdx.game.server.ServerInterface;
+//import com.mygdx.game.server.ServerInterface;
 
 import java.rmi.Naming;
 import java.util.ArrayList;

@@ -1,4 +1,62 @@
+package com.server;
+
+import java.io.IOException;
+import java.net.Socket;
+import lipermi.exception.LipeRMIException;
+import lipermi.handler.CallHandler;
+import lipermi.net.IServerListener;
+import lipermi.net.Server;
+
+public class GameServer implements ServerInterface {
+
+    public GameServer() {
+        try {
+            CallHandler callHandler = new CallHandler();
+            callHandler.registerGlobal(Server.class, this);
+            Server server = new Server();
+            server.bind(7777, callHandler);
+            server.addServerListener(new IServerListener() {
+
+                @Override
+                public void clientDisconnected(Socket socket) {
+                    System.out.println("Client Disconnected: " + socket.getInetAddress());
+                }
+
+                @Override
+                public void clientConnected(Socket socket) {
+                    System.out.println("Client Connected: " + socket.getInetAddress());
+                }
+            });
+            System.out.println("Server Listening");
+
+        } catch (LipeRMIException  e) {
+            e.printStackTrace();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String args[]) {
+        try{
+            GameServer server = new GameServer();
+
+        } catch (Exception e) {
+            System.err.println("Server exception: " + e.toString());
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getResponse(String data) {
+        System.out.println("getResponse called");
+        return "Your data: " + data;
+    }
+
+}
+/*
 package com.mygdx.game.server;
+
 
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Inputs;
@@ -74,5 +132,5 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
             e.printStackTrace();
         }
     }
-    */
 }
+*/

@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.mygdx.game.Functions;
 import com.mygdx.game.Inputs;
-import com.mygdx.game.client.Client;
-import com.mygdx.game.server.ServerInterface;
+//import com.mygdx.game.client.Client;
+//import com.mygdx.game.server.ServerInterface;
 
 import java.rmi.Naming;
 
@@ -17,7 +17,7 @@ import java.rmi.Naming;
  */
 public class StateGameMultiplayer extends State {
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
-    private Client client;
+   // private Client client;
     private OrthographicCamera camera;
     private Box2DDebugRenderer b2dr;
 
@@ -26,7 +26,7 @@ public class StateGameMultiplayer extends State {
 
         try {
             System.out.println("aqui1");
-            client = new Client();
+            //client = new Client();
             System.out.println("aqui2");
         }
         catch(Exception e){
@@ -34,7 +34,7 @@ public class StateGameMultiplayer extends State {
         }
 
         try {
-
+/*
             client.proxy = (ServerInterface) Naming.lookup("rmi://localhost:1099/Server");
 
             System.out.print("Joining server ...");
@@ -46,6 +46,7 @@ public class StateGameMultiplayer extends State {
             }
             else
                 System.out.println("Connected.");
+                */
 
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
@@ -61,7 +62,7 @@ public class StateGameMultiplayer extends State {
     public void handleInput(){
         Inputs i = new Inputs(Functions.leftButtonPressed(),Functions.rightButtonPressed(),Functions.jumpButtonPressed());
         try{
-            client.proxy.handleInput(client.id,i);
+           // client.proxy.handleInput(client.id,i);
         }catch(Exception e){
 
         }
@@ -71,17 +72,19 @@ public class StateGameMultiplayer extends State {
 
     @Override
     public void update(double dt) {
-
+/*
         if(client.world != null)
            client.world.step((float)dt,6,2);
-
+*/
     }
 
     @Override
     public void render(SpriteBatch s) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        /*
         if(client.world != null)
             b2dr.render(client.world,camera.combined);//render fixtures only
+            */
     }
 
     @Override

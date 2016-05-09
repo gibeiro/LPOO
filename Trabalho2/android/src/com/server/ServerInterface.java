@@ -1,4 +1,10 @@
-package com.mygdx.game.server;
+package com.server;
+
+public interface ServerInterface{
+    public String getResponse(String data);
+}
+
+/*package com.mygdx.game.server;
 
 import com.mygdx.game.Inputs;
 import com.mygdx.game.client.ClientInterface;
@@ -14,3 +20,4 @@ public interface ServerInterface extends Remote {
 
 
 }
+*/

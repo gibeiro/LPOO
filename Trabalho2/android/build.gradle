@@ -16,7 +16,7 @@ android {
     }
     defaultConfig {
         applicationId "com.mygdx.game"
-        minSdkVersion 8
+        minSdkVersion 9
         targetSdkVersion 23
     }
 }
@@ -123,4 +123,7 @@ idea {
             }
         }
     }
+}
+dependencies {
+    compile files('libs/lipermi-0.4.jar')
 }
