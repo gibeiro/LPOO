@@ -28,52 +28,18 @@ import java.util.ArrayList;
 public class StateGame extends State{
 
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
-    private Client client;
-    private ServerInterface proxy;
-    private OrthographicCamera camera;
-    private Box2DDebugRenderer b2dr;
+    private Game game;
 
     public StateGame(StateManager s) {
         super(s);
 
-        try {
-            client = new Client();
-        }
-        catch(Exception e){
-
-        }
-
-        try {
-
-            proxy = (ServerInterface) Naming.lookup("rmi://localhost:1099/Server");
-
-            System.out.print("Joining server ...");
-
-            client.id = proxy.join(client);
-            if ( client.id == -1) {
-                System.out.println("Server full.");
-                return;
-            }
-            else
-                System.out.println("Connected.");
-
-        } catch (Exception e) {
-            System.err.println("Client exception: " + e.toString());
-            e.printStackTrace();
-        }
-        camera.setToOrtho(false,100,100*SCREENRESPROP);
-        b2dr = new Box2DDebugRenderer();
+        game = new Game();
     }
 
 
     @Override
     public void handleInput(){
-        Inputs i = new Inputs(Functions.leftButtonPressed(),Functions.rightButtonPressed(),Functions.jumpButtonPressed());
-        try{
-            proxy.handleInput(client.id,i);
-        }catch(Exception e){
-
-        }
+        game.handleInput();
 
     }
 
@@ -81,7 +47,12 @@ public class StateGame extends State{
     @Override
     public void update(double dt) {
 
-        client.world.step((float)dt,6,2);
+        if(!game.gameEnd){
+            game.update(dt);
+        }else{
+            sm.pop();
+            sm.push(new StateMenu(sm));
+        }
 
     }
 
@@ -89,7 +60,7 @@ public class StateGame extends State{
     public void render(SpriteBatch s) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        b2dr.render(client.world,camera.combined);//render fixtures only
+        game.render(s);
     }
 
     @Override

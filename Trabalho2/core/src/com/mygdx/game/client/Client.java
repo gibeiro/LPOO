@@ -15,12 +15,11 @@ import com.badlogic.gdx.ApplicationAdapter;
 public class Client extends UnicastRemoteObject implements ClientInterface {
 
     public World world;
-    public Inputs input;
-    public static ServerInterface proxy;
+    public ServerInterface proxy;
     public int id;
 
     public Client() throws RemoteException {
-        super( );
+        super();
     }
 
     @Override
@@ -28,29 +27,4 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
         world = o;
     }
 
-    public static void main(String[] args) {
-        try {
-
-            proxy = (ServerInterface)Naming.lookup("rmi://localhost:1099/Server");
-
-            System.out.print("Joining server ...");
-
-            int id = proxy.join(new Client());
-            if ( id == -1) {
-                System.out.println("Server full.");
-                return;
-            }
-            else
-                System.out.println("Connected.");
-
-            //Client loop here
-
-
-            System.exit(0);
-
-        } catch (Exception e) {
-            System.err.println("Client exception: " + e.toString());
-            e.printStackTrace();
-        }
-    }
 }

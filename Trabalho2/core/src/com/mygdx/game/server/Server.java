@@ -36,6 +36,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 
     @Override
     public void handleInput(int id,Inputs i) throws RemoteException {
+        if(game == null)
+            return;
         if(id == 0){
             game.player1.movingLeft = i.movingLeft;
             game.player1.movingRight = i.movingRight;
@@ -51,7 +53,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
         players.get(0).sendWorld(game.world);
         players.get(1).sendWorld(game.world);
     }
-
+    /*
     public static void main(String args[]) {
         try {
             Server server = new Server();
@@ -72,4 +74,5 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
             e.printStackTrace();
         }
     }
+    */
 }

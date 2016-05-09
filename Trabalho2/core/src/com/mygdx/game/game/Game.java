@@ -36,17 +36,28 @@ public class Game {
         b2dr = new Box2DDebugRenderer();
         ball = new Ball(world,50,50);
         player1 = new Player(world,20,15);
-        player2 = new Player(world,80,15);
         field = new Obstacle(world);
         scorefont = new BitmapFont();
         gameEnd = false;
         limitGoals = 5;
     }
+    public void handleInput(){
+        if(Functions.leftButtonPressed()){
+            player1.movingLeft = true;
+        }else player1.movingLeft = false;
+        if(Functions.rightButtonPressed()){
+            player1.movingRight = true;
+        }else player1.movingRight = false;
+        if(Functions.jumpButtonPressed()){
+            player1.jump = true;
+        }else player1.jump = false;
+    }
+
     public void update(double dt){
         /*
          * Verifica se a bola está dentro das balizas
          */
-        if(player1.goals >=limitGoals || player2.goals >= limitGoals){
+        if(player1.goals >=limitGoals){
             gameEnd = true;
             return;
         }
@@ -57,7 +68,8 @@ public class Game {
             player1.goals++;
             resetPositions();
         }else if(x < 14 && y < 28){
-            player2.goals++;
+            if(player2 != null)
+                player2.goals++;
             resetPositions();
         }
 
@@ -98,8 +110,8 @@ public class Game {
         ball.body.setAngularVelocity(0);
         player1.body.setTransform(20,15,0);
         player1.body.setLinearVelocity(0,0);
-        player2.body.setTransform(80,15,0);
-        player2.body.setLinearVelocity(0,0);
+        //player2.body.setTransform(80,15,0);
+        //player2.body.setLinearVelocity(0,0);
     }
     public void render(SpriteBatch s){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
