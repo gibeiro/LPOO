@@ -6,4 +6,8 @@ eclipse.project {
     name = appName + "-core"
 }
 dependencies {
+    compile files('libs/lipermi-0.4.jar')
+    runtime files('libs/lipermi-0.4.jar')
+    testCompile files('libs/lipermi-0.4.jar')
+    testRuntime files('libs/lipermi-0.4.jar')
 }

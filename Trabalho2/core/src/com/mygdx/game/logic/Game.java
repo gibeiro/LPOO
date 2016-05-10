@@ -20,7 +20,6 @@ public class Game {
     public Game(){
         world = new World(new Vector2(0,GRAVITY),false);
         ball = new Ball(world,50,50);
-        player1 = new Player(world,20,15);
         field = new Obstacle(world);
         gameEnd = false;
         limitGoals = 5;

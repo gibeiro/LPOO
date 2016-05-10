@@ -33,4 +33,13 @@ public class GUIGame {
         //s.draw(ball.texture,ball.body.getPosition().x*2-50,ball.body.getPosition().y*2-50,100,100);
         sprites.end();
     }
+
+    public void render(World o){
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        b2dr.render(o,camera.combined);//render fixtures only
+        sprites.begin();
+        //s.draw(ball.texture,ball.body.getPosition().x*2-50,ball.body.getPosition().y*2-50,100,100);
+        sprites.end();
+    }
 }

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.mygdx.game.auxclass.Functions;
 import com.mygdx.game.gui.GUIGame;
 import com.mygdx.game.logic.Game;
-
+import com.mygdx.game.logic.Player;
 
 
 //import lipermi.handler.CallHandler;
@@ -22,6 +22,7 @@ public class StateGame extends State{
         super(s);
 
         game = new Game();
+        game.player1 = new Player(game.world,20,15);
         gamerenderer = new GUIGame();
     }
 

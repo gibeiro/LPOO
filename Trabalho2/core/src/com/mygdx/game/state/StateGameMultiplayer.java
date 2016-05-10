@@ -1,12 +1,11 @@
 package com.mygdx.game.state;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.auxclass.Functions;
 import com.mygdx.game.auxclass.Inputs;
 import com.mygdx.game.gui.GUIGame;
-import com.mygdx.game.logic.Game;
-//import com.mygdx.game.client.Client;
-//import com.mygdx.game.server.ServerInterface;
+import com.mygdx.game.network.GameClient;
 
 
 /**
@@ -14,40 +13,21 @@ import com.mygdx.game.logic.Game;
  */
 public class StateGameMultiplayer extends State {
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
-   // private Client client;
+    private final static float RATE = 50;
+    private GameClient client;
     private GUIGame gamerenderer;
-
+    private World world;
+    private double ratecounter;
     public StateGameMultiplayer(StateManager s) {
         super(s);
 
+        ratecounter = 0;
         gamerenderer = new GUIGame();
         try {
-            System.out.println("aqui1");
-            //client = new Client();
-            System.out.println("aqui2");
+            client = new GameClient();
         }
         catch(Exception e){
 
-        }
-
-        try {
-/*
-            client.proxy = (ServerInterface) Naming.lookup("rmi://localhost:1099/Server");
-
-            System.out.print("Joining server ...");
-
-            client.id = client.proxy.join(client);
-            if ( client.id == -1) {
-                System.out.println("Server full.");
-                return;
-            }
-            else
-                System.out.println("Connected.");
-                */
-
-        } catch (Exception e) {
-            System.err.println("Client exception: " + e.toString());
-            e.printStackTrace();
         }
     }
 
@@ -56,7 +36,7 @@ public class StateGameMultiplayer extends State {
     public void handleInput(){
         Inputs i = new Inputs(Functions.leftButtonPressed(),Functions.rightButtonPressed(),Functions.jumpButtonPressed());
         try{
-           // client.proxy.handleInput(client.id,i);
+            client.proxy.sendInput(client,i);
         }catch(Exception e){
 
         }
@@ -66,15 +46,17 @@ public class StateGameMultiplayer extends State {
 
     @Override
     public void update(double dt) {
-/*
-        if(client.world != null)
-           client.world.step((float)dt,6,2);
-*/
+        ratecounter += dt/1000;
+        if(ratecounter >= RATE){
+            handleInput();
+            client.proxy.transferWorld(client);
+        }
+
     }
 
     @Override
     public void render() {
-        gamerenderer.render(new Game());
+        gamerenderer.render(client.getWorld());
     }
 
     @Override
