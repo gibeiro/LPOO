@@ -1,13 +1,10 @@
-package com.mygdx.game.body;
+package com.mygdx.game.logic;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-
-import java.util.ArrayList;
 
 /**
  * Created by Nuno on 04/05/2016.
@@ -39,7 +36,6 @@ public class Ball extends Object {
 
 
         circle.dispose();
-        texture = new Texture("ball.png");
     }
 
 }

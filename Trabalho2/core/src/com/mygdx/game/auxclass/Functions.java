@@ -1,12 +1,9 @@
-package com.mygdx.game;
+package com.mygdx.game.auxclass;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.body.Object;
-import com.mygdx.game.body.Obstacle;
-import com.mygdx.game.body.Player;
-import com.mygdx.game.state.StateGame;
+import com.mygdx.game.logic.Obstacle;
+import com.mygdx.game.logic.Player;
 
 /**
  * Created by Nuno on 05/05/2016.

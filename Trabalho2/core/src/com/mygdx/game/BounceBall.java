@@ -9,11 +9,9 @@ import com.mygdx.game.state.StateManager;
 import com.mygdx.game.state.StateMenu;
 
 public class BounceBall extends ApplicationAdapter {
-	SpriteBatch batch;
 	StateManager states;
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
 		states = new StateManager();
 		states.push(new StateMenu(states));
 	}
@@ -22,6 +20,6 @@ public class BounceBall extends ApplicationAdapter {
 	public void render () {
 		states.handleInput();
 		states.update(Gdx.graphics.getDeltaTime());
-        states.render(batch);
+        states.render();
 	}
 }

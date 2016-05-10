@@ -25,8 +25,8 @@ public class StateManager {
         states.peek().update(dt);
     }
 
-    public void render(SpriteBatch s){
-        states.peek().render(s);
+    public void render(){
+        states.peek().render();
     }
 
     public void handleInput(){states.peek().handleInput();}

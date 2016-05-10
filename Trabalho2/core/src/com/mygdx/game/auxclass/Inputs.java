@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.auxclass;
 
 /**
  * Created by up201403877 on 09-05-2016.

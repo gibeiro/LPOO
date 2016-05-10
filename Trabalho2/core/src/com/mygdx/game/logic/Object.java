@@ -1,4 +1,4 @@
-package com.mygdx.game.body;
+package com.mygdx.game.logic;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -9,5 +9,4 @@ import com.badlogic.gdx.physics.box2d.Body;
 public abstract class Object {
 
     public Body body;
-    public Texture texture;
 }

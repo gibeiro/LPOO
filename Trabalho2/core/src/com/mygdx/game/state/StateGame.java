@@ -1,23 +1,11 @@
 package com.mygdx.game.state;
 
-import com.mygdx.game.Inputs;
-import com.mygdx.game.game.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.Functions;
-import com.mygdx.game.body.Ball;
-import com.mygdx.game.body.Obstacle;
-import com.mygdx.game.body.Player;
-//import com.mygdx.game.server.ServerInterface;
+import com.mygdx.game.auxclass.Functions;
+import com.mygdx.game.gui.GUIGame;
+import com.mygdx.game.logic.Game;
 
-import java.rmi.Naming;
-import java.util.ArrayList;
+
 
 //import lipermi.handler.CallHandler;
 
@@ -28,17 +16,27 @@ public class StateGame extends State{
 
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
     private Game game;
+    private GUIGame gamerenderer;
 
     public StateGame(StateManager s) {
         super(s);
 
         game = new Game();
+        gamerenderer = new GUIGame();
     }
 
 
     @Override
     public void handleInput(){
-        game.handleInput();
+        if(Functions.leftButtonPressed()){
+            game.player1.movingLeft = true;
+        }else game.player1.movingLeft = false;
+        if(Functions.rightButtonPressed()){
+            game.player1.movingRight = true;
+        }else game.player1.movingRight = false;
+        if(Functions.jumpButtonPressed()){
+            game.player1.jump = true;
+        }else game.player1.jump = false;
 
     }
 
@@ -49,6 +47,7 @@ public class StateGame extends State{
         if(!game.gameEnd){
             game.update(dt);
         }else{
+            dispose();
             sm.pop();
             sm.push(new StateMenu(sm));
         }
@@ -56,10 +55,8 @@ public class StateGame extends State{
     }
 
     @Override
-    public void render(SpriteBatch s) {
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        game.render(s);
+    public void render() {
+        gamerenderer.render(game);
     }
 
     @Override
