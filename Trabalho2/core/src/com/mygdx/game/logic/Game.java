@@ -10,9 +10,9 @@ import com.mygdx.game.auxclass.Functions;
 public class Game {
 
     private final static float  GRAVITY = -100f;
-    public World world;
-    public Player player1;
-    public Player player2;
+    private World world;
+    private Player player1;
+    private Player player2;
     private Ball ball;
     private Obstacle field;
     private int limitGoals;
@@ -24,6 +24,44 @@ public class Game {
         gameEnd = false;
         limitGoals = 5;
     }
+    public World getWorld(){
+        return world;
+    }
+
+    public Player getPlayer1(){
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public Ball getBall(){return ball;}
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
+    }
+
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
+    }
+
+    public void setLimitGoals(int limitGoals) {
+        this.limitGoals = limitGoals;
+    }
+
+    public void setBall(Ball ball) {
+        this.ball = ball;
+    }
+
+    public void setField(Obstacle field) {
+        this.field = field;
+    }
+
 
     public void update(double dt){
         /*
@@ -51,30 +89,30 @@ public class Game {
          * Verifica movimentos do jogador 1
          */
         world.step((float)dt,6,2);
-        if(player1.movingLeft){
-            //float impulse = player1.body.getMass() * -5;
-            //player1.body.applyLinearImpulse(new Vector2(impulse,0),player1.body.getWorldCenter(),false);
+
+
+        if(player1.inputs.movingLeft){
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x-0.5f*(float)dt*1000,player1.body.getLinearVelocity().y);
         }
-        if(player1.movingRight){
-            //float impulse = player1.body.getMass() * 5;
-            //player1.body.applyLinearImpulse(new Vector2(impulse,0),player1.body.getWorldCenter(),false);
+        if(player1.inputs.movingRight){
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x+0.5f*(float)dt*1000,player1.body.getLinearVelocity().y);
         }
-        if(player1.jump && Math.abs(player1.body.getLinearVelocity().y) < 0.2 && Functions.PlayerColidingWithGround(world, player1, field)){
-            //float impulse = player1.body.getMass() * 60;
-            //player1.body.applyLinearImpulse(new Vector2(0,impulse),player1.body.getWorldCenter(),false);
+        if(player1.inputs.jump && Math.abs(player1.body.getLinearVelocity().y) < 0.2 && Functions.PlayerColidingWithGround(world, player1, field)){
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x,player1.body.getLinearVelocity().y+3.5f*(float)dt*1000);
-            player1.jump = false;
+            player1.inputs.jump = false;
 
-        }else player1.jump = false;
-
+        }else player1.inputs.jump = false;
+        /*
+         * Limita velocidade do jogador
+         */
         if(player1.body.getLinearVelocity().x > 50){
             player1.body.setLinearVelocity(50,player1.body.getLinearVelocity().y);
         }
         if(player1.body.getLinearVelocity().x < -50){
             player1.body.setLinearVelocity(-50,player1.body.getLinearVelocity().y);
         }
+        checkPowers(dt);
+
     }
     public void resetPositions(){
         ball.body.setTransform(50,50,0);
@@ -85,9 +123,15 @@ public class Game {
         //player2.body.setTransform(80,15,0);
         //player2.body.setLinearVelocity(0,0);
     }
+    public void checkPowers(double dt){
+        player1.usePower(this,dt);
+        player2.usePower(this,dt);
+    }
 
 
     public void dispose() {
         world.dispose();
     }
+
+
 }

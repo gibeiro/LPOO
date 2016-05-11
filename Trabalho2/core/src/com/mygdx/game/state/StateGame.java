@@ -22,7 +22,9 @@ public class StateGame extends State{
         super(s);
 
         game = new Game();
-        game.player1 = new Player(game.world,20,15);
+        game.setPlayer1(new Player(game.getWorld(),20,15));
+        game.setPlayer2(new Player(game.getWorld(),80,100));
+        game.getPlayer1().setPower(2);
         gamerenderer = new GUIGame();
     }
 
@@ -30,14 +32,17 @@ public class StateGame extends State{
     @Override
     public void handleInput(){
         if(Functions.leftButtonPressed()){
-            game.player1.movingLeft = true;
-        }else game.player1.movingLeft = false;
+            game.getPlayer1().inputs.movingLeft = true;
+        }else game.getPlayer1().inputs.movingLeft = false;
         if(Functions.rightButtonPressed()){
-            game.player1.movingRight = true;
-        }else game.player1.movingRight = false;
+            game.getPlayer1().inputs.movingRight = true;
+        }else game.getPlayer1().inputs.movingRight = false;
         if(Functions.jumpButtonPressed()){
-            game.player1.jump = true;
-        }else game.player1.jump = false;
+            game.getPlayer1().inputs.jump = true;
+        }else game.getPlayer1().inputs.jump = false;
+        if(Functions.powerButtonPressed()){
+            game.getPlayer1().inputs.power = true;
+        }else game.getPlayer1().inputs.power = false;
 
     }
 

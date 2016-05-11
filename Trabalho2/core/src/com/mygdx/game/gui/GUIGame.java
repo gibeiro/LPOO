@@ -28,7 +28,7 @@ public class GUIGame {
     public void render(Game game){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        b2dr.render(game.world,camera.combined);//render fixtures only
+        b2dr.render(game.getWorld(),camera.combined);//render fixtures only
         sprites.begin();
         //s.draw(ball.texture,ball.body.getPosition().x*2-50,ball.body.getPosition().y*2-50,100,100);
         sprites.end();

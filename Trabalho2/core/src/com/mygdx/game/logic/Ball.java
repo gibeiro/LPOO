@@ -27,7 +27,7 @@ public class Ball extends Object {
         f.friction = 0.1f;
 
         CircleShape circle = new CircleShape();
-        circle.setRadius(2.5f);
+        circle.setRadius(2.3f);
 
 
         f.shape = circle;

@@ -32,20 +32,16 @@ public class GameServer implements ServerInterface {
         if(c.getId() != 1 && c.getId() != 2)
             return 0;
         if(c.getId() == 1){
-            game.player1.movingLeft = i.movingLeft;
-            game.player1.movingRight = i.movingRight;
-            game.player1.jump = i.jump;
+            game.getPlayer1().inputs = i;
         }else if(c.getId() == 2){
-            game.player2.movingLeft = i.movingLeft;
-            game.player2.movingRight = i.movingRight;
-            game.player2.jump = i.jump;
+            game.getPlayer2().inputs = i;
         }
         return 1;
     }
 
     @Override
     public void transferWorld(ClientInterface c) {
-        c.setWorld(game.world);
+        c.setWorld(game.getWorld());
     }
 
 }

@@ -34,7 +34,7 @@ public class StateGameMultiplayer extends State {
 
     @Override
     public void handleInput(){
-        Inputs i = new Inputs(Functions.leftButtonPressed(),Functions.rightButtonPressed(),Functions.jumpButtonPressed());
+        Inputs i = new Inputs(Functions.leftButtonPressed(),Functions.rightButtonPressed(),Functions.jumpButtonPressed(),Functions.powerButtonPressed());
         try{
             client.proxy.sendInput(client,i);
         }catch(Exception e){

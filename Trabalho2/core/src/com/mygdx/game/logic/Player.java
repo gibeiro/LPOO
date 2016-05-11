@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.auxclass.Inputs;
 
 import java.util.ArrayList;
 
@@ -12,15 +13,13 @@ import java.util.ArrayList;
  * Created by Nuno on 04/05/2016.
  */
 public class Player extends Object {
-    public Boolean movingLeft;
-    public Boolean movingRight;
-    public Boolean jump;
+    public Inputs inputs;
     public int goals;
+    public Power power;
     public Player(World world, int x, int y){
-        this.movingLeft = false;
-        this.movingRight = false;
-        this.jump = false;
+        inputs = new Inputs(false,false,false,false);
         goals = 0;
+        power = new Power(this,0);
         BodyDef def = new BodyDef();
         def.type = BodyDef.BodyType.DynamicBody;
         def.position.set(x,y);
@@ -36,7 +35,7 @@ public class Player extends Object {
         ArrayList<Vector2> vertices = new ArrayList<Vector2>();
 
         for(int i = 0;i < 7;i++){
-            vertices.add(new Vector2(5.5f*(float)Math.cos(Math.PI*i/6),5.5f*(float)Math.sin(Math.PI*i/6)));
+            vertices.add(new Vector2(5f*(float)Math.cos(Math.PI*i/6),5f*(float)Math.sin(Math.PI*i/6)));
         }
 
         shape.set(vertices.toArray(new Vector2[7]));
@@ -56,10 +55,10 @@ public class Player extends Object {
         //sensor para saltar
         vertices.clear();
 
-        vertices.add(new Vector2(5.5f,0));
-        vertices.add(new Vector2(-5.5f,0));
-        vertices.add(new Vector2(-5.5f,-1));
-        vertices.add(new Vector2(5.5f,-1));
+        vertices.add(new Vector2(5f,0));
+        vertices.add(new Vector2(-5f,0));
+        vertices.add(new Vector2(-5f,-1));
+        vertices.add(new Vector2(5f,-1));
 
         shape.set(vertices.toArray(new Vector2[4]));
 
@@ -72,6 +71,21 @@ public class Player extends Object {
         body.getFixtureList().get(1).setSensor(true);
 
 
+    }
+
+    public void setPower(int i) {
+        this.power = new Power(this,i);
+    }
+    /*
+     *  Returns 0 if the user has no power or he has one but is not being used, returns its index if it's being used
+     */
+    public int getPowerBeingUsed(){
+        if(inputs.power)
+            return power.getPower();
+        return 0;
+    }
+    public void usePower(Game game, double dt){
+        power.usePower(game,dt);
     }
 
 }

@@ -67,6 +67,21 @@ public class Functions {
         }
         return false;
     }
+    public static boolean powerButtonPressed(){
+        if(!Gdx.input.isTouched())
+            return false;
+        for(int i = 0;i < 4;i++){
+            int x = Gdx.input.getX(i);
+            int y = Gdx.input.getY(i);
+            if(x > (float)Gdx.graphics.getWidth()*0.6 &&
+                    x < (float)Gdx.graphics.getWidth()*85 &&
+                    y > (float)Gdx.graphics.getHeight()*0.7 &&
+                    y < (float)Gdx.graphics.getHeight()*1){
+                return true;
+            }
+        }
+        return false;
+    }
     public static boolean PlayerColidingWithGround(World world, Player o1, Obstacle o2){
         for(int i = 0;i < world.getContactList().size;i++){
             if((world.getContactList().get(i).getFixtureA() == o1.body.getFixtureList().get(1) && world.getContactList().get(i).getFixtureB() == o2.body.getFixtureList().get(0))||
