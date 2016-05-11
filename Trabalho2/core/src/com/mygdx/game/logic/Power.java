@@ -41,6 +41,7 @@ public class Power {
     public void power2(Game game, double dt){
         if(player.getPowerBeingUsed() == 2 && !player.inputs.clickedPower){
             game.getBall().body.setLinearVelocity(0,0);
+            game.getBall().body.setAngularVelocity(0);
             player.inputs.clickedPower = true;
         }else if(player.getPowerBeingUsed() == 0)
             player.inputs.clickedPower = false;
