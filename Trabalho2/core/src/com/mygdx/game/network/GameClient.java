@@ -38,10 +38,10 @@ public class GameClient implements ClientInterface {
 
     public GameClient(){
         try {
-            //CallHandler callHandler = new CallHandler();
+            CallHandler callHandler = new CallHandler();
             String remoteHost = "localhost";
             int portWasBinded = 4455;
-            c = new Client(remoteHost,portWasBinded,new CallHandler());
+            c = new Client(remoteHost,portWasBinded,callHandler);
             proxy = (ServerInterface)c.getGlobal(ServerInterface.class);
         }catch(Exception e){
 
