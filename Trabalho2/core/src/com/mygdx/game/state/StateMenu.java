@@ -10,22 +10,22 @@ import com.mygdx.game.logic.Menu;
  */
 public class StateMenu extends State {
     Menu menu;
-    GUIMenu menurenderer;
+    GUIMenu menuGUI;
 
     public StateMenu(StateManager s) {
         super(s);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         menu = new Menu();
-        menurenderer = new GUIMenu();
+        menuGUI = new GUIMenu();
     }
 
     @Override
     public void handleInput(){
 
-        if(Functions.rectanglePressed(Gdx.graphics.getWidth()/2-menurenderer.playButton.getWidth()/2,Gdx.graphics.getHeight()/2-menurenderer.playButton.getHeight()/2-Gdx.graphics.getHeight()/10,Gdx.graphics.getWidth()/2+menurenderer.playButton.getWidth()/2,Gdx.graphics.getHeight()/2+menurenderer.playButton.getHeight()/2-Gdx.graphics.getHeight()/10)){
+        if(menuGUI.playButton.isPressed()){
             menu.setPlayPressed();
         }
-        if(Functions.rectanglePressed(Gdx.graphics.getWidth()/2-menurenderer.playButton.getWidth()/2,Gdx.graphics.getHeight()/2-menurenderer.playButton.getHeight()/2+Gdx.graphics.getHeight()/10,Gdx.graphics.getWidth()/2+menurenderer.playButton.getWidth()/2,Gdx.graphics.getHeight()/2+menurenderer.playButton.getHeight()/2+Gdx.graphics.getHeight()/10)){
+        if(menuGUI.playButtonMult.isPressed()){
             menu.setPlayMultPressed();
         }
 
@@ -50,7 +50,7 @@ public class StateMenu extends State {
 
     @Override
     public void render() {
-        menurenderer.render(menu);
+        menuGUI.render(menu);
 
     }
 

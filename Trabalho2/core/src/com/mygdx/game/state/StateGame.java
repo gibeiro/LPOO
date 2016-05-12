@@ -16,7 +16,7 @@ public class StateGame extends State{
 
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
     private Game game;
-    private GUIGame gamerenderer;
+    private GUIGame gameGUI;
 
     public StateGame(StateManager s) {
         super(s);
@@ -25,22 +25,22 @@ public class StateGame extends State{
         game.setPlayer1(new Player(game.getWorld(),20,15));
         game.setPlayer2(new Player(game.getWorld(),80,100));
         game.getPlayer1().setPower(2);
-        gamerenderer = new GUIGame();
+        gameGUI = new GUIGame();
     }
 
 
     @Override
     public void handleInput(){
-        if(Functions.leftButtonPressed()){
+        if(gameGUI.leftButton.isPressed()){
             game.getPlayer1().inputs.movingLeft = true;
         }else game.getPlayer1().inputs.movingLeft = false;
-        if(Functions.rightButtonPressed()){
+        if(gameGUI.rightButton.isPressed()){
             game.getPlayer1().inputs.movingRight = true;
         }else game.getPlayer1().inputs.movingRight = false;
-        if(Functions.jumpButtonPressed()){
+        if(gameGUI.jumpButton.isPressed()){
             game.getPlayer1().inputs.jump = true;
         }else game.getPlayer1().inputs.jump = false;
-        if(Functions.powerButtonPressed()){
+        if(gameGUI.powerButton.isPressed()){
             game.getPlayer1().inputs.power = true;
         }else game.getPlayer1().inputs.power = false;
 
@@ -62,7 +62,7 @@ public class StateGame extends State{
 
     @Override
     public void render() {
-        gamerenderer.render(game);
+        gameGUI.render(game);
     }
 
     @Override

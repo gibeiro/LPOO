@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.auxclass.Inputs;
+import com.mygdx.game.input.Inputs;
 
 import java.util.ArrayList;
 
@@ -41,6 +41,7 @@ public class Player extends Object {
         shape.set(vertices.toArray(new Vector2[7]));
 
         f.filter.categoryBits = 4;
+
         f.filter.maskBits = 3;
 
         f.density = 100f;

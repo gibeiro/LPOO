@@ -97,7 +97,7 @@ public class Game {
         if(player1.inputs.movingRight){
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x+0.5f*(float)dt*1000,player1.body.getLinearVelocity().y);
         }
-        if(player1.inputs.jump && Math.abs(player1.body.getLinearVelocity().y) < 0.2 && Functions.PlayerColidingWithGround(world, player1, field)){
+        if(player1.inputs.jump && Math.abs(player1.body.getLinearVelocity().y) < 0.1 && Functions.PlayerColidingWithGround(world, player1, field)){
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x,player1.body.getLinearVelocity().y+3.5f*(float)dt*1000);
             player1.inputs.jump = false;
 

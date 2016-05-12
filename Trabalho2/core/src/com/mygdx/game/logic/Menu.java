@@ -24,6 +24,7 @@ public class Menu {
         return playButtonPressed;
     }
     public boolean getPlayMultPressed(){
+
         return playButtonMultiplayerPressed;
     }
     public void update(){

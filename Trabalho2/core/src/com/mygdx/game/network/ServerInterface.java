@@ -1,7 +1,6 @@
 package com.mygdx.game.network;
 
-import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.auxclass.Inputs;
+import com.mygdx.game.input.Inputs;
 
 /**
  * Created by Nuno on 10/05/2016.
