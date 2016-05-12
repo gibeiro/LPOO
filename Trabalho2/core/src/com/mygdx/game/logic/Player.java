@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * Created by Nuno on 04/05/2016.
  */
 public class Player extends Object {
-    public Inputs inputs;
-    public int goals;
-    public Power power;
+    Inputs inputs;
+    int goals;
+    Power power;
     public Player(World world, int x, int y){
         inputs = new Inputs(false,false,false,false);
         goals = 0;
@@ -81,7 +81,7 @@ public class Player extends Object {
      *  Returns 0 if the user has no power or he has one but is not being used, returns its index if it's being used
      */
     public int getPowerBeingUsed(){
-        if(inputs.power)
+        if(inputs.getPower())
             return power.getPower();
         return 0;
     }
@@ -89,4 +89,27 @@ public class Player extends Object {
         power.usePower(game,dt);
     }
 
+    public Inputs getInputs() {
+        return inputs;
+    }
+
+    public void setInputs(Inputs inputs) {
+        this.inputs = inputs;
+    }
+
+    public int getGoals() {
+        return goals;
+    }
+
+    public void setGoals(int goals) {
+        this.goals = goals;
+    }
+
+    public Power getPower() {
+        return power;
+    }
+
+    public void setPower(Power power) {
+        this.power = power;
+    }
 }

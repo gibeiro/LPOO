@@ -39,20 +39,20 @@ public class Power {
     }
 
     public void power2(Game game, double dt){
-        if(player.getPowerBeingUsed() == 2 && !player.inputs.clickedPower){
+        if(player.getPowerBeingUsed() == 2 && !player.inputs.getClickedPower()){
             game.getBall().body.setLinearVelocity(0,0);
             game.getBall().body.setAngularVelocity(0);
-            player.inputs.clickedPower = true;
+            player.inputs.setClickedPower(true);
         }else if(player.getPowerBeingUsed() == 0)
-            player.inputs.clickedPower = false;
+            player.inputs.setClickedPower(false);
     }
 
     public void power3(Game game, double dt){
-        if(player.getPowerBeingUsed() == 3 && !player.inputs.clickedPower){
+        if(player.getPowerBeingUsed() == 3 && !player.inputs.getClickedPower()){
             game.getBall().body.setLinearVelocity(-game.getBall().body.getLinearVelocity().x,game.getBall().body.getLinearVelocity().y);
             game.getBall().body.setAngularVelocity(-game.getBall().body.getAngularVelocity());
-            player.inputs.clickedPower = true;
+            player.inputs.setClickedPower(true);
         }else if(player.getPowerBeingUsed() == 0)
-            player.inputs.clickedPower = false;
+            player.inputs.setClickedPower(false);
     }
 }

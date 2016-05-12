@@ -30,28 +30,28 @@ public class GUIGame {
         sprites = new SpriteBatch();
         leftButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.0),
-                (int)(Gdx.graphics.getHeight()*0.7),
+                (int)(Gdx.graphics.getHeight()*0.85),
                 (int)(Gdx.graphics.getWidth()*0.15),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "null");
+                "leftBtn.png");
         rightButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.15),
-                (int)(Gdx.graphics.getHeight()*0.7),
+                (int)(Gdx.graphics.getHeight()*0.85),
                 (int)(Gdx.graphics.getWidth()*0.30),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "null");
+                "rightBtn.png");
         powerButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.7),
-                (int)(Gdx.graphics.getHeight()*0.7),
+                (int)(Gdx.graphics.getHeight()*0.85),
                 (int)(Gdx.graphics.getWidth()*0.85),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "null");
+                "powerBtn.png");
         jumpButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.85),
-                (int)(Gdx.graphics.getHeight()*0.7),
+                (int)(Gdx.graphics.getHeight()*0.85),
                 (int)(Gdx.graphics.getWidth()*1.0),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "null");
+                "jumpBtn.png");
     }
 
     public void render(Game game){
@@ -59,7 +59,10 @@ public class GUIGame {
 
         b2dr.render(game.getWorld(),camera.combined);//render fixtures only
         sprites.begin();
-        //s.draw(ball.texture,ball.body.getPosition().x*2-50,ball.body.getPosition().y*2-50,100,100);
+        leftButton.render(sprites);
+        rightButton.render(sprites);
+        jumpButton.render(sprites);
+        powerButton.render(sprites);
         sprites.end();
     }
 
@@ -72,7 +75,6 @@ public class GUIGame {
         rightButton.render(sprites);
         jumpButton.render(sprites);
         powerButton.render(sprites);
-        //s.draw(ball.texture,ball.body.getPosition().x*2-50,ball.body.getPosition().y*2-50,100,100);
         sprites.end();
     }
 }

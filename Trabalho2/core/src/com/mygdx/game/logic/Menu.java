@@ -6,7 +6,7 @@ package com.mygdx.game.logic;
 public class Menu {
     Boolean playButtonPressed;
     Boolean playButtonMultiplayerPressed;
-    public boolean menuEnd;
+    boolean menuEnd;
     public Menu(){
         playButtonPressed = false;
         playButtonMultiplayerPressed = false;
@@ -32,4 +32,7 @@ public class Menu {
     }
 
 
+    public boolean getMenuEnd() {
+        return menuEnd;
+    }
 }

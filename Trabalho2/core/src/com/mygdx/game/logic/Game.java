@@ -16,7 +16,7 @@ public class Game {
     private Ball ball;
     private Obstacle field;
     private int limitGoals;
-    public boolean gameEnd;
+    private boolean gameEnd;
     public Game(){
         world = new World(new Vector2(0,GRAVITY),false);
         ball = new Ball(world,50,50);
@@ -91,17 +91,17 @@ public class Game {
         world.step((float)dt,6,2);
 
 
-        if(player1.inputs.movingLeft){
+        if(player1.inputs.getMovingLeft()){
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x-0.5f*(float)dt*1000,player1.body.getLinearVelocity().y);
         }
-        if(player1.inputs.movingRight){
+        if(player1.inputs.getMovingRight()){
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x+0.5f*(float)dt*1000,player1.body.getLinearVelocity().y);
         }
-        if(player1.inputs.jump && Math.abs(player1.body.getLinearVelocity().y) < 0.1 && Functions.PlayerColidingWithGround(world, player1, field)){
+        if(player1.inputs.getJump() && Math.abs(player1.body.getLinearVelocity().y) < 0.1 && Functions.PlayerColidingWithGround(world, player1, field)){
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x,player1.body.getLinearVelocity().y+3.5f*(float)dt*1000);
-            player1.inputs.jump = false;
+            player1.inputs.setJump(false);
 
-        }else player1.inputs.jump = false;
+        }else player1.inputs.setJump(false);
         /*
          * Limita velocidade do jogador
          */
@@ -133,5 +133,9 @@ public class Game {
         world.dispose();
     }
 
+
+    public boolean isGameEnd() {
+        return gameEnd;
+    }
 
 }

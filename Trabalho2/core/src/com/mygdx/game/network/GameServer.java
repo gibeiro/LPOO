@@ -30,9 +30,9 @@ public class GameServer implements ServerInterface {
         if(c.getId() != 1 && c.getId() != 2)
             return 0;
         if(c.getId() == 1){
-            game.getPlayer1().inputs = i;
+            game.getPlayer1().setInputs(i);
         }else if(c.getId() == 2){
-            game.getPlayer2().inputs = i;
+            game.getPlayer2().setInputs(i);
         }
         return 1;
     }

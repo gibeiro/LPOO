@@ -32,17 +32,17 @@ public class StateGame extends State{
     @Override
     public void handleInput(){
         if(gameGUI.leftButton.isPressed()){
-            game.getPlayer1().inputs.movingLeft = true;
-        }else game.getPlayer1().inputs.movingLeft = false;
+            game.getPlayer1().getInputs().setMovingLeft(true);
+        }else game.getPlayer1().getInputs().setMovingLeft(false);
         if(gameGUI.rightButton.isPressed()){
-            game.getPlayer1().inputs.movingRight = true;
-        }else game.getPlayer1().inputs.movingRight = false;
+            game.getPlayer1().getInputs().setMovingRight(true);
+        }else game.getPlayer1().getInputs().setMovingRight(false);
         if(gameGUI.jumpButton.isPressed()){
-            game.getPlayer1().inputs.jump = true;
-        }else game.getPlayer1().inputs.jump = false;
+            game.getPlayer1().getInputs().setJump(true);
+        }else game.getPlayer1().getInputs().setJump(false);
         if(gameGUI.powerButton.isPressed()){
-            game.getPlayer1().inputs.power = true;
-        }else game.getPlayer1().inputs.power = false;
+            game.getPlayer1().getInputs().setPower(true);
+        }else game.getPlayer1().getInputs().setPower(false);
 
     }
 
@@ -50,7 +50,7 @@ public class StateGame extends State{
     @Override
     public void update(double dt) {
 
-        if(!game.gameEnd){
+        if(!game.isGameEnd()){
             game.update(dt);
         }else{
             dispose();

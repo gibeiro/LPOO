@@ -33,7 +33,7 @@ public class StateMenu extends State {
 
     @Override
     public void update(double dt) {
-        if(!menu.menuEnd){
+        if(!menu.getMenuEnd()){
 
         }else{
             if(menu.getPlayPressed()){

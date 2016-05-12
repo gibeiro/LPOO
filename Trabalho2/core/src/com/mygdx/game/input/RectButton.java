@@ -54,7 +54,7 @@ public class RectButton {
         if(buttonidle == null)
             return;
         if(this.isPressed()){
-            s.draw(buttonpressed,x1,y1,x2-x1,y2-y1);
+            s.draw(buttonpressed,x1,-(-Gdx.graphics.getHeight()/2+y1)+Gdx.graphics.getHeight()/2-(y2-y1),x2-x1,y2-y1);
         }else{
             s.draw(buttonidle,x1,-(-Gdx.graphics.getHeight()/2+y1)+Gdx.graphics.getHeight()/2-(y2-y1),x2-x1,y2-y1);
         }
