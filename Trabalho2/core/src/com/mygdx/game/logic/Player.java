@@ -15,10 +15,12 @@ import java.util.ArrayList;
 public class Player extends Object {
     Inputs inputs;
     int goals;
+    double jumpCounter;
     Power power;
     public Player(World world, int x, int y){
         inputs = new Inputs(false,false,false,false);
         goals = 0;
+        jumpCounter = 0;
         power = new Power(this,0);
         BodyDef def = new BodyDef();
         def.type = BodyDef.BodyType.DynamicBody;
@@ -111,5 +113,13 @@ public class Player extends Object {
 
     public void setPower(Power power) {
         this.power = power;
+    }
+
+    public double getJumpCounter() {
+        return jumpCounter;
+    }
+
+    public void setJumpCounter(double jumpCounter) {
+        this.jumpCounter = jumpCounter;
     }
 }

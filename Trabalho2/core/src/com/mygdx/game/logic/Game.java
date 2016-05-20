@@ -71,6 +71,7 @@ public class Game {
             gameEnd = true;
             return;
         }
+        player1.setJumpCounter(player1.getJumpCounter()-dt);
 
         float x = ball.body.getPosition().x;
         float y = ball.body.getPosition().y;
@@ -88,7 +89,7 @@ public class Game {
         /*
          * Verifica movimentos do jogador 1
          */
-        world.step((float)dt,6,2);
+        world.step(1/100f,6,2);
 
 
         if(player1.inputs.getMovingLeft()){
@@ -97,9 +98,10 @@ public class Game {
         if(player1.inputs.getMovingRight()){
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x+0.5f*(float)dt*1000,player1.body.getLinearVelocity().y);
         }
-        if(player1.inputs.getJump() && Math.abs(player1.body.getLinearVelocity().y) < 0.1 && Functions.PlayerColidingWithGround(world, player1, field)){
-            player1.body.setLinearVelocity(player1.body.getLinearVelocity().x,player1.body.getLinearVelocity().y+3.5f*(float)dt*1000);
+        if(player1.inputs.getJump() && player1.getJumpCounter() < 0 && Functions.PlayerColidingWithGround(world, player1, field)){
+            player1.body.setLinearVelocity(player1.body.getLinearVelocity().x,player1.body.getLinearVelocity().y+60f);
             player1.inputs.setJump(false);
+            player1.setJumpCounter(1);
 
         }else player1.inputs.setJump(false);
         /*
