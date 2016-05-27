@@ -49,7 +49,7 @@ public class GUIGame {
         jumpButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.85),
                 (int)(Gdx.graphics.getHeight()*0.85),
-                (int)(Gdx.graphics.getWidth()*1.0),
+                (int)(Gdx.graphics.getWidth()*0.99),
                 (int)(Gdx.graphics.getHeight()*1.0),
                 "jumpBtn.png");
     }

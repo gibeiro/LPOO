@@ -87,6 +87,7 @@ public class Player extends Object {
             return power.getPower();
         return 0;
     }
+
     public void usePower(Game game, double dt){
         power.usePower(game,dt);
     }

@@ -1,8 +1,12 @@
 package com.mygdx.game.input;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 /**
  * Created by Nuno on 12/05/2016.
@@ -17,6 +21,8 @@ public class RectButton {
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+
+
         if(a != "null"){
             buttonidle = new Texture(a);
             buttonpressed = new Texture(a);
@@ -36,15 +42,16 @@ public class RectButton {
     }
 
     public boolean isPressed(){
-        if(!Gdx.input.isTouched())
-            return false;
-        for(int i = 0;i < 7;i++){
-            int x = Gdx.input.getX(i);
-            int y = Gdx.input.getY(i);
+        for(int i = 0;i < 5;i++){
+            if(!Gdx.input.isTouched(i))
+                continue;
+            float x = Gdx.input.getX(i);
+            float y = Gdx.input.getY(i);
             if(x > x1 &&
                     x < x2 &&
                     y > y1 &&
                     y < y2){
+                System.out.println("Tocou"+ x + " " + y);
                 return true;
             }
         }

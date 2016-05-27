@@ -9,7 +9,7 @@ import com.mygdx.game.auxclass.Functions;
  */
 public class Game {
 
-    private final static float  GRAVITY = -100f;
+    private final static float  GRAVITY = -120f;
     private World world;
     private Player player1;
     private Player player2;
@@ -99,6 +99,7 @@ public class Game {
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x+0.5f*(float)dt*1000,player1.body.getLinearVelocity().y);
         }
         if(player1.inputs.getJump() && player1.getJumpCounter() < 0 && Functions.PlayerColidingWithGround(world, player1, field)){
+            System.out.println("saltou");
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x,player1.body.getLinearVelocity().y+60f);
             player1.inputs.setJump(false);
             player1.setJumpCounter(1);
