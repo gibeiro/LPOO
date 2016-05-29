@@ -19,6 +19,8 @@ public class BounceBallServer extends ApplicationAdapter {
     private final static float RATE = 0.06f;
     float ratecounter;
     GameServer gameServer;
+    boolean send;
+    float dt;
     @Override
     public void create () {
         ratecounter = 0;
@@ -39,16 +41,29 @@ public class BounceBallServer extends ApplicationAdapter {
 
     @Override
     public void render () {
-        float dt =Gdx.graphics.getDeltaTime();
+        if(ratecounter >= RATE){
+            new Thread(new Runnable(){
+                @Override
+                public void run(){
+                    gameServer.clients.get(0).setGame(gameServer.transferWorld());
+                    gameServer.setInput(1,gameServer.clients.get(0).getInputs());
+                    ratecounter = 0;
+                }
+            }).start();
+        }
+        if(ratecounter >= RATE){
+            new Thread(new Runnable(){
+                @Override
+                public void run(){
+                    gameServer.clients.get(1).setGame(gameServer.transferWorld());
+                    gameServer.setInput(2,gameServer.clients.get(1).getInputs());
+                    ratecounter = 0;
+                }
+            }).start();
+        }
+        dt =Gdx.graphics.getDeltaTime();
         if(gameServer.clients.size() == 2){
             ratecounter+=dt;
-            if(ratecounter >= RATE){
-                gameServer.clients.get(0).setGame(gameServer.transferWorld());
-                gameServer.clients.get(1).setGame(gameServer.transferWorld());
-                gameServer.setInput(1,gameServer.clients.get(0).getInputs());
-                gameServer.setInput(2,gameServer.clients.get(1).getInputs());
-                ratecounter = 0;
-            }
             gameServer.updateWorld(dt);
         }
     }
