@@ -1,14 +1,16 @@
 package com.mygdx.game.input;
 
+import java.io.Serializable;
+
 /**
  * Created by up201403877 on 09-05-2016.
  */
-public class Inputs {
-    private Boolean movingLeft;
-    private Boolean movingRight;
-    private Boolean jump;
-    private Boolean power;
-    private Boolean clickedPower;
+public class Inputs implements Serializable {
+    public boolean movingLeft;
+    public boolean movingRight;
+    public boolean jump;
+    public boolean power;
+    public boolean clickedPower;
     public Inputs(boolean i1,boolean i2,boolean i3,boolean i4){
         movingLeft = i1;
         movingRight = i2;

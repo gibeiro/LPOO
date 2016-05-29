@@ -3,6 +3,7 @@ package com.mygdx.game.logic;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.auxclass.Functions;
+import com.mygdx.game.network.GameInfo;
 
 /**
  * Created by up201403877 on 09-05-2016.
@@ -85,11 +86,10 @@ public class Game {
         }
 
 
-
+        world.step(1/100f,6,2);
         /*
          * Verifica movimentos do jogador 1
          */
-        world.step(1/100f,6,2);
 
 
         if(player1.inputs.getMovingLeft()){
@@ -114,6 +114,36 @@ public class Game {
         if(player1.body.getLinearVelocity().x < -50){
             player1.body.setLinearVelocity(-50,player1.body.getLinearVelocity().y);
         }
+
+        /*
+         * Verifica movimentos do jogador 2
+         */
+
+
+        if(player2.inputs.getMovingLeft()){
+            player2.body.setLinearVelocity(player2.body.getLinearVelocity().x-0.5f*(float)dt*1000,player2.body.getLinearVelocity().y);
+        }
+        if(player2.inputs.getMovingRight()){
+            player2.body.setLinearVelocity(player2.body.getLinearVelocity().x+0.5f*(float)dt*1000,player2.body.getLinearVelocity().y);
+        }
+        if(player2.inputs.getJump() && player2.getJumpCounter() < 0 && Functions.PlayerColidingWithGround(world, player2, field)){
+            System.out.println("saltou");
+            player2.body.setLinearVelocity(player2.body.getLinearVelocity().x,player2.body.getLinearVelocity().y+60f);
+            player2.inputs.setJump(false);
+            player2.setJumpCounter(1);
+
+        }else player2.inputs.setJump(false);
+        /*
+         * Limita velocidade do jogador
+         */
+        if(player2.body.getLinearVelocity().x > 50){
+            player2.body.setLinearVelocity(50,player2.body.getLinearVelocity().y);
+        }
+        if(player2.body.getLinearVelocity().x < -50){
+            player2.body.setLinearVelocity(-50,player2.body.getLinearVelocity().y);
+        }
+
+
         checkPowers(dt);
 
     }
@@ -123,12 +153,23 @@ public class Game {
         ball.body.setAngularVelocity(0);
         player1.body.setTransform(20,15,0);
         player1.body.setLinearVelocity(0,0);
-        //player2.body.setTransform(80,15,0);
-        //player2.body.setLinearVelocity(0,0);
+        player2.body.setTransform(80,15,0);
+        player2.body.setLinearVelocity(0,0);
     }
     public void checkPowers(double dt){
         player1.usePower(this,dt);
         player2.usePower(this,dt);
+    }
+
+    public void updateGame(GameInfo g){
+        player1.body.setTransform(new Vector2(g.p1x,g.p1y),0);
+        player2.body.setTransform(new Vector2(g.p2x,g.p2y),0);
+        player1.body.setLinearVelocity(g.p1vx,g.p1vy);
+        player2.body.setLinearVelocity(g.p2vx,g.p2vy);
+        ball.body.setTransform(new Vector2(g.bx,g.by),g.ba);
+        ball.body.setLinearVelocity(g.bvx,g.bvy);
+        ball.body.setAngularVelocity(g.bav);
+        gameEnd = g.gameEnd;
     }
 
 

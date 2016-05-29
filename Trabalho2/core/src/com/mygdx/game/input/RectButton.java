@@ -51,7 +51,6 @@ public class RectButton {
                     x < x2 &&
                     y > y1 &&
                     y < y2){
-                System.out.println("Tocou"+ x + " " + y);
                 return true;
             }
         }

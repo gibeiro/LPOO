@@ -1,5 +1,6 @@
 package com.mygdx.game.network;
 
+import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.input.Inputs;
 
 /**
@@ -11,8 +12,8 @@ public interface ServerInterface {
      */
     public int join(ClientInterface c);
 
-    public int sendInput(ClientInterface c, Inputs i);
+    public int setInput(int player, Inputs i);
 
-    public void transferWorld(ClientInterface c);
+    public GameInfo transferWorld();
 
 }
