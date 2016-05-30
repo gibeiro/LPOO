@@ -37,13 +37,10 @@ public class RectButton {
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
-        if(a != "null"){
-            buttonidle = new Texture(a);
-            buttonpressed = new Texture(a);
-        }else{
-            buttonidle = new Texture(b);
-            buttonpressed = new Texture(b);
-        }
+
+        buttonidle = new Texture(a);
+        buttonpressed = new Texture(b);
+
     }
 
     public boolean isPressed(){

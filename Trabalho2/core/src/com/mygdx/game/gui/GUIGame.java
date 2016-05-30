@@ -34,26 +34,26 @@ public class GUIGame {
                 (int)(Gdx.graphics.getHeight()*0.7),
                 (int)(Gdx.graphics.getWidth()*0.20),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "leftBtn.png");
+                "leftbuttonup.png","leftbuttondown.png");
         rightButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.20),
                 (int)(Gdx.graphics.getHeight()*0.7),
                 (int)(Gdx.graphics.getWidth()*0.40),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "rightBtn.png");
+                "rightbuttonup.png","rightbuttondown.png");
         powerButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.6),
                 (int)(Gdx.graphics.getHeight()*0.7),
                 (int)(Gdx.graphics.getWidth()*0.8),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "powerBtn.png");
+                "powerbuttonup.png","powerbuttondown.png");
         jumpButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.8),
                 (int)(Gdx.graphics.getHeight()*0.7),
                 (int)(Gdx.graphics.getWidth()*1),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "jumpBtn.png");
-        sprites.setColor(sprites.getColor().r,sprites.getColor().g,sprites.getColor().b,0.05f);
+                "jumpbuttonup.png","jumpbuttondown.png");
+        sprites.setColor(sprites.getColor().r,sprites.getColor().g,sprites.getColor().b,0.1f);
     }
 
     public void render(Game game){
