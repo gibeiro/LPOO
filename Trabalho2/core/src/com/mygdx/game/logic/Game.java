@@ -3,7 +3,7 @@ package com.mygdx.game.logic;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.auxclass.Functions;
-import com.mygdx.game.network.GameInfo;
+import com.mygdx.game.socketnetwork.InfoGame;
 
 /**
  * Created by up201403877 on 09-05-2016.
@@ -62,6 +62,8 @@ public class Game {
     public void setField(Obstacle field) {
         this.field = field;
     }
+
+    public void setGameEnd(boolean b){this.gameEnd = b;}
 
 
     public void update(double dt){
@@ -161,7 +163,8 @@ public class Game {
         player2.usePower(this,dt);
     }
 
-    public void updateGame(GameInfo g){
+
+    public void updateGame(InfoGame g){
         player1.body.setTransform(new Vector2(g.p1x,g.p1y),0);
         player2.body.setTransform(new Vector2(g.p2x,g.p2y),0);
         player1.body.setLinearVelocity(g.p1vx,g.p1vy);

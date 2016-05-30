@@ -52,6 +52,7 @@ public class StateGame extends State{
 
         if(!game.isGameEnd()){
             game.update(dt);
+            game.getPlayer2().body.setTransform(1000,1000,0);
         }else{
             dispose();
             sm.pop();

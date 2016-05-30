@@ -2,69 +2,45 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.network.GameServer;
-import com.mygdx.game.network.ServerInterface;
-import com.mygdx.game.state.StateManager;
-import com.mygdx.game.state.StateMenu;
 
-import java.net.InetAddress;
+import com.mygdx.game.socketnetwork.InfoGame;
+import com.mygdx.game.socketnetwork.ServerGame;
 
-import lipermi.handler.CallHandler;
-import lipermi.net.Server;
 
 public class BounceBallServer extends ApplicationAdapter {
     private final static float RATE = 0.06f;
-    float ratecounter;
-    GameServer gameServer;
-    boolean send;
+    float rateCounter;
+    ServerGame server;
     float dt;
     @Override
     public void create () {
-        ratecounter = 0;
-        try {
-            gameServer = new GameServer();
-            CallHandler callHandler = new CallHandler();
-            callHandler.registerGlobal(ServerInterface.class, gameServer);
-            Server server = new Server();
-            int thePortIWantToBind = 4456;
-            server.bind(thePortIWantToBind, callHandler);
-            InetAddress IP = InetAddress.getLocalHost();
-            System.err.println("Server ready at " + IP.getHostAddress() + " port "+ 4456);
-        } catch (Exception e) {
-            System.err.println("Server exception: " + e.toString());
-            e.printStackTrace();
+        rateCounter = 0;
+        try{
+            server = new ServerGame();
+        }catch(Exception e){
+
         }
     }
 
     @Override
     public void render () {
-        if(ratecounter >= RATE){
-            new Thread(new Runnable(){
-                @Override
-                public void run(){
-                    gameServer.clients.get(0).setGame(gameServer.transferWorld());
-                    gameServer.setInput(1,gameServer.clients.get(0).getInputs());
-                    ratecounter = 0;
-                }
-            }).start();
-        }
-        if(ratecounter >= RATE){
-            new Thread(new Runnable(){
-                @Override
-                public void run(){
-                    gameServer.clients.get(1).setGame(gameServer.transferWorld());
-                    gameServer.setInput(2,gameServer.clients.get(1).getInputs());
-                    ratecounter = 0;
-                }
-            }).start();
-        }
-        dt =Gdx.graphics.getDeltaTime();
-        if(gameServer.clients.size() == 2){
-            ratecounter+=dt;
-            gameServer.updateWorld(dt);
+
+        while(server.handler1 == null || server.handler2 == null){
+            System.out.println("Abriu slot");
+            server.openPlayerSlot();
+        };
+        dt = Gdx.graphics.getDeltaTime();
+        if(server.handler1.connected == true && server.handler2.connected == true && !server.game.isGameEnd()){
+            server.game.update(dt);
+            rateCounter += dt;
+
+            if(rateCounter >= RATE){
+                InfoGame info = new InfoGame(server.game);
+                server.handler1.sendInfo(info);
+                server.handler2.sendInfo(info);
+                rateCounter = 0;
+            }
+
         }
     }
 }

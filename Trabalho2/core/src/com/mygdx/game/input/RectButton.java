@@ -32,13 +32,18 @@ public class RectButton {
         }
 
     }
-    public RectButton(int x1,int y1,int x2,int y2, Texture a, Texture b){
+    public RectButton(int x1,int y1,int x2,int y2, String a, String b){
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
-        buttonidle = a;
-        buttonpressed = b;
+        if(a != "null"){
+            buttonidle = new Texture(a);
+            buttonpressed = new Texture(a);
+        }else{
+            buttonidle = new Texture(b);
+            buttonpressed = new Texture(b);
+        }
     }
 
     public boolean isPressed(){

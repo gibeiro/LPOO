@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.auxclass.Functions;
 import com.mygdx.game.input.Inputs;
 import com.mygdx.game.gui.GUIGame;
-import com.mygdx.game.network.GameClient;
+import com.mygdx.game.socketnetwork.ClientGame;
 
 
 /**
@@ -14,35 +14,16 @@ import com.mygdx.game.network.GameClient;
 public class StateGameMultiplayer extends State {
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
     private final static float RATE = 0.05f;
-    private GameClient client;
+    private ClientGame client;
     private GUIGame gameGUI;
     private float ratecounter;
     public StateGameMultiplayer(StateManager s) {
         super(s);
-
         ratecounter = 0f;
         gameGUI = new GUIGame();
         try{
-
-            client = new GameClient();
-            int joined = -1;
-            if(client.proxy != null){
-                joined = client.proxy.join(client);
-            }
-            if(joined == 0){
-                System.out.println("Server full");
-                dispose();
-                sm.pop();
-                sm.push(new StateMenu(sm));
-            }
-            if(joined == -1){
-                System.out.println("Server offline");
-                dispose();
-                sm.pop();
-                sm.push(new StateMenu(sm));
-            }
+            client = new ClientGame();
         }catch(Exception e){
-            System.err.println("Server exception: " + e.toString());
             e.printStackTrace();
         }
     }
@@ -67,36 +48,29 @@ public class StateGameMultiplayer extends State {
 
     @Override
     public void update(double dt) {
-        if(client.getGame().isGameEnd()){
-            dispose();
-            sm.pop();
-            sm.push(new StateMenu(sm));
-        }
-        try {
-            ratecounter += dt;
-            if (ratecounter >= RATE && client.proxy != null) {
-                //client.getGame().updateGame(client.proxy.transferWorld());
-                System.out.println(client.i.movingLeft);
-                //client.proxy.sendInput(client,i);
+        ratecounter += dt;
+        if(ratecounter >= RATE){
+            try{
+                if(client.connected)
+                     client.sendInfo();
+            }catch(Exception e){
+
             }
-        } catch (Exception e) {
-            System.err.println("Server exception: " + e.toString());
-            e.printStackTrace();
+            ratecounter = 0;
         }
-        client.getGame().update(dt);
+        if(client.connected){
+            client.game.update(dt);
+        }
     }
 
     @Override
     public void render() {
         if(client == null){
-            //System.out.println("presoClient");
             return;
         }
-        if(client.getGame() != null){
-            //System.out.println("Render");
-            gameGUI.render(client.getGame());
+        if(client.game != null){
+            gameGUI.render(client.game);
         }else{
-            //System.out.println("presoRender");
         }
     }
 

@@ -28,30 +28,32 @@ public class GUIGame {
         camera.setToOrtho(false,100,100*SCREENRESPROP);
         b2dr = new Box2DDebugRenderer();
         sprites = new SpriteBatch();
+        sprites.enableBlending();
         leftButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.0),
-                (int)(Gdx.graphics.getHeight()*0.85),
-                (int)(Gdx.graphics.getWidth()*0.15),
+                (int)(Gdx.graphics.getHeight()*0.7),
+                (int)(Gdx.graphics.getWidth()*0.20),
                 (int)(Gdx.graphics.getHeight()*1.0),
                 "leftBtn.png");
         rightButton = new RectButton(
-                (int)(Gdx.graphics.getWidth()*0.15),
-                (int)(Gdx.graphics.getHeight()*0.85),
-                (int)(Gdx.graphics.getWidth()*0.30),
+                (int)(Gdx.graphics.getWidth()*0.20),
+                (int)(Gdx.graphics.getHeight()*0.7),
+                (int)(Gdx.graphics.getWidth()*0.40),
                 (int)(Gdx.graphics.getHeight()*1.0),
                 "rightBtn.png");
         powerButton = new RectButton(
-                (int)(Gdx.graphics.getWidth()*0.7),
-                (int)(Gdx.graphics.getHeight()*0.85),
-                (int)(Gdx.graphics.getWidth()*0.85),
+                (int)(Gdx.graphics.getWidth()*0.6),
+                (int)(Gdx.graphics.getHeight()*0.7),
+                (int)(Gdx.graphics.getWidth()*0.8),
                 (int)(Gdx.graphics.getHeight()*1.0),
                 "powerBtn.png");
         jumpButton = new RectButton(
-                (int)(Gdx.graphics.getWidth()*0.85),
-                (int)(Gdx.graphics.getHeight()*0.85),
-                (int)(Gdx.graphics.getWidth()*0.99),
+                (int)(Gdx.graphics.getWidth()*0.8),
+                (int)(Gdx.graphics.getHeight()*0.7),
+                (int)(Gdx.graphics.getWidth()*1),
                 (int)(Gdx.graphics.getHeight()*1.0),
                 "jumpBtn.png");
+        sprites.setColor(sprites.getColor().r,sprites.getColor().g,sprites.getColor().b,0.05f);
     }
 
     public void render(Game game){
