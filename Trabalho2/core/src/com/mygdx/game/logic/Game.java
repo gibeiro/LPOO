@@ -70,11 +70,11 @@ public class Game {
         /*
          * Verifica se a bola está dentro das balizas
          */
-        if(player1.goals >=limitGoals){
+        if(player1.goals >=limitGoals || player2.goals >= limitGoals){
             gameEnd = true;
-            return;
         }
         player1.setJumpCounter(player1.getJumpCounter()-dt);
+        player2.setJumpCounter(player2.getJumpCounter()-dt);
 
         float x = ball.body.getPosition().x;
         float y = ball.body.getPosition().y;
@@ -88,12 +88,11 @@ public class Game {
         }
 
 
+
         world.step(1/100f,6,2);
         /*
          * Verifica movimentos do jogador 1
          */
-
-
         if(player1.inputs.getMovingLeft()){
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x-0.5f*(float)dt*1000,player1.body.getLinearVelocity().y);
         }
@@ -128,8 +127,8 @@ public class Game {
         if(player2.inputs.getMovingRight()){
             player2.body.setLinearVelocity(player2.body.getLinearVelocity().x+0.5f*(float)dt*1000,player2.body.getLinearVelocity().y);
         }
+        System.out.println(player2.inputs.getJump());
         if(player2.inputs.getJump() && player2.getJumpCounter() < 0 && Functions.PlayerColidingWithGround(world, player2, field)){
-            System.out.println("saltou");
             player2.body.setLinearVelocity(player2.body.getLinearVelocity().x,player2.body.getLinearVelocity().y+60f);
             player2.inputs.setJump(false);
             player2.setJumpCounter(1);
@@ -144,6 +143,10 @@ public class Game {
         if(player2.body.getLinearVelocity().x < -50){
             player2.body.setLinearVelocity(-50,player2.body.getLinearVelocity().y);
         }
+
+
+        player1.setMana(player1.getMana()+dt*14);
+        player2.setMana(player2.getMana()+dt*14);
 
 
         checkPowers(dt);
@@ -172,7 +175,6 @@ public class Game {
         ball.body.setTransform(new Vector2(g.bx,g.by),g.ba);
         ball.body.setLinearVelocity(g.bvx,g.bvy);
         ball.body.setAngularVelocity(g.bav);
-        gameEnd = g.gameEnd;
     }
 
 

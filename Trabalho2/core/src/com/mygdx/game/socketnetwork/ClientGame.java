@@ -49,7 +49,6 @@ public class ClientGame {
                 InfoGame info = new InfoGame();
                 String s = in.readLine();
                 if(s.equals("POSITIONS")){
-                    System.out.println("Recebi info");
                     info.p1x = Float.parseFloat(in.readLine());
                     info.p1y = Float.parseFloat(in.readLine());
                     info.p1vx = Float.parseFloat(in.readLine());
@@ -63,7 +62,6 @@ public class ClientGame {
                     info.bvx = Float.parseFloat(in.readLine());
                     info.bvy = Float.parseFloat(in.readLine());
                     info.ba = Float.parseFloat(in.readLine());
-                    System.out.println(info.by);
                     game.updateGame(info);
                 }
 

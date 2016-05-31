@@ -18,7 +18,7 @@ public class GUIGame {
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
     private OrthographicCamera camera;
     private Box2DDebugRenderer b2dr;
-    private SpriteBatch sprites;
+    private SpriteBatch buttons;
     public RectButton leftButton;
     public RectButton rightButton;
     public RectButton jumpButton;
@@ -27,8 +27,8 @@ public class GUIGame {
         camera = new OrthographicCamera();
         camera.setToOrtho(false,100,100*SCREENRESPROP);
         b2dr = new Box2DDebugRenderer();
-        sprites = new SpriteBatch();
-        sprites.enableBlending();
+        buttons = new SpriteBatch();
+        buttons.enableBlending();
         leftButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.0),
                 (int)(Gdx.graphics.getHeight()*0.7),
@@ -53,30 +53,20 @@ public class GUIGame {
                 (int)(Gdx.graphics.getWidth()*1),
                 (int)(Gdx.graphics.getHeight()*1.0),
                 "jumpbuttonup.png","jumpbuttondown.png");
-        sprites.setColor(sprites.getColor().r,sprites.getColor().g,sprites.getColor().b,0.1f);
+        buttons.setColor(buttons.getColor().r,buttons.getColor().g,buttons.getColor().b,0.1f);
+
     }
 
     public void render(Game game){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         b2dr.render(game.getWorld(),camera.combined);//render fixtures only
-        sprites.begin();
-        leftButton.render(sprites);
-        rightButton.render(sprites);
-        jumpButton.render(sprites);
-        powerButton.render(sprites);
-        sprites.end();
+        buttons.begin();
+        leftButton.render(buttons);
+        rightButton.render(buttons);
+        jumpButton.render(buttons);
+        powerButton.render(buttons);
+        buttons.end();
     }
 
-    public void render(World o){
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        b2dr.render(o,camera.combined);//render fixtures only
-        sprites.begin();
-        leftButton.render(sprites);
-        rightButton.render(sprites);
-        jumpButton.render(sprites);
-        powerButton.render(sprites);
-        sprites.end();
-    }
 }

@@ -9,7 +9,6 @@ public class InfoGame {
     public float p1x,p1y,p1vx,p1vy;//Posicao, velocidade
     public float p2x,p2y,p2vx,p2vy;//Posicao, velocidade
     public float bx,by,bvx,bvy,ba,bav;//Posicao, velocidade e velocidade angular
-    public boolean gameEnd;
     public InfoGame(){
 
     }
@@ -28,6 +27,5 @@ public class InfoGame {
         bvy = game.getBall().body.getLinearVelocity().y;
         ba = game.getBall().body.getAngle();
         bav = game.getBall().body.getAngularVelocity();
-        gameEnd = game.isGameEnd();
     }
 }

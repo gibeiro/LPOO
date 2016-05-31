@@ -17,6 +17,7 @@ public class Player extends Object {
     int goals;
     double jumpCounter;
     Power power;
+    double mana;
     public Player(World world, int x, int y){
         inputs = new Inputs(false,false,false,false);
         goals = 0;
@@ -26,6 +27,7 @@ public class Player extends Object {
         def.type = BodyDef.BodyType.DynamicBody;
         def.position.set(x,y);
         def.fixedRotation = true;
+        mana = 50;
 
 
         body = world.createBody(def);
@@ -122,5 +124,17 @@ public class Player extends Object {
 
     public void setJumpCounter(double jumpCounter) {
         this.jumpCounter = jumpCounter;
+    }
+
+    public double getMana() {
+        return mana;
+    }
+
+    public void setMana(double mana) {
+        this.mana = mana;
+        if(this.mana > 100)
+            this.mana = 100;
+        if(this.mana < 0)
+            this.mana = 0;
     }
 }
