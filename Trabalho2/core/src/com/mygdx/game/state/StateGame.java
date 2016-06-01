@@ -3,6 +3,7 @@ package com.mygdx.game.state;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.auxclass.Functions;
 import com.mygdx.game.gui.GUIGame;
+import com.mygdx.game.gui.GUIPause;
 import com.mygdx.game.gui.GUISelection;
 import com.mygdx.game.logic.Game;
 import com.mygdx.game.logic.Player;
@@ -18,16 +19,19 @@ public class StateGame extends State{
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
     private Game game;
     private GUIGame gameGUI;
+    private GUIPause pauseGUI;
     private GUISelection selectGUI;
     private boolean selectHero;
+    private boolean paused;
 
     public StateGame(StateManager s) {
         super(s);
         selectHero = true;
+        paused = false;
         game = new Game();
         game.setPlayer1(new Player(game.getWorld(),20,15));
         game.setPlayer2(new Player(game.getWorld(),80,15));
-        gameGUI = new GUIGame();
+        pauseGUI = new GUIPause();
         selectGUI = new GUISelection();
 
     }
@@ -56,6 +60,17 @@ public class StateGame extends State{
                 game.getPlayer1().setPower(4);
                 selectHero = false;
             }
+            gameGUI = new GUIGame(game);
+            return;
+        }
+        if(paused){
+            if(pauseGUI.resume.isPressed()){
+                paused = false;
+            }else if(pauseGUI.exit.isPressed()){
+                dispose();
+                sm.pop();
+                sm.push(new StateMenu(sm));
+            }
             return;
         }
         if(gameGUI.leftButton.isPressed()){
@@ -70,6 +85,9 @@ public class StateGame extends State{
         if(gameGUI.powerButton.isPressed()){
             game.getPlayer1().getInputs().setPower(true);
         }else game.getPlayer1().getInputs().setPower(false);
+        if(gameGUI.pauseButton.isPressed()){
+            paused = true;
+        }
 
     }
 
@@ -79,9 +97,13 @@ public class StateGame extends State{
         if(selectHero){
             return;
         }
+        if(paused){
+            return;
+        }
 
         if(!game.isGameEnd()){
             game.update(dt);
+            game.checkGoals();
             game.getPlayer2().body.setTransform(1000,1000,0);
         }else{
             dispose();
@@ -98,6 +120,9 @@ public class StateGame extends State{
         }
         else{
             gameGUI.render(game);
+            if(paused){
+                pauseGUI.render();
+            }
         }
 
     }

@@ -11,21 +11,23 @@ import com.mygdx.game.logic.Menu;
 public class StateMenu extends State {
     Menu menu;
     GUIMenu menuGUI;
+    float safecounter; // Para nao carregar acidentalmente num botao logo depois de o menu abrir
 
     public StateMenu(StateManager s) {
         super(s);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         menu = new Menu();
         menuGUI = new GUIMenu();
+        safecounter = 1;
     }
 
     @Override
     public void handleInput(){
 
-        if(menuGUI.playButton.isPressed()){
+        if(menuGUI.playButton.isPressed() && safecounter < 0){
             menu.setPlayPressed();
         }
-        if(menuGUI.playButtonMult.isPressed()){
+        if(menuGUI.playButtonMult.isPressed() && safecounter < 0){
             menu.setPlayMultPressed();
         }
 
@@ -33,6 +35,7 @@ public class StateMenu extends State {
 
     @Override
     public void update(double dt) {
+        safecounter-= dt;
         if(!menu.getMenuEnd()){
 
         }else{

@@ -18,7 +18,9 @@ public class Game {
     private Obstacle field;
     private int limitGoals;
     private boolean gameEnd;
+    private float countdown;
     public Game(){
+        countdown = 3;
         world = new World(new Vector2(0,GRAVITY),false);
         ball = new Ball(world,50,50);
         field = new Obstacle(world);
@@ -73,20 +75,12 @@ public class Game {
         if(player1.goals >=limitGoals || player2.goals >= limitGoals){
             gameEnd = true;
         }
+        if(countdown > 0){
+            countdown -= dt;
+            return;
+        }
         player1.setJumpCounter(player1.getJumpCounter()-dt);
         player2.setJumpCounter(player2.getJumpCounter()-dt);
-
-        float x = ball.body.getPosition().x;
-        float y = ball.body.getPosition().y;
-        if(x > 86 && y < 28){
-            player1.goals++;
-            resetPositions();
-        }else if(x < 14 && y < 28){
-            if(player2 != null)
-                player2.goals++;
-            resetPositions();
-        }
-
 
 
         world.step(1/100f,6,2);
@@ -94,13 +88,16 @@ public class Game {
          * Verifica movimentos do jogador 1
          */
         if(player1.inputs.getMovingLeft()){
+            if(player1.body.getLinearVelocity().x > 0)
+                player1.body.setLinearVelocity(0,player1.body.getLinearVelocity().y);
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x-0.5f*(float)dt*1000,player1.body.getLinearVelocity().y);
         }
         if(player1.inputs.getMovingRight()){
+            if(player1.body.getLinearVelocity().x < 0)
+                player1.body.setLinearVelocity(0,player1.body.getLinearVelocity().y);
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x+0.5f*(float)dt*1000,player1.body.getLinearVelocity().y);
         }
         if(player1.inputs.getJump() && player1.getJumpCounter() < 0 && Functions.PlayerColidingWithGround(world, player1, field)){
-            System.out.println("saltou");
             player1.body.setLinearVelocity(player1.body.getLinearVelocity().x,player1.body.getLinearVelocity().y+60f);
             player1.inputs.setJump(false);
             player1.setJumpCounter(1);
@@ -122,12 +119,15 @@ public class Game {
 
 
         if(player2.inputs.getMovingLeft()){
+            if(player2.body.getLinearVelocity().x > 0)
+                player2.body.setLinearVelocity(0,player2.body.getLinearVelocity().y);
             player2.body.setLinearVelocity(player2.body.getLinearVelocity().x-0.5f*(float)dt*1000,player2.body.getLinearVelocity().y);
         }
         if(player2.inputs.getMovingRight()){
+            if(player2.body.getLinearVelocity().x < 0)
+                player2.body.setLinearVelocity(0,player2.body.getLinearVelocity().y);
             player2.body.setLinearVelocity(player2.body.getLinearVelocity().x+0.5f*(float)dt*1000,player2.body.getLinearVelocity().y);
         }
-        System.out.println(player2.inputs.getJump());
         if(player2.inputs.getJump() && player2.getJumpCounter() < 0 && Functions.PlayerColidingWithGround(world, player2, field)){
             player2.body.setLinearVelocity(player2.body.getLinearVelocity().x,player2.body.getLinearVelocity().y+60f);
             player2.inputs.setJump(false);
@@ -151,6 +151,19 @@ public class Game {
 
         checkPowers(dt);
 
+    }
+    public void checkGoals(){
+        float x = ball.body.getPosition().x;
+        float y = ball.body.getPosition().y;
+        if(x > 89 && y < 28){
+            player1.goals++;
+            countdown = 3;
+            resetPositions();
+        }else if(x < 11 && y < 28){
+            player2.goals++;
+            countdown = 3;
+            resetPositions();
+        }
     }
     public void resetPositions(){
         ball.body.setTransform(50,50,0);
@@ -187,4 +200,11 @@ public class Game {
         return gameEnd;
     }
 
+    public float getCountdown() {
+        return countdown;
+    }
+
+    public void setCountdown(float countdown) {
+        this.countdown = countdown;
+    }
 }

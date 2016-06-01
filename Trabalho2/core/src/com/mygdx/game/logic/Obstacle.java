@@ -85,8 +85,8 @@ public class Obstacle extends Object {
         f.filter.maskBits = 3;
         vertices.clear();
         vertices.add(new Vector2(-46,24));
-        vertices.add(new Vector2(-34,24));
-        vertices.add(new Vector2(-34,26));
+        vertices.add(new Vector2(-38,24));
+        vertices.add(new Vector2(-38,26));
         vertices.add(new Vector2(-46,26));
 
 
@@ -98,8 +98,8 @@ public class Obstacle extends Object {
         //right beacon
         vertices.clear();
         vertices.add(new Vector2(47,24));
-        vertices.add(new Vector2(35,24));
-        vertices.add(new Vector2(35,26));
+        vertices.add(new Vector2(39,24));
+        vertices.add(new Vector2(39,26));
         vertices.add(new Vector2(47,26));
 
 

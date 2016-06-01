@@ -50,14 +50,16 @@ public class ServerGame {
         BufferedReader in;
         PrintWriter out;
         public boolean connected;
+        public float timeoutCounter;
         public ServerHandler(){
+            timeoutCounter = 0;
             this.start();
         }
         public void run(){
             try{
                 this.socket = server.accept();
                 System.out.println("Player connected");
-                connected = true;
+
                 if(this == handler1){
                     id = 1;
                 }else if(this == handler2){
@@ -67,6 +69,7 @@ public class ServerGame {
                 out = new PrintWriter(socket.getOutputStream(),true);
                 out.println("ID");
                 out.println(id);
+                connected = true;
 
                 while(connected){
                     if(in.ready())
@@ -103,12 +106,14 @@ public class ServerGame {
                         handler2 = null;
                     }
                     connected = false;
+                }else if(s.equals("TEST")){
+                    timeoutCounter = 0;
                 }
             }catch(Exception e){
 
             }
         }
-        public void sendInfo(InfoGame info){
+        public void sendPos(InfoGame info){
             String s = new String();
             s+="POSITIONS";
             s+="\n";
@@ -137,6 +142,9 @@ public class ServerGame {
             s+=info.bvy;
             s+="\n";
             s+=info.ba;
+            out.println(s);
+        }
+        public void sendMessage(String s){
             out.println(s);
         }
     }

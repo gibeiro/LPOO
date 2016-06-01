@@ -38,5 +38,6 @@ public class GUIMenu {
         playButton.render(sprites);
         playButtonMult.render(sprites);
         sprites.end();
+
     }
 }

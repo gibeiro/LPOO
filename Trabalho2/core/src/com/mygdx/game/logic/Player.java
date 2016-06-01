@@ -38,8 +38,8 @@ public class Player extends Object {
 
         ArrayList<Vector2> vertices = new ArrayList<Vector2>();
 
-        for(int i = 0;i < 7;i++){
-            vertices.add(new Vector2(5f*(float)Math.cos(Math.PI*i/6),5f*(float)Math.sin(Math.PI*i/6)));
+        for(int i = 0;i < 8;i++){
+            vertices.add(new Vector2(5f*(float)Math.cos(Math.PI*i/7),5f*(float)Math.sin(Math.PI*i/7)));
         }
 
         shape.set(vertices.toArray(new Vector2[7]));
@@ -86,7 +86,7 @@ public class Player extends Object {
      */
     public int getPowerBeingUsed(){
         if(inputs.getPower())
-            return power.getPower();
+            return power.getIndex();
         return 0;
     }
 

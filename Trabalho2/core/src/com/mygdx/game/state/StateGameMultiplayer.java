@@ -20,7 +20,7 @@ public class StateGameMultiplayer extends State {
     public StateGameMultiplayer(StateManager s) {
         super(s);
         ratecounter = 0f;
-        gameGUI = new GUIGame();
+        gameGUI = new GUIGame(client.game);
         try{
             client = new ClientGame();
         }catch(Exception e){

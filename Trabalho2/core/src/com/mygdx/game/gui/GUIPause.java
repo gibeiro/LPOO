@@ -1,7 +1,49 @@
 package com.mygdx.game.gui;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.input.RectButton;
+import com.mygdx.game.logic.Game;
+
 /**
  * Created by Nuno on 30/05/2016.
  */
 public class GUIPause {
+    Texture background;
+    SpriteBatch backgroundSprite;
+    SpriteBatch buttons;
+    public RectButton resume;
+    public RectButton exit;
+
+    public GUIPause(){
+        background = new Texture("black.png");
+        backgroundSprite = new SpriteBatch();
+        buttons = new SpriteBatch();
+        resume = new RectButton(
+                (int)(Gdx.graphics.getWidth()*0.3),
+                (int)(Gdx.graphics.getHeight()*0.2),
+                (int)(Gdx.graphics.getWidth()*0.7),
+                (int)(Gdx.graphics.getHeight()*0.4),
+                "resumebuttonup.png","resumebuttondown.png");
+        exit = new RectButton(
+                (int)(Gdx.graphics.getWidth()*0.3),
+                (int)(Gdx.graphics.getHeight()*0.6),
+                (int)(Gdx.graphics.getWidth()*0.7),
+                (int)(Gdx.graphics.getHeight()*0.8),
+                "leavebuttonup.png","leavebuttondown.png");
+        backgroundSprite.enableBlending();
+        backgroundSprite.setColor(backgroundSprite.getColor().r,backgroundSprite.getColor().g,backgroundSprite.getColor().b,0.5f);
+    }
+    public void render(){
+
+        backgroundSprite.begin();
+        backgroundSprite.draw(background,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        backgroundSprite.end();
+        buttons.begin();
+        resume.render(buttons);
+        exit.render(buttons);
+        buttons.end();
+    }
 }

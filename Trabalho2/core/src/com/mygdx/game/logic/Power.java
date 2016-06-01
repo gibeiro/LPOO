@@ -11,7 +11,7 @@ public class Power {
         this.player = player;
     }
 
-    public int getPower(){
+    public int getIndex(){
         return powerId;
     }
 
