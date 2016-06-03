@@ -127,34 +127,36 @@ public class GUIGame {
 
         //Jogadores
         drawPlayers(objects,game);
-        //Balizas
+
+
+        //Bola
         float bx = game.getBall().body.getPosition().x;
         float by = game.getBall().body.getPosition().y;
         float bdrawx = Gdx.graphics.getWidth()*(bx/100f)-Gdx.graphics.getWidth()*0.046f/2;
         float bdrawy = Gdx.graphics.getHeight()*(by/100f)/SCREENRESPROP-Gdx.graphics.getHeight()*0.046f/2/SCREENRESPROP;
-        objects.draw(net,Gdx.graphics.getWidth()*(4/100f),Gdx.graphics.getHeight()*(10/100f)/SCREENRESPROP,Gdx.graphics.getWidth()*(8/100f),Gdx.graphics.getHeight()*(16/100f)/SCREENRESPROP,0,0,net.getWidth(),net.getHeight(),true,false);
-        objects.draw(net,Gdx.graphics.getWidth()*(89/100f),Gdx.graphics.getHeight()*(10/100f)/SCREENRESPROP,Gdx.graphics.getWidth()*(8/100f),Gdx.graphics.getHeight()*(16/100f)/SCREENRESPROP,0,0,net.getWidth(),net.getHeight(),false,false);
-
-        //Bola
         objects.draw(ball,bdrawx,bdrawy,Gdx.graphics.getWidth()*0.046f/2,Gdx.graphics.getHeight()*0.046f/SCREENRESPROP/2,Gdx.graphics.getWidth()*0.046f,Gdx.graphics.getHeight()*0.046f/SCREENRESPROP,1.1f,1.1f,game.getBall().body.getAngle()*(180f/(float)Math.PI));
 
+        //Balizas
+        objects.draw(net, Gdx.graphics.getWidth() * (4 / 100f), Gdx.graphics.getHeight() * (10 / 100f) / SCREENRESPROP, Gdx.graphics.getWidth() * (8 / 100f), Gdx.graphics.getHeight() * (16 / 100f) / SCREENRESPROP, 0, 0, net.getWidth(), net.getHeight(), true, false);
+        objects.draw(net,Gdx.graphics.getWidth()*(89/100f),Gdx.graphics.getHeight()*(10/100f)/SCREENRESPROP,Gdx.graphics.getWidth()*(8/100f),Gdx.graphics.getHeight()*(16/100f)/SCREENRESPROP,0,0,net.getWidth(),net.getHeight(),false,false);
+
         //Relva
-        objects.draw(grass,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight()/SCREENRESPROP*0.1f*1.5f);
+        objects.draw(grass, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() / SCREENRESPROP * 0.1f * 1.5f);
 
         //Pontuacao
-        drawScores(objects,game);
+        drawScores(objects, game);
 
         //Mana
-        drawMana(objects,game);
+        drawMana(objects, game);
 
         //Countdown
-        drawCountDown(objects,game);
+        drawCountDown(objects, game);
         objects.end();
 
 
 
 
-        b2dr.render(game.getWorld(),camera.combined);//render fixtures only
+        //b2dr.render(game.getWorld(),camera.combined);//render fixtures only
 
 
 
@@ -206,27 +208,27 @@ public class GUIGame {
         float by = game.getBall().body.getPosition().y;
         Texture todraw1;
         Texture todraw2;
-        if(game.getPlayer1().getPower().getIndex() == 0) {
+        if(game.getPlayer1().getPower()== 0) {
             todraw1 = defaultTex;
-        }else if(game.getPlayer1().getPower().getIndex() == 1){
+        }else if(game.getPlayer1().getPower() == 1){
             todraw1 = rocketTex;
-        }else if(game.getPlayer1().getPower().getIndex() == 2) {
+        }else if(game.getPlayer1().getPower() == 2) {
             todraw1 = stopTex;
-        }else if(game.getPlayer1().getPower().getIndex() == 3) {
+        }else if(game.getPlayer1().getPower() == 3) {
             todraw1 = flipTex;
-        }else if(game.getPlayer1().getPower().getIndex() == 4) {
+        }else if(game.getPlayer1().getPower() == 4) {
             todraw1 = magnetTex;
         }else todraw1 = defaultTex;
         objects.draw(todraw1, Gdx.graphics.getWidth() * (p1x / 100f) - Gdx.graphics.getWidth() * 0.1f / 2, Gdx.graphics.getHeight() / SCREENRESPROP * (p1y / 100f), Gdx.graphics.getWidth() * 0.1f, Gdx.graphics.getHeight() * 0.05f / SCREENRESPROP);
-        if(game.getPlayer2().getPower().getIndex() == 0) {
+        if(game.getPlayer2().getPower() == 0) {
             todraw2 = defaultTex;
-        }else if(game.getPlayer2().getPower().getIndex() == 1){
+        }else if(game.getPlayer2().getPower()== 1){
             todraw2 = rocketTex;
-        }else if(game.getPlayer2().getPower().getIndex() == 2) {
+        }else if(game.getPlayer2().getPower() == 2) {
             todraw2 = stopTex;
-        }else if(game.getPlayer2().getPower().getIndex() == 3) {
+        }else if(game.getPlayer2().getPower() == 3) {
             todraw2 = flipTex;
-        }else if(game.getPlayer2().getPower().getIndex() == 4) {
+        }else if(game.getPlayer2().getPower() == 4) {
             todraw2 = magnetTex;
         }else todraw2 = defaultTex;
         objects.draw(todraw2, Gdx.graphics.getWidth() * (p2x / 100f) - Gdx.graphics.getWidth() * 0.1f / 2, Gdx.graphics.getHeight() / SCREENRESPROP * (p2y / 100f), Gdx.graphics.getWidth() * 0.1f, Gdx.graphics.getHeight() * 0.05f / SCREENRESPROP);

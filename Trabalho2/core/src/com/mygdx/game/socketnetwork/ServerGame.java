@@ -25,7 +25,7 @@ public class ServerGame {
         game.setPlayer1(new Player(game.getWorld(),20,15));
         game.setPlayer2(new Player(game.getWorld(),80,15));
         try{
-           InetAddress addr = InetAddress.getByName("192.168.1.7");
+           InetAddress addr = InetAddress.getByName(null);
            server = new ServerSocket(4456,50,addr);
            System.out.println("Server IP:"+ server.getInetAddress() + ":"+ 4456);
        }catch(Exception e){

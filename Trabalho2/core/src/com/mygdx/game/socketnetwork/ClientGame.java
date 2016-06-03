@@ -7,6 +7,7 @@ import com.mygdx.game.logic.Player;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -158,10 +159,12 @@ public class ClientGame {
         }
         public void run(){
             try{
-                InetSocketAddress sa = new InetSocketAddress("192.168.1.7",4456);
+                InetSocketAddress sa = new InetSocketAddress(InetAddress.getByName("oisbem"),4456);
+
                 socket = new Socket();
-                socket.setSoTimeout(3*1000);
+                socket.setSoTimeout(3 * 1000);
                 socket.connect(sa,3*1000);
+                System.out.println("LIGOUUUUUUUUUUUUUUUUUUUUUUUUUUU");
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 out = new PrintWriter(socket.getOutputStream(),true);
                 connected = true;

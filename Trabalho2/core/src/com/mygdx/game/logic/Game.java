@@ -82,6 +82,9 @@ public class Game {
         player1.setJumpCounter(player1.getJumpCounter()-dt);
         player2.setJumpCounter(player2.getJumpCounter()-dt);
 
+        player1.usedPowerTimer-= dt;
+        player2.usedPowerTimer-= dt;
+
 
         world.step(1/100f,6,2);
         /*

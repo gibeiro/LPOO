@@ -59,10 +59,10 @@ public class BounceBallServer extends ApplicationAdapter {
                     if(server.handler1.powerSelected != -1 && server.handler2.powerSelected != -1){
                         server.game.getPlayer1().setPower(server.handler1.powerSelected);
                         server.game.getPlayer2().setPower(server.handler2.powerSelected);
-                        server.handler1.sendMessage("P1S\n"+server.game.getPlayer1().getPower().getIndex());
-                        server.handler1.sendMessage("P2S\n"+server.game.getPlayer2().getPower().getIndex());
-                        server.handler2.sendMessage("P1S\n"+server.game.getPlayer1().getPower().getIndex());
-                        server.handler2.sendMessage("P2S\n"+server.game.getPlayer2().getPower().getIndex());
+                        server.handler1.sendMessage("P1S\n"+server.game.getPlayer1().getPower());
+                        server.handler1.sendMessage("P2S\n"+server.game.getPlayer2().getPower());
+                        server.handler2.sendMessage("P1S\n"+server.game.getPlayer1().getPower());
+                        server.handler2.sendMessage("P2S\n"+server.game.getPlayer2().getPower());
                         inSelect = false;
                         inGame = true;
                     }

@@ -16,13 +16,15 @@ public class Player extends Object {
     Inputs inputs;
     int goals;
     double jumpCounter;
-    Power power;
+    int powerIndex;
     double mana;
+    public boolean usingPower;//Usado para verificar se o jogador usou um poder continuo(como atrair a bola)
+    public int usedPowerTimer;//Usado para verificar se o jogador usou um poder instantaneo(como parar a bola)
     public Player(World world, int x, int y){
         inputs = new Inputs(false,false,false,false);
         goals = 0;
         jumpCounter = 0;
-        power = new Power(this,0);
+        powerIndex = 0;
         BodyDef def = new BodyDef();
         def.type = BodyDef.BodyType.DynamicBody;
         def.position.set(x,y);
@@ -79,19 +81,19 @@ public class Player extends Object {
     }
 
     public void setPower(int i) {
-        this.power = new Power(this,i);
+        powerIndex = i;
     }
     /*
      *  Returns 0 if the user has no power or he has one but is not being used, returns its index if it's being used
      */
-    public int getPowerBeingUsed(){
+    public boolean getPowerPressed(){
         if(inputs.getPower())
-            return power.getIndex();
-        return 0;
+            return true;
+        return false;
     }
 
     public void usePower(Game game, double dt){
-        power.usePower(game,dt);
+        Power.usePower(game,dt,powerIndex,this);
     }
 
     public Inputs getInputs() {
@@ -110,13 +112,10 @@ public class Player extends Object {
         this.goals = goals;
     }
 
-    public Power getPower() {
-        return power;
+    public int getPower() {
+        return powerIndex;
     }
 
-    public void setPower(Power power) {
-        this.power = power;
-    }
 
     public double getJumpCounter() {
         return jumpCounter;
