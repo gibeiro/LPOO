@@ -47,19 +47,19 @@ public class ServerGame {
     public class ServerHandler extends Thread{
         private Socket  socket;
         int id;
+        public int powerSelected;
         BufferedReader in;
         PrintWriter out;
         public boolean connected;
-        public float timeoutCounter;
         public ServerHandler(){
-            timeoutCounter = 0;
+            powerSelected = -1;
             this.start();
         }
         public void run(){
             try{
                 this.socket = server.accept();
                 System.out.println("Player connected");
-
+                this.socket.setSoTimeout(1000*3);
                 if(this == handler1){
                     id = 1;
                 }else if(this == handler2){
@@ -72,18 +72,32 @@ public class ServerGame {
                 connected = true;
 
                 while(connected){
-                    if(in.ready())
-                        readInfo();
+                    readInfo();
                 }
+                System.out.println("Closed");
             }catch(Exception e){
-
+                System.out.println("Client "+ id + " timed out.");
+                game = new Game();
+                connected = false;
+                out.println("LEFT");
+                game.setPlayer1(new Player(game.getWorld(),20,15));
+                game.setPlayer2(new Player(game.getWorld(),80,15));
+                if(id == 1){
+                    handler1 = null;
+                }else if(id == 2){
+                    handler2 = null;
+                }
+                try{
+                    socket.close();
+                }catch(Exception r){
+                    System.out.println("Couldn't close socket.");
+                }
+                return;
             }
         }
         public void readInfo(){
             try{
-
                 String s = in.readLine();
-
                 if(s.equals("INPUTS")){
                     if(id == 1){
                         game.getPlayer1().getInputs().movingLeft = (0 != Integer.parseInt(in.readLine()));
@@ -99,18 +113,44 @@ public class ServerGame {
                         game.getPlayer2().getInputs().power = (0 != Integer.parseInt(in.readLine()));
                     }
                 }else if(s.equals("EXIT")){
-                    game.setGameEnd(true);
-                    if(this == handler1){
+                    System.out.println("Client "+ id + " left.");
+                    out.println("LEFT");
+                    game = new Game();
+                    connected = false;
+                    game.setPlayer1(new Player(game.getWorld(),20,15));
+                    game.setPlayer2(new Player(game.getWorld(),80,15));
+                    if(id == 1){
                         handler1 = null;
-                    }else if(this == handler2){
+                    }else if(id == 2){
                         handler2 = null;
                     }
-                    connected = false;
-                }else if(s.equals("TEST")){
-                    timeoutCounter = 0;
+                    try{
+                        socket.close();
+                    }catch(Exception r){
+                        System.out.println("Couldn't close socket.");
+                    }
+                    return;
+                }else if(s.equals("POWER")){
+                    powerSelected = Integer.parseInt(in.readLine());
                 }
             }catch(Exception e){
-
+                System.out.println("Client "+ id + " timed out.");
+                game = new Game();
+                connected = false;
+                out.println("LEFT");
+                game.setPlayer1(new Player(game.getWorld(),20,15));
+                game.setPlayer2(new Player(game.getWorld(),80,15));
+                if(id == 1){
+                    handler1 = null;
+                }else if(id == 2){
+                    handler2 = null;
+                }
+                try{
+                    socket.close();
+                }catch(Exception r){
+                    System.out.println("Couldn't close socket.");
+                }
+                return;
             }
         }
         public void sendPos(InfoGame info){
@@ -125,6 +165,8 @@ public class ServerGame {
             s+="\n";
             s+=info.p1vy;
             s+="\n";
+            s+=info.p1m;
+            s+="\n";
             s+=info.p2x;
             s+="\n";
             s+=info.p2y;
@@ -132,6 +174,8 @@ public class ServerGame {
             s+=info.p2vx;
             s+="\n";
             s+=info.p2vy;
+            s+="\n";
+            s+=info.p2m;
             s+="\n";
             s+=info.bx;
             s+="\n";
@@ -142,6 +186,22 @@ public class ServerGame {
             s+=info.bvy;
             s+="\n";
             s+=info.ba;
+            s+="\n";
+            s+=info.p1i.movingLeft ? 1 : 0;
+            s+="\n";
+            s+=info.p1i.movingRight? 1 : 0;
+            s+="\n";
+            s+=info.p1i.jump? 1 : 0;
+            s+="\n";
+            s+=info.p1i.power? 1 : 0;
+            s+="\n";
+            s+=info.p2i.movingLeft? 1 : 0;
+            s+="\n";
+            s+=info.p2i.movingRight? 1 : 0;
+            s+="\n";
+            s+=info.p2i.jump? 1 : 0;
+            s+="\n";
+            s+=info.p2i.power? 1 : 0;
             out.println(s);
         }
         public void sendMessage(String s){

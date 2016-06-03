@@ -33,6 +33,7 @@ public class StateGame extends State{
         game.setPlayer2(new Player(game.getWorld(),80,15));
         pauseGUI = new GUIPause();
         selectGUI = new GUISelection();
+        gameGUI = new GUIGame();
 
     }
 
@@ -60,8 +61,10 @@ public class StateGame extends State{
                 game.getPlayer1().setPower(4);
                 selectHero = false;
             }
-            gameGUI = new GUIGame(game);
-            return;
+            if(selectGUI.pauseButton.isPressed()){
+                paused = true;
+            }
+
         }
         if(paused){
             if(pauseGUI.resume.isPressed()){
@@ -73,6 +76,7 @@ public class StateGame extends State{
             }
             return;
         }
+        if(!selectHero){
         if(gameGUI.leftButton.isPressed()){
             game.getPlayer1().getInputs().setMovingLeft(true);
         }else game.getPlayer1().getInputs().setMovingLeft(false);
@@ -87,6 +91,7 @@ public class StateGame extends State{
         }else game.getPlayer1().getInputs().setPower(false);
         if(gameGUI.pauseButton.isPressed()){
             paused = true;
+        }
         }
 
     }
@@ -120,9 +125,9 @@ public class StateGame extends State{
         }
         else{
             gameGUI.render(game);
-            if(paused){
-                pauseGUI.render();
-            }
+        }
+        if(paused){
+            pauseGUI.render();
         }
 
     }

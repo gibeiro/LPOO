@@ -44,7 +44,7 @@ public class RectButton {
     }
 
     public boolean isPressed(){
-        for(int i = 0;i < 5;i++){
+        for(int i = 0;i < 10;i++){
             if(!Gdx.input.isTouched(i))
                 continue;
             float x = Gdx.input.getX(i);

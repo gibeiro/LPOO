@@ -16,6 +16,7 @@ public class GUISelection {
     public RectButton power2;
     public RectButton power3;
     public RectButton power4;
+    public RectButton pauseButton;
 
     public GUISelection(){
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -49,6 +50,12 @@ public class GUISelection {
                 (int)(Gdx.graphics.getWidth()*0.2),
                 (int)(Gdx.graphics.getHeight()*0.43),
                 "powerbuttonup.png");
+        pauseButton = new RectButton(
+                (int)(Gdx.graphics.getWidth()*0.9),
+                (int)(Gdx.graphics.getHeight()*0.02),
+                (int)(Gdx.graphics.getWidth()*1),
+                (int)(Gdx.graphics.getHeight()*0.17),
+                "pausebuttonup.png","pausebuttondown.png");
 
         sprites = new SpriteBatch();
     }
@@ -61,6 +68,7 @@ public class GUISelection {
         power2.render(sprites);
         power3.render(sprites);
         power4.render(sprites);
+        pauseButton.render(sprites);
         sprites.end();
     }
 

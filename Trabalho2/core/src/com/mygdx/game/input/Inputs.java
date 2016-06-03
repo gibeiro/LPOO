@@ -23,7 +23,7 @@ public class Inputs implements Serializable {
         return movingLeft;
     }
 
-    public void setMovingLeft(Boolean movingLeft) {
+    public void setMovingLeft(boolean movingLeft) {
         this.movingLeft = movingLeft;
     }
 
@@ -31,7 +31,7 @@ public class Inputs implements Serializable {
         return movingRight;
     }
 
-    public void setMovingRight(Boolean movingRight) {
+    public void setMovingRight(boolean movingRight) {
         this.movingRight = movingRight;
     }
 
@@ -39,7 +39,7 @@ public class Inputs implements Serializable {
         return jump;
     }
 
-    public void setJump(Boolean jump) {
+    public void setJump(boolean jump) {
         this.jump = jump;
     }
 

@@ -25,15 +25,26 @@ public class GUIGame {
     private Texture grass;
     private Texture sky;
     private TextureRegion ball;
-    private Texture player1;
-    private Texture player2;
+    private Texture defaultTex;
+    private Texture stopTex;
+    private Texture flipTex;
+    private Texture magnetTex;
+    private Texture rocketTex;
     private Texture net;
+    private Texture n0;
+    private Texture n1;
+    private Texture n2;
+    private Texture n3;
+    private Texture n4;
+    private Texture n5;
+    private Texture manabar;
+    private Texture mana;
     public RectButton leftButton;
     public RectButton rightButton;
     public RectButton jumpButton;
     public RectButton powerButton;
     public RectButton pauseButton;
-    public GUIGame(Game game){
+    public GUIGame(){
         camera = new OrthographicCamera();
         camera.setToOrtho(false,100,100*SCREENRESPROP);
         b2dr = new Box2DDebugRenderer();
@@ -46,17 +57,18 @@ public class GUIGame {
 
         sky = new Texture("sky.png");
 
-        ball = new TextureRegion(new Texture("rasengan.png"));
+        ball = new TextureRegion(new Texture("ball.png"));
 
         net = new Texture("net.png");
 
-        if(game.getPlayer1().getPower().getIndex() == 0){
-            player1 = new Texture("defaultplayer.png");
-        }else player1 = new Texture("defaultplayer.png");
-        if(game.getPlayer1().getPower().getIndex() == 0){
-            player2 = new Texture("defaultplayer.png");
-        }else player2 = new Texture("defaultplayer.png");
+        defaultTex = new Texture("defaultplayer.png");
+        stopTex = new Texture("herostop.png");
+        flipTex = new Texture("flipplayer.png");
+        magnetTex = new Texture("magnetplayer.png");
+        rocketTex = new Texture("rocketslime.png");
 
+        manabar = new Texture("manabar.png");
+        mana = new Texture("mana.png");
 
 
         leftButton = new RectButton(
@@ -90,6 +102,13 @@ public class GUIGame {
                 (int)(Gdx.graphics.getHeight()*0.17),
                 "pausebuttonup.png","pausebuttondown.png");
 
+        n0 = new Texture("0.png");
+        n1 = new Texture("1.png");
+        n2 = new Texture("2.png");
+        n3 = new Texture("3.png");
+        n4 = new Texture("4.png");
+        n5 = new Texture("5.png");
+
 
     }
 
@@ -101,28 +120,35 @@ public class GUIGame {
         //Desenha sprites do mundo
         objects.begin();
 
+
+        //Ceu
         objects.draw(sky,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
-        float p1x = game.getPlayer1().body.getPosition().x;
-        float p1y = game.getPlayer1().body.getPosition().y;
-        float p2x = game.getPlayer1().body.getPosition().x;
-        float p2y = game.getPlayer1().body.getPosition().y;
+
+        //Jogadores
+        drawPlayers(objects,game);
+        //Balizas
         float bx = game.getBall().body.getPosition().x;
         float by = game.getBall().body.getPosition().y;
-
-        objects.draw(player1,Gdx.graphics.getWidth()*(p1x/100f)-Gdx.graphics.getWidth()*0.1f/2,Gdx.graphics.getHeight()/SCREENRESPROP*(p1y/100f),Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.05f/SCREENRESPROP);
-
-        objects.draw(player2,Gdx.graphics.getWidth()*(p2x/100f)-Gdx.graphics.getWidth()*0.1f/2,Gdx.graphics.getHeight()/SCREENRESPROP*(p2y/100f),Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.05f/SCREENRESPROP);
-
         float bdrawx = Gdx.graphics.getWidth()*(bx/100f)-Gdx.graphics.getWidth()*0.046f/2;
         float bdrawy = Gdx.graphics.getHeight()*(by/100f)/SCREENRESPROP-Gdx.graphics.getHeight()*0.046f/2/SCREENRESPROP;
         objects.draw(net,Gdx.graphics.getWidth()*(4/100f),Gdx.graphics.getHeight()*(10/100f)/SCREENRESPROP,Gdx.graphics.getWidth()*(8/100f),Gdx.graphics.getHeight()*(16/100f)/SCREENRESPROP,0,0,net.getWidth(),net.getHeight(),true,false);
         objects.draw(net,Gdx.graphics.getWidth()*(89/100f),Gdx.graphics.getHeight()*(10/100f)/SCREENRESPROP,Gdx.graphics.getWidth()*(8/100f),Gdx.graphics.getHeight()*(16/100f)/SCREENRESPROP,0,0,net.getWidth(),net.getHeight(),false,false);
 
-        objects.draw(ball,bdrawx,bdrawy,Gdx.graphics.getWidth()*0.046f/2,Gdx.graphics.getHeight()*0.046f/SCREENRESPROP/2,Gdx.graphics.getWidth()*0.046f,Gdx.graphics.getHeight()*0.046f/SCREENRESPROP,1.1f,1.1f,game.getBall().body.getAngle()*100);
+        //Bola
+        objects.draw(ball,bdrawx,bdrawy,Gdx.graphics.getWidth()*0.046f/2,Gdx.graphics.getHeight()*0.046f/SCREENRESPROP/2,Gdx.graphics.getWidth()*0.046f,Gdx.graphics.getHeight()*0.046f/SCREENRESPROP,1.1f,1.1f,game.getBall().body.getAngle()*(180f/(float)Math.PI));
 
+        //Relva
         objects.draw(grass,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight()/SCREENRESPROP*0.1f*1.5f);
 
+        //Pontuacao
+        drawScores(objects,game);
+
+        //Mana
+        drawMana(objects,game);
+
+        //Countdown
+        drawCountDown(objects,game);
         objects.end();
 
 
@@ -140,6 +166,96 @@ public class GUIGame {
         powerButton.render(buttons);
         pauseButton.render(buttons);
         buttons.end();
+    }
+
+    void drawScores(SpriteBatch objects,Game game){
+        if(game.getPlayer1().getGoals() == 0){
+            objects.draw(n0,Gdx.graphics.getWidth()*0.35f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
+        }else if(game.getPlayer1().getGoals() == 1){
+            objects.draw(n1,Gdx.graphics.getWidth()*0.35f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
+        }else if(game.getPlayer1().getGoals() == 2){
+            objects.draw(n2,Gdx.graphics.getWidth()*0.35f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
+        }else if(game.getPlayer1().getGoals() == 3){
+            objects.draw(n3,Gdx.graphics.getWidth()*0.35f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
+        }else if(game.getPlayer1().getGoals() == 4){
+            objects.draw(n4,Gdx.graphics.getWidth()*0.35f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
+        }else if(game.getPlayer1().getGoals() == 5){
+            objects.draw(n5,Gdx.graphics.getWidth()*0.35f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
+        }
+
+        if(game.getPlayer2().getGoals() == 0){
+            objects.draw(n0,Gdx.graphics.getWidth()*0.55f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
+        }else if(game.getPlayer2().getGoals() == 1){
+            objects.draw(n1,Gdx.graphics.getWidth()*0.55f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
+        }else if(game.getPlayer2().getGoals() == 2){
+            objects.draw(n2,Gdx.graphics.getWidth()*0.55f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
+        }else if(game.getPlayer2().getGoals() == 3){
+            objects.draw(n3,Gdx.graphics.getWidth()*0.55f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
+        }else if(game.getPlayer2().getGoals() == 4){
+            objects.draw(n4,Gdx.graphics.getWidth()*0.55f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
+        }else if(game.getPlayer2().getGoals() == 5){
+            objects.draw(n5,Gdx.graphics.getWidth()*0.55f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
+        }
+    }
+    void drawPlayers(SpriteBatch objects,Game game){
+        float p1x = game.getPlayer1().body.getPosition().x;
+        float p1y = game.getPlayer1().body.getPosition().y;
+        float p2x = game.getPlayer2().body.getPosition().x;
+        float p2y = game.getPlayer2().body.getPosition().y;
+        float bx = game.getBall().body.getPosition().x;
+        float by = game.getBall().body.getPosition().y;
+        Texture todraw1;
+        Texture todraw2;
+        if(game.getPlayer1().getPower().getIndex() == 0) {
+            todraw1 = defaultTex;
+        }else if(game.getPlayer1().getPower().getIndex() == 1){
+            todraw1 = rocketTex;
+        }else if(game.getPlayer1().getPower().getIndex() == 2) {
+            todraw1 = stopTex;
+        }else if(game.getPlayer1().getPower().getIndex() == 3) {
+            todraw1 = flipTex;
+        }else if(game.getPlayer1().getPower().getIndex() == 4) {
+            todraw1 = magnetTex;
+        }else todraw1 = defaultTex;
+        objects.draw(todraw1, Gdx.graphics.getWidth() * (p1x / 100f) - Gdx.graphics.getWidth() * 0.1f / 2, Gdx.graphics.getHeight() / SCREENRESPROP * (p1y / 100f), Gdx.graphics.getWidth() * 0.1f, Gdx.graphics.getHeight() * 0.05f / SCREENRESPROP);
+        if(game.getPlayer2().getPower().getIndex() == 0) {
+            todraw2 = defaultTex;
+        }else if(game.getPlayer2().getPower().getIndex() == 1){
+            todraw2 = rocketTex;
+        }else if(game.getPlayer2().getPower().getIndex() == 2) {
+            todraw2 = stopTex;
+        }else if(game.getPlayer2().getPower().getIndex() == 3) {
+            todraw2 = flipTex;
+        }else if(game.getPlayer2().getPower().getIndex() == 4) {
+            todraw2 = magnetTex;
+        }else todraw2 = defaultTex;
+        objects.draw(todraw2, Gdx.graphics.getWidth() * (p2x / 100f) - Gdx.graphics.getWidth() * 0.1f / 2, Gdx.graphics.getHeight() / SCREENRESPROP * (p2y / 100f), Gdx.graphics.getWidth() * 0.1f, Gdx.graphics.getHeight() * 0.05f / SCREENRESPROP);
+
+    }
+    void drawCountDown(SpriteBatch objects,Game game){
+        float d = game.getCountdown();
+        int number = (int)d;
+        float size = d-(float)number;
+        Texture drawNumber;
+        if(number == 2){
+            drawNumber = n3;
+        }else if(number == 1){
+            drawNumber = n2;
+        }else if(number == 0 && d > 0){
+            drawNumber = n1;
+        }else return;
+        //objects.draw(n3,Gdx.graphics.getWidth()*0.35f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
+        objects.draw(drawNumber,Gdx.graphics.getWidth()*0.45f-Gdx.graphics.getWidth()*0.45f*size,Gdx.graphics.getHeight()*0.45f-Gdx.graphics.getHeight()*0.45f*size,Gdx.graphics.getWidth()*0.1f+Gdx.graphics.getWidth()*2*0.45f*size,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP+Gdx.graphics.getHeight()*2*0.45f*size);
+
+    }
+
+    void drawMana(SpriteBatch objects,Game game){
+        float p2length = Gdx.graphics.getWidth()*0.3f*(float)(game.getPlayer2().getMana()/100)*0.95f;
+        objects.draw(mana,Gdx.graphics.getWidth()*0.06f,Gdx.graphics.getHeight()*0.87f,Gdx.graphics.getWidth()*0.3f*(float)(game.getPlayer1().getMana()/100)*0.95f,Gdx.graphics.getHeight()*0.06f);
+        objects.draw(mana,Gdx.graphics.getWidth()*0.645f+Gdx.graphics.getWidth()*0.30f-p2length,Gdx.graphics.getHeight()*0.87f,p2length,Gdx.graphics.getHeight()*0.06f);
+        objects.draw(manabar,Gdx.graphics.getWidth()*0.05f,Gdx.graphics.getHeight()*0.85f,Gdx.graphics.getWidth()*0.3f,Gdx.graphics.getHeight()*0.1f);
+        objects.draw(manabar,Gdx.graphics.getWidth()*0.65f,Gdx.graphics.getHeight()*0.85f,Gdx.graphics.getWidth()*0.3f,Gdx.graphics.getHeight()*0.1f);
+
     }
 
 }

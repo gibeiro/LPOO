@@ -19,6 +19,8 @@ public class Game {
     private int limitGoals;
     private boolean gameEnd;
     private float countdown;
+    private float score1countdown;
+    private float score2countdown;
     public Game(){
         countdown = 3;
         world = new World(new Vector2(0,GRAVITY),false);
@@ -72,13 +74,11 @@ public class Game {
         /*
          * Verifica se a bola está dentro das balizas
          */
-        if(player1.goals >=limitGoals || player2.goals >= limitGoals){
-            gameEnd = true;
-        }
+        countdown -= dt;
         if(countdown > 0){
-            countdown -= dt;
             return;
         }
+
         player1.setJumpCounter(player1.getJumpCounter()-dt);
         player2.setJumpCounter(player2.getJumpCounter()-dt);
 
@@ -152,18 +152,27 @@ public class Game {
         checkPowers(dt);
 
     }
-    public void checkGoals(){
+    public int checkGoals(){
         float x = ball.body.getPosition().x;
         float y = ball.body.getPosition().y;
         if(x > 89 && y < 28){
             player1.goals++;
             countdown = 3;
             resetPositions();
+            if(player1.goals >=limitGoals || player2.goals >= limitGoals){
+                gameEnd = true;
+            }
+            return 1;
         }else if(x < 11 && y < 28){
             player2.goals++;
             countdown = 3;
             resetPositions();
+            if(player1.goals >=limitGoals || player2.goals >= limitGoals){
+                gameEnd = true;
+            }
+            return 2;
         }
+        return 0;
     }
     public void resetPositions(){
         ball.body.setTransform(50,50,0);
@@ -185,6 +194,16 @@ public class Game {
         player2.body.setTransform(new Vector2(g.p2x,g.p2y),0);
         player1.body.setLinearVelocity(g.p1vx,g.p1vy);
         player2.body.setLinearVelocity(g.p2vx,g.p2vy);
+        player1.getInputs().movingLeft = g.p1i.movingLeft;
+        player1.getInputs().movingRight = g.p1i.movingRight;
+        player1.getInputs().jump = g.p1i.jump;
+        player1.getInputs().power = g.p1i.power;
+        player2.getInputs().movingLeft = g.p2i.movingLeft;
+        player2.getInputs().movingRight = g.p2i.movingRight;
+        player2.getInputs().jump = g.p2i.jump;
+        player2.getInputs().power = g.p2i.power;
+        player1.setMana(g.p1m);
+        player2.setMana(g.p2m);
         ball.body.setTransform(new Vector2(g.bx,g.by),g.ba);
         ball.body.setLinearVelocity(g.bvx,g.bvy);
         ball.body.setAngularVelocity(g.bav);
