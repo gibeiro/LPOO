@@ -14,12 +14,8 @@ public class BounceBallServer extends ApplicationAdapter {
     float rateCounter;
     ServerGame server;
     float dt;
-    boolean inGame;
-    boolean inSelect;
     @Override
     public void create () {
-        inSelect = true;
-        inGame = false;
         rateCounter = 0;
         try{
             server = new ServerGame();
@@ -38,7 +34,7 @@ public class BounceBallServer extends ApplicationAdapter {
         dt = Gdx.graphics.getDeltaTime();
         rateCounter += dt;
 
-        if(inGame){
+        if(server.inGame){
             server.game.update(dt);
         }
         if(rateCounter > RATE){
@@ -51,7 +47,7 @@ public class BounceBallServer extends ApplicationAdapter {
 
             if(server.handler1.connected == true && server.handler2.connected == true) {
 
-                if (inSelect) {
+                if (server.inSelect) {
                     if(server.handler1.powerSelected == -1)
                        server.handler1.sendMessage("SELECT");
                     if(server.handler2.powerSelected == -1)
@@ -63,18 +59,18 @@ public class BounceBallServer extends ApplicationAdapter {
                         server.handler1.sendMessage("P2S\n"+server.game.getPlayer2().getPower());
                         server.handler2.sendMessage("P1S\n"+server.game.getPlayer1().getPower());
                         server.handler2.sendMessage("P2S\n"+server.game.getPlayer2().getPower());
-                        inSelect = false;
-                        inGame = true;
+                        server.inSelect = false;
+                        server.inGame = true;
                     }
                 }
 
-                else if (inGame) {
+                else if (server.inGame) {
 
                     server.game.update(dt);
 
                     if(server.game.isGameEnd()){
-                        inSelect = true;
-                        inGame = false;
+                        server.inSelect = true;
+                        server.inGame = false;
                         server.handler1.powerSelected = -1;
                         server.handler2.powerSelected = -1;
                         server.game = new Game();

@@ -16,10 +16,13 @@ import java.net.Socket;
  */
 public class ClientGame {
     public boolean inWait;
+    public float timeOutTimer;
+    public float enemyLeftTimer;
+    public float youWonTimer;
+    public float youLostTimer;
     public boolean inSelect;
     public boolean inGame;
     public boolean inPause;
-    public boolean inResults;
     public int powerSelected;
     public boolean ready;
 
@@ -32,21 +35,25 @@ public class ClientGame {
 
     Socket socket;
     public boolean connected;
-
+    public boolean timedOut;
 
     public ClientGame(){
         powerSelected = -1;
         inWait = true;
+        timeOutTimer = -1;
+        enemyLeftTimer = -1;
+        youWonTimer = -1;
+        youLostTimer = -1;
         inSelect = false;
         inGame = false;
         inPause = false;
-        inResults = false;
         ready = false;
+
 
         game = new Game();
         game.setPlayer1(new Player(game.getWorld(),20,15));
         game.setPlayer2(new Player(game.getWorld(),80,15));
-        connected = true;
+        connected = false;
         i = new Inputs(false,false,false,false);
 
 
@@ -73,8 +80,8 @@ public class ClientGame {
             if(in.ready()){
                 InfoGame info = new InfoGame();
                 String s = in.readLine();
+                System.out.println(s);
                 if(s.equals("POSITIONS")){
-                    System.out.println("Recebi info");
                     info.p1x = Float.parseFloat(in.readLine());
                     info.p1y = Float.parseFloat(in.readLine());
                     info.p1vx = Float.parseFloat(in.readLine());
@@ -99,7 +106,7 @@ public class ClientGame {
                     info.p2i.jump = Integer.parseInt(in.readLine()) != 0;
                     info.p2i.power = Integer.parseInt(in.readLine()) != 0;
                     game.updateGame(info);
-                }else if(s.equals("SELECT")){
+                }else if(s.equals("SELECT") && timeOutTimer < 0 && youWonTimer < 0 && youLostTimer < 0 && enemyLeftTimer < 0){
                     inWait = false;
                     inSelect = true;
                 }else if(s.equals("P1S")){
@@ -117,7 +124,11 @@ public class ClientGame {
                     game.resetPositions();
                     if(game.getPlayer1().getGoals() >= 5){
                         inGame = false;
-                        inResults = true;
+                        inWait = true;
+                        powerSelected = -1;
+                        if(id == 1){
+                            youWonTimer = 3;
+                        }else youLostTimer = 3;
                         game = new Game();
                         game.setPlayer1(new Player(game.getWorld(),20,15));
                         game.setPlayer2(new Player(game.getWorld(),80,15));
@@ -127,17 +138,22 @@ public class ClientGame {
                     game.resetPositions();
                     if(game.getPlayer2().getGoals() >= 5){
                         inGame = false;
-                        inResults = true;
+                        inWait = true;
+                        powerSelected = -1;
+                        if(id == 2){
+                            youWonTimer = 3;
+                        }else youLostTimer = 3;
                         game = new Game();
                         game.setPlayer1(new Player(game.getWorld(),20,15));
                         game.setPlayer2(new Player(game.getWorld(),80,15));
                     }
                 }else if(s.equals("LEFT")){
+                    System.out.println("saiu");
                     inWait = true;
+                    enemyLeftTimer = 3;
                     inSelect = false;
                     inGame = false;
                     inPause = false;
-                    inResults = false;
                     ready = false;
                     powerSelected = -1;
                     game = new Game();
@@ -147,8 +163,7 @@ public class ClientGame {
 
             }
         }catch(Exception e){
-            System.out.println("Timed out");
-            connected = false;
+            handleTimeOut();
         }
     }
     public class ClientHandler extends Thread{
@@ -159,12 +174,11 @@ public class ClientGame {
         }
         public void run(){
             try{
-                InetSocketAddress sa = new InetSocketAddress(InetAddress.getByName("oisbem"),4456);
-
+                InetAddress addr = InetAddress.getLocalHost();
+                InetSocketAddress sa = new InetSocketAddress("192.168.1.7",4456);
                 socket = new Socket();
                 socket.setSoTimeout(3 * 1000);
                 socket.connect(sa,3*1000);
-                System.out.println("LIGOUUUUUUUUUUUUUUUUUUUUUUUUUUU");
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 out = new PrintWriter(socket.getOutputStream(),true);
                 connected = true;
@@ -179,16 +193,23 @@ public class ClientGame {
 
 
             }catch(Exception e){
-                System.out.println("Timed out");
-                try{
-                    socket.close();
-                }catch(Exception r){
-
-                }
-                connected = false;
+                handleTimeOut();
             }
             connected = false;
         }
+    }
+    void handleTimeOut(){
+        System.out.println("Timed out");
+        try{
+            socket.close();
+        }catch(Exception r){
+
+        }
+        timedOut = true;
+        timeOutTimer = 3;
+        connected = false;
+        inGame = false;
+        inWait = true;
     }
 
 }

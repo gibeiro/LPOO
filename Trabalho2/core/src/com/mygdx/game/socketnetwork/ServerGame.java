@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -18,14 +19,18 @@ public class ServerGame {
     public ServerHandler handler1;
     public ServerHandler handler2;
     ServerSocket server;
+    public boolean inGame;
+    public boolean inSelect;
     public ServerGame(){
+        inGame = false;
+        inSelect = true;
         handler1 = null;
         handler2 = null;
         game = new Game();
         game.setPlayer1(new Player(game.getWorld(),20,15));
         game.setPlayer2(new Player(game.getWorld(),80,15));
         try{
-           InetAddress addr = InetAddress.getByName(null);
+            InetAddress addr = InetAddress.getLocalHost();
            server = new ServerSocket(4456,50,addr);
            System.out.println("Server IP:"+ server.getInetAddress() + ":"+ 4456);
        }catch(Exception e){
@@ -76,23 +81,7 @@ public class ServerGame {
                 }
                 System.out.println("Closed");
             }catch(Exception e){
-                System.out.println("Client "+ id + " timed out.");
-                game = new Game();
-                connected = false;
-                out.println("LEFT");
-                game.setPlayer1(new Player(game.getWorld(),20,15));
-                game.setPlayer2(new Player(game.getWorld(),80,15));
-                if(id == 1){
-                    handler1 = null;
-                }else if(id == 2){
-                    handler2 = null;
-                }
-                try{
-                    socket.close();
-                }catch(Exception r){
-                    System.out.println("Couldn't close socket.");
-                }
-                return;
+                handleTimeout();
             }
         }
         public void readInfo(){
@@ -113,44 +102,12 @@ public class ServerGame {
                         game.getPlayer2().getInputs().power = (0 != Integer.parseInt(in.readLine()));
                     }
                 }else if(s.equals("EXIT")){
-                    System.out.println("Client "+ id + " left.");
-                    out.println("LEFT");
-                    game = new Game();
-                    connected = false;
-                    game.setPlayer1(new Player(game.getWorld(),20,15));
-                    game.setPlayer2(new Player(game.getWorld(),80,15));
-                    if(id == 1){
-                        handler1 = null;
-                    }else if(id == 2){
-                        handler2 = null;
-                    }
-                    try{
-                        socket.close();
-                    }catch(Exception r){
-                        System.out.println("Couldn't close socket.");
-                    }
-                    return;
+                    handleLeave();
                 }else if(s.equals("POWER")){
                     powerSelected = Integer.parseInt(in.readLine());
                 }
             }catch(Exception e){
-                System.out.println("Client "+ id + " timed out.");
-                game = new Game();
-                connected = false;
-                out.println("LEFT");
-                game.setPlayer1(new Player(game.getWorld(),20,15));
-                game.setPlayer2(new Player(game.getWorld(),80,15));
-                if(id == 1){
-                    handler1 = null;
-                }else if(id == 2){
-                    handler2 = null;
-                }
-                try{
-                    socket.close();
-                }catch(Exception r){
-                    System.out.println("Couldn't close socket.");
-                }
-                return;
+                handleTimeout();
             }
         }
         public void sendPos(InfoGame info){
@@ -207,6 +164,58 @@ public class ServerGame {
         public void sendMessage(String s){
             out.println(s);
         }
+
+        public void handleTimeout(){
+
+            System.out.println("Client "+ id + " timed out.");
+            connected = false;
+            if(id == 1 && handler2.connected == true)
+                handler2.out.println("LEFT");
+            if(id == 2 && handler1.connected == true)
+                handler1.out.println("LEFT");
+            inSelect = true;
+            inGame = false;
+            game = new Game();
+            game.setPlayer1(new Player(game.getWorld(),20,15));
+            game.setPlayer2(new Player(game.getWorld(),80,15));
+            if(id == 1){
+                handler1 = null;
+            }else if(id == 2){
+                handler2 = null;
+            }
+            try{
+                socket.close();
+            }catch(Exception r){
+                System.out.println("Couldn't close socket.");
+            }
+            return;
+        }
+        public void handleLeave(){
+            System.out.println("Client "+ id + " left.");
+            if(id == 1 && handler2.connected == true)
+                handler2.out.println("LEFT");
+            if(id == 2 && handler1.connected == true)
+                handler1.out.println("LEFT");
+            inSelect = true;
+            inGame = false;
+            game = new Game();
+            connected = false;
+            game.setPlayer1(new Player(game.getWorld(),20,15));
+            game.setPlayer2(new Player(game.getWorld(),80,15));
+            if(id == 1){
+                handler1 = null;
+            }else if(id == 2){
+                handler2 = null;
+            }
+            try{
+                socket.close();
+            }catch(Exception r){
+                System.out.println("Couldn't close socket.");
+            }
+            return;
+        }
+
+
     }
 
 

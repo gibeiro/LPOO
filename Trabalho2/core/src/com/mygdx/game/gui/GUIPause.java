@@ -18,7 +18,7 @@ public class GUIPause {
     public RectButton exit;
 
     public GUIPause(){
-        background = new Texture("black.png");
+        background = new Texture("sprites/black.png");
         backgroundSprite = new SpriteBatch();
         buttons = new SpriteBatch();
         resume = new RectButton(
@@ -26,13 +26,13 @@ public class GUIPause {
                 (int)(Gdx.graphics.getHeight()*0.2),
                 (int)(Gdx.graphics.getWidth()*0.7),
                 (int)(Gdx.graphics.getHeight()*0.4),
-                "resumebuttonup.png","resumebuttondown.png");
+                "buttons/resumebuttonup.png","buttons/resumebuttondown.png");
         exit = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.3),
                 (int)(Gdx.graphics.getHeight()*0.6),
                 (int)(Gdx.graphics.getWidth()*0.7),
                 (int)(Gdx.graphics.getHeight()*0.8),
-                "leavebuttonup.png","leavebuttondown.png");
+                "buttons/leavebuttonup.png","buttons/leavebuttondown.png");
         backgroundSprite.enableBlending();
         backgroundSprite.setColor(backgroundSprite.getColor().r,backgroundSprite.getColor().g,backgroundSprite.getColor().b,0.5f);
     }

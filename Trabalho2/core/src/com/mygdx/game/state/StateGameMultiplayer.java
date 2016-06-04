@@ -1,13 +1,9 @@
 package com.mygdx.game.state;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.auxclass.Functions;
 import com.mygdx.game.gui.GUIPause;
-import com.mygdx.game.gui.GUIResult;
 import com.mygdx.game.gui.GUISelection;
 import com.mygdx.game.gui.GUIWaiting;
-import com.mygdx.game.input.Inputs;
 import com.mygdx.game.gui.GUIGame;
 import com.mygdx.game.socketnetwork.ClientGame;
 
@@ -22,7 +18,6 @@ public class StateGameMultiplayer extends State {
     private GUIGame gameGUI;
     private GUIPause pauseGUI;
     private GUIWaiting waitGUI;
-    private GUIResult resultGUI;
     private GUISelection selectGUI;
 
     private float ratecounter;
@@ -48,7 +43,8 @@ public class StateGameMultiplayer extends State {
                 client.inPause = false;
             }
             if(pauseGUI.exit.isPressed()){
-                client.sendMessage("EXIT");
+                if(client.connected)
+                    client.sendMessage("EXIT");
                 dispose();
                 sm.pop();
                 sm.push(new StateMenu(sm));
@@ -60,30 +56,27 @@ public class StateGameMultiplayer extends State {
             }
         }
         if(client.inSelect){
+            if(client.powerSelected != selectGUI.selected)
+                selectGUI.selected = -1;
             if(selectGUI.power0.isPressed()){
                 client.powerSelected = 0;
-                client.inSelect = false;
-                client.inGame = true;
+                selectGUI.selected = 0;
             }
             if(selectGUI.power1.isPressed()){
                 client.powerSelected = 1;
-                client.inSelect = false;
-                client.inGame = true;
+                selectGUI.selected = 1;
             }
             if(selectGUI.power2.isPressed()){
                 client.powerSelected = 2;
-                client.inSelect = false;
-                client.inGame = true;
+                selectGUI.selected = 2;
             }
             if(selectGUI.power3.isPressed()){
                 client.powerSelected = 3;
-                client.inSelect = false;
-                client.inGame = true;
+                selectGUI.selected = 3;
             }
             if(selectGUI.power4.isPressed()){
                 client.powerSelected = 4;
-                client.inSelect = false;
-                client.inGame = true;
+                selectGUI.selected = 4;
             }
             if(selectGUI.pauseButton.isPressed()){
                 client.inPause = true;
@@ -102,6 +95,9 @@ public class StateGameMultiplayer extends State {
             if(gameGUI.powerButton.isPressed()){
                 client.i.setPower(true);
             }else client.i.setPower(false);
+            if(selectGUI.pauseButton.isPressed()){
+                client.inPause = true;
+            }
         }
 
     }
@@ -109,17 +105,27 @@ public class StateGameMultiplayer extends State {
 
     @Override
     public void update(double dt) {
+        client.timeOutTimer -= dt;
+        client.enemyLeftTimer -= dt;
+        client.youWonTimer -= dt;
+        client.youLostTimer -= dt;
+        waitGUI.timeOutTimer = client.timeOutTimer;
+        waitGUI.enemyLeftTimer = client.enemyLeftTimer;
+        waitGUI.youWonTimer = client.youWonTimer;
+        waitGUI.youLostTimer = client.youLostTimer;
         ratecounter += dt;
-        if(client.connected == false){
-            //SHOW TIMEOUT MESSAGE
-            dispose();
-            sm.pop();
-            sm.push(new StateMenu(sm));
+        if(client.timedOut == true){
+            if(waitGUI.timeOutTimer < 0){
+                dispose();
+                sm.pop();
+                sm.push(new StateMenu(sm));
+            }
+
         }
         if(client.inGame){
             client.game.update(dt);
         }
-        if(ratecounter >= RATE){
+        if(ratecounter >= RATE && client.connected == true){
             client.sendMessage("TEST");
             if(client.inSelect){
                 if(client.powerSelected != -1){
@@ -128,8 +134,6 @@ public class StateGameMultiplayer extends State {
                     s+="\n";
                     s+=client.powerSelected;
                     client.sendMessage(s);
-                    client.inSelect = false;
-                    client.inGame = true;
                 }
             }else if(client.inGame){
                 client.sendInfo();

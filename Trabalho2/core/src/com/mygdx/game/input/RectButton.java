@@ -67,4 +67,14 @@ public class RectButton {
             s.draw(buttonidle,x1,-(-Gdx.graphics.getHeight()/2+y1)+Gdx.graphics.getHeight()/2-(y2-y1),x2-x1,y2-y1);
         }
     }
+
+    public Texture getButtonidle() {
+        return buttonidle;
+    }
+
+
+    public Texture getButtonpressed() {
+        return buttonpressed;
+    }
+
 }

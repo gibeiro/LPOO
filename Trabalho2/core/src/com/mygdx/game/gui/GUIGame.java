@@ -53,22 +53,22 @@ public class GUIGame {
         buttons.enableBlending();
         buttons.setColor(buttons.getColor().r,buttons.getColor().g,buttons.getColor().b,0.2f);
 
-        grass = new Texture("floor.png");
+        grass = new Texture("sprites/floor.png");
 
-        sky = new Texture("sky.png");
+        sky = new Texture("sprites/sky.png");
 
-        ball = new TextureRegion(new Texture("ball.png"));
+        ball = new TextureRegion(new Texture("sprites/ball.png"));
 
-        net = new Texture("net.png");
+        net = new Texture("sprites/net.png");
 
-        defaultTex = new Texture("defaultplayer.png");
-        stopTex = new Texture("herostop.png");
-        flipTex = new Texture("flipplayer.png");
-        magnetTex = new Texture("magnetplayer.png");
-        rocketTex = new Texture("rocketslime.png");
+        defaultTex = new Texture("sprites/defaultplayer.png");
+        stopTex = new Texture("sprites/herostop.png");
+        flipTex = new Texture("sprites/flipplayer.png");
+        magnetTex = new Texture("sprites/magnetplayer.png");
+        rocketTex = new Texture("sprites/rocketslime.png");
 
-        manabar = new Texture("manabar.png");
-        mana = new Texture("mana.png");
+        manabar = new Texture("sprites/manabar.png");
+        mana = new Texture("sprites/mana.png");
 
 
         leftButton = new RectButton(
@@ -76,38 +76,38 @@ public class GUIGame {
                 (int)(Gdx.graphics.getHeight()*0.7),
                 (int)(Gdx.graphics.getWidth()*0.20),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "leftbuttonup.png","leftbuttondown.png");
+                "buttons/leftbuttonup.png","buttons/leftbuttondown.png");
         rightButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.20),
                 (int)(Gdx.graphics.getHeight()*0.7),
                 (int)(Gdx.graphics.getWidth()*0.40),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "rightbuttonup.png","rightbuttondown.png");
+                "buttons/rightbuttonup.png","buttons/rightbuttondown.png");
         powerButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.6),
                 (int)(Gdx.graphics.getHeight()*0.7),
                 (int)(Gdx.graphics.getWidth()*0.8),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "powerbuttonup.png","powerbuttondown.png");
+                "buttons/powerbuttonup.png","buttons/powerbuttondown.png");
         jumpButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.8),
                 (int)(Gdx.graphics.getHeight()*0.7),
                 (int)(Gdx.graphics.getWidth()*1),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "jumpbuttonup.png","jumpbuttondown.png");
+                "buttons/jumpbuttonup.png","buttons/jumpbuttondown.png");
         pauseButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.9),
                 (int)(Gdx.graphics.getHeight()*0.02),
                 (int)(Gdx.graphics.getWidth()*1),
                 (int)(Gdx.graphics.getHeight()*0.17),
-                "pausebuttonup.png","pausebuttondown.png");
+                "buttons/pausebuttonup.png","buttons/pausebuttondown.png");
 
-        n0 = new Texture("0.png");
-        n1 = new Texture("1.png");
-        n2 = new Texture("2.png");
-        n3 = new Texture("3.png");
-        n4 = new Texture("4.png");
-        n5 = new Texture("5.png");
+        n0 = new Texture("text/0.png");
+        n1 = new Texture("text/1.png");
+        n2 = new Texture("text/2.png");
+        n3 = new Texture("text/3.png");
+        n4 = new Texture("text/4.png");
+        n5 = new Texture("text/5.png");
 
 
     }
