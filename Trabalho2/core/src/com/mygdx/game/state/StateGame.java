@@ -1,7 +1,6 @@
 package com.mygdx.game.state;
 
 import com.badlogic.gdx.Gdx;
-import com.mygdx.game.auxclass.Functions;
 import com.mygdx.game.gui.GUIGame;
 import com.mygdx.game.gui.GUIPause;
 import com.mygdx.game.gui.GUISelection;

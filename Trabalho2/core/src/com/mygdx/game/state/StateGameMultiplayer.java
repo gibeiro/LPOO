@@ -1,10 +1,10 @@
 package com.mygdx.game.state;
 
 import com.badlogic.gdx.Gdx;
+import com.mygdx.game.gui.GUIGame;
 import com.mygdx.game.gui.GUIPause;
 import com.mygdx.game.gui.GUISelection;
 import com.mygdx.game.gui.GUIWaiting;
-import com.mygdx.game.gui.GUIGame;
 import com.mygdx.game.socketnetwork.ClientGame;
 
 
@@ -14,6 +14,7 @@ import com.mygdx.game.socketnetwork.ClientGame;
 public class StateGameMultiplayer extends State {
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
     private final static float RATE = 0.05f;
+    private final static float TESTRATE = 1;
     private ClientGame client;
     private GUIGame gameGUI;
     private GUIPause pauseGUI;
@@ -21,9 +22,11 @@ public class StateGameMultiplayer extends State {
     private GUISelection selectGUI;
 
     private float ratecounter;
+    private float testcounter;
     public StateGameMultiplayer(StateManager s) {
         super(s);
         ratecounter = 0f;
+        testcounter = 0f;
         try{
             client = new ClientGame();
         }catch(Exception e){
@@ -114,6 +117,7 @@ public class StateGameMultiplayer extends State {
         waitGUI.youWonTimer = client.youWonTimer;
         waitGUI.youLostTimer = client.youLostTimer;
         ratecounter += dt;
+        testcounter += dt;
         if(client.timedOut == true){
             if(waitGUI.timeOutTimer < 0){
                 dispose();
@@ -125,8 +129,10 @@ public class StateGameMultiplayer extends State {
         if(client.inGame){
             client.game.update(dt);
         }
-        if(ratecounter >= RATE && client.connected == true){
+        if(testcounter >= TESTRATE && client.connected == true){
             client.sendMessage("TEST");
+        }
+        if(ratecounter >= RATE && client.connected == true){
             if(client.inSelect){
                 if(client.powerSelected != -1){
                     String s = "";

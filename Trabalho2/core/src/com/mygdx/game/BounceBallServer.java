@@ -2,7 +2,6 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-
 import com.mygdx.game.logic.Game;
 import com.mygdx.game.logic.Player;
 import com.mygdx.game.socketnetwork.InfoGame;
@@ -11,12 +10,15 @@ import com.mygdx.game.socketnetwork.ServerGame;
 
 public class BounceBallServer extends ApplicationAdapter {
     private final static float RATE = 0.06f;
+    private final static float TESTRATE = 1;
     float rateCounter;
+    float testCounter;
     ServerGame server;
     float dt;
     @Override
     public void create () {
         rateCounter = 0;
+        testCounter = 0;
         try{
             server = new ServerGame();
         }catch(Exception e){
@@ -28,18 +30,22 @@ public class BounceBallServer extends ApplicationAdapter {
     public void render () {
 
         while(server.handler1 == null || server.handler2 == null){
-            System.out.println("Abriu slot");
+            System.out.println("Player slot opened");
             server.openPlayerSlot();
         }
         dt = Gdx.graphics.getDeltaTime();
         rateCounter += dt;
+        testCounter += dt;
 
         if(server.inGame){
             server.game.update(dt);
         }
+        if(testCounter > TESTRATE){
+            sendPassiveMessage();
+            testCounter = 0;
+        }
         if(rateCounter > RATE){
 
-            sendPassiveMessage();
 
             if((server.handler1.connected == true && server.handler2.connected == false) || (server.handler1.connected ==false && server.handler2.connected == true)){
                 sendWaitMessage();
@@ -94,7 +100,6 @@ public class BounceBallServer extends ApplicationAdapter {
                             server.handler2.sendMessage("GOAL2");
                         }else if(goal == 0){
                             InfoGame info = new InfoGame(server.game);
-                            System.out.println("Enviei info");
                             server.handler1.sendPos(info);
                             server.handler2.sendPos(info);
                         }

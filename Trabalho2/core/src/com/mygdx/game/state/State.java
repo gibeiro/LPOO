@@ -1,7 +1,5 @@
 package com.mygdx.game.state;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 /**
  * Created by Nuno on 02/05/2016.
  */

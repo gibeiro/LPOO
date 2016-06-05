@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -31,10 +30,11 @@ public class ServerGame {
         game.setPlayer2(new Player(game.getWorld(),80,15));
         try{
             InetAddress addr = InetAddress.getLocalHost();
-           server = new ServerSocket(4456,50,addr);
-           System.out.println("Server IP:"+ server.getInetAddress() + ":"+ 4456);
+            server = new ServerSocket(4456,50,addr);
+            System.out.println("Server IP:"+ server.getInetAddress().getHostAddress() + "\nPort:"+ 4456);
        }catch(Exception e){
-
+            System.out.println("Error creating server, exiting...");
+            System.exit(0);
        }
     }
     public void openPlayerSlot(){

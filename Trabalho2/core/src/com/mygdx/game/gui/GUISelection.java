@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.input.RectButton;
-import com.mygdx.game.logic.Menu;
 
 /**
  * Created by Nuno on 30/05/2016.

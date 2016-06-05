@@ -64,8 +64,8 @@ public class Player extends Object {
 
         vertices.add(new Vector2(5f,0));
         vertices.add(new Vector2(-5f,0));
-        vertices.add(new Vector2(-5f,-1));
-        vertices.add(new Vector2(5f,-1));
+        vertices.add(new Vector2(-5f,-0.1f));
+        vertices.add(new Vector2(5f,-0.1f));
 
         shape.set(vertices.toArray(new Vector2[4]));
 

@@ -43,21 +43,21 @@ public class Power {
     }
     //Para a bola
     public static void power2(Game game, double dt,Player player){
-        if(player.getPowerPressed() && !player.inputs.getClickedPower() && player.mana >= 50){
+        if(player.getPowerPressed() && !player.inputs.getClickedPower() && player.mana >= 80){
             game.getBall().body.setLinearVelocity(0,0);
             game.getBall().body.setAngularVelocity(0);
             player.inputs.setClickedPower(true);
-            player.setMana(player.mana-50);
+            player.setMana(player.mana-80);
             player.usedPowerTimer = 1;
         }else if(!player.getPowerPressed())
             player.inputs.setClickedPower(false);
     }
     //Troca direcao da bola
     public static void power3(Game game, double dt,Player player){
-        if(player.getPowerPressed() && !player.inputs.getClickedPower() && player.mana >= 50){
+        if(player.getPowerPressed() && !player.inputs.getClickedPower() && player.mana >= 80){
             game.getBall().body.setLinearVelocity(-game.getBall().body.getLinearVelocity().x,game.getBall().body.getLinearVelocity().y);
             game.getBall().body.setAngularVelocity(-game.getBall().body.getAngularVelocity());
-            player.setMana(player.mana-50);
+            player.setMana(player.mana-80);
             player.inputs.setClickedPower(true);
             player.usedPowerTimer = 1;
         }else if(!player.getPowerPressed())

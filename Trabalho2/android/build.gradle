@@ -120,6 +120,4 @@ idea {
     }
 }
 dependencies {
-    compile files('libs/lipermi-0.4.jar')
-    runtime files('libs/lipermi-0.4.jar')
 }

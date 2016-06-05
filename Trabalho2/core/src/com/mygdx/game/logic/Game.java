@@ -2,7 +2,6 @@ package com.mygdx.game.logic;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.auxclass.Functions;
 import com.mygdx.game.socketnetwork.InfoGame;
 
 /**
@@ -19,8 +18,6 @@ public class Game {
     private int limitGoals;
     private boolean gameEnd;
     private float countdown;
-    private float score1countdown;
-    private float score2countdown;
     public Game(){
         countdown = 3;
         world = new World(new Vector2(0,GRAVITY),false);
@@ -86,68 +83,20 @@ public class Game {
         player2.usedPowerTimer-= dt;
 
 
-        world.step(1/100f,6,2);
+        world.step((float)dt*0.7f,6,2);
         /*
          * Verifica movimentos do jogador 1
          */
-        if(player1.inputs.getMovingLeft()){
-            if(player1.body.getLinearVelocity().x > 0)
-                player1.body.setLinearVelocity(0,player1.body.getLinearVelocity().y);
-            player1.body.setLinearVelocity(player1.body.getLinearVelocity().x-0.5f*(float)dt*1000,player1.body.getLinearVelocity().y);
-        }
-        if(player1.inputs.getMovingRight()){
-            if(player1.body.getLinearVelocity().x < 0)
-                player1.body.setLinearVelocity(0,player1.body.getLinearVelocity().y);
-            player1.body.setLinearVelocity(player1.body.getLinearVelocity().x+0.5f*(float)dt*1000,player1.body.getLinearVelocity().y);
-        }
-        if(player1.inputs.getJump() && player1.getJumpCounter() < 0 && Functions.PlayerColidingWithGround(world, player1, field)){
-            player1.body.setLinearVelocity(player1.body.getLinearVelocity().x,player1.body.getLinearVelocity().y+60f);
-            player1.inputs.setJump(false);
-            player1.setJumpCounter(1);
-
-        }else player1.inputs.setJump(false);
-        /*
-         * Limita velocidade do jogador
-         */
-        if(player1.body.getLinearVelocity().x > 50){
-            player1.body.setLinearVelocity(50,player1.body.getLinearVelocity().y);
-        }
-        if(player1.body.getLinearVelocity().x < -50){
-            player1.body.setLinearVelocity(-50,player1.body.getLinearVelocity().y);
-        }
+        updateInputs(player1,(float)dt);
 
         /*
          * Verifica movimentos do jogador 2
          */
 
-
-        if(player2.inputs.getMovingLeft()){
-            if(player2.body.getLinearVelocity().x > 0)
-                player2.body.setLinearVelocity(0,player2.body.getLinearVelocity().y);
-            player2.body.setLinearVelocity(player2.body.getLinearVelocity().x-0.5f*(float)dt*1000,player2.body.getLinearVelocity().y);
-        }
-        if(player2.inputs.getMovingRight()){
-            if(player2.body.getLinearVelocity().x < 0)
-                player2.body.setLinearVelocity(0,player2.body.getLinearVelocity().y);
-            player2.body.setLinearVelocity(player2.body.getLinearVelocity().x+0.5f*(float)dt*1000,player2.body.getLinearVelocity().y);
-        }
-        if(player2.inputs.getJump() && player2.getJumpCounter() < 0 && Functions.PlayerColidingWithGround(world, player2, field)){
-            player2.body.setLinearVelocity(player2.body.getLinearVelocity().x,player2.body.getLinearVelocity().y+60f);
-            player2.inputs.setJump(false);
-            player2.setJumpCounter(1);
-
-        }else player2.inputs.setJump(false);
+        updateInputs(player2,(float)dt);
         /*
-         * Limita velocidade do jogador
+         * Incrementa mana dos 2 jogadores
          */
-        if(player2.body.getLinearVelocity().x > 50){
-            player2.body.setLinearVelocity(50,player2.body.getLinearVelocity().y);
-        }
-        if(player2.body.getLinearVelocity().x < -50){
-            player2.body.setLinearVelocity(-50,player2.body.getLinearVelocity().y);
-        }
-
-
         player1.setMana(player1.getMana()+dt*14);
         player2.setMana(player2.getMana()+dt*14);
 
@@ -211,7 +160,30 @@ public class Game {
         ball.body.setLinearVelocity(g.bvx,g.bvy);
         ball.body.setAngularVelocity(g.bav);
     }
+    public void updateInputs(Player p,float dt){
+        if(p.inputs.getMovingLeft()){
+            if(p.body.getLinearVelocity().x > 0)
+                p.body.setLinearVelocity(0,p.body.getLinearVelocity().y);
+            p.body.setLinearVelocity(p.body.getLinearVelocity().x-0.5f*(float)dt*1000,p.body.getLinearVelocity().y);
+        }
+        if(p.inputs.getMovingRight()){
+            if(p.body.getLinearVelocity().x < 0)
+                p.body.setLinearVelocity(0,p.body.getLinearVelocity().y);
+            p.body.setLinearVelocity(p.body.getLinearVelocity().x+0.5f*(float)dt*1000,p.body.getLinearVelocity().y);
+        }
+        if(p.inputs.getJump() && p.getJumpCounter() < 0 && PlayerColidingWithGround(world, p, field)){
+            p.body.setLinearVelocity(p.body.getLinearVelocity().x,60f);
+            p.inputs.setJump(false);
+            p.setJumpCounter(1);
 
+        }else p.inputs.setJump(false);
+        if(p.body.getLinearVelocity().x > 50){
+            p.body.setLinearVelocity(50,p.body.getLinearVelocity().y);
+        }
+        if(p.body.getLinearVelocity().x < -50){
+            p.body.setLinearVelocity(-50,p.body.getLinearVelocity().y);
+        }
+    }
 
     public void dispose() {
         world.dispose();
@@ -228,5 +200,16 @@ public class Game {
 
     public void setCountdown(float countdown) {
         this.countdown = countdown;
+    }
+
+    public static boolean PlayerColidingWithGround(World world, Player o1, Obstacle o2){
+        for(int i = 0;i < world.getContactList().size;i++){
+            if((world.getContactList().get(i).getFixtureA() == o1.body.getFixtureList().get(1) && world.getContactList().get(i).getFixtureB() == o2.body.getFixtureList().get(0))||
+                    (world.getContactList().get(i).getFixtureB() == o1.body.getFixtureList().get(1) && world.getContactList().get(i).getFixtureA() == o2.body.getFixtureList().get(0) )){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

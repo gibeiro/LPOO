@@ -1,5 +1,7 @@
 package com.mygdx.game.socketnetwork;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.mygdx.game.input.Inputs;
 import com.mygdx.game.logic.Game;
 import com.mygdx.game.logic.Player;
@@ -7,7 +9,6 @@ import com.mygdx.game.logic.Player;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -36,6 +37,7 @@ public class ClientGame {
     Socket socket;
     public boolean connected;
     public boolean timedOut;
+
 
     public ClientGame(){
         powerSelected = -1;
@@ -80,7 +82,6 @@ public class ClientGame {
             if(in.ready()){
                 InfoGame info = new InfoGame();
                 String s = in.readLine();
-                System.out.println(s);
                 if(s.equals("POSITIONS")){
                     info.p1x = Float.parseFloat(in.readLine());
                     info.p1y = Float.parseFloat(in.readLine());
@@ -148,7 +149,7 @@ public class ClientGame {
                         game.setPlayer2(new Player(game.getWorld(),80,15));
                     }
                 }else if(s.equals("LEFT")){
-                    System.out.println("saiu");
+                    System.out.println("Oponent left");
                     inWait = true;
                     enemyLeftTimer = 3;
                     inSelect = false;
@@ -166,7 +167,8 @@ public class ClientGame {
             handleTimeOut();
         }
     }
-    public class ClientHandler extends Thread{
+    public class ClientHandler extends Thread implements Input.TextInputListener{
+        String ip;
         public ClientHandler(){
 
             this.start();
@@ -174,8 +176,11 @@ public class ClientGame {
         }
         public void run(){
             try{
-                InetAddress addr = InetAddress.getLocalHost();
-                InetSocketAddress sa = new InetSocketAddress("192.168.1.7",4456);
+                Gdx.input.getTextInput(this,"IP Address","","");
+                while(ip == null){
+
+                }
+                InetSocketAddress sa = new InetSocketAddress(ip,4456);
                 socket = new Socket();
                 socket.setSoTimeout(3 * 1000);
                 socket.connect(sa,3*1000);
@@ -196,6 +201,16 @@ public class ClientGame {
                 handleTimeOut();
             }
             connected = false;
+        }
+
+        @Override
+        public void input(String text) {
+            ip = text;
+        }
+
+        @Override
+        public void canceled() {
+            ip = "";
         }
     }
     void handleTimeOut(){
