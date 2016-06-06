@@ -94,5 +94,14 @@ public class GUISelection {
         }
         sprites.end();
     }
+    public void dispose(){
+        background.dispose();
+        power0.dispose();
+        power1.dispose();
+        power2.dispose();
+        power3.dispose();
+        power4.dispose();
+        pauseButton.dispose();
+    }
 
 }

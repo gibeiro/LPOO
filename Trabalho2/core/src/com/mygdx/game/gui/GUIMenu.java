@@ -43,4 +43,9 @@ public class GUIMenu {
         sprites.end();
 
     }
+    public void dispose(){
+        background.dispose();
+        playButton.dispose();
+        playButtonMult.dispose();
+    }
 }

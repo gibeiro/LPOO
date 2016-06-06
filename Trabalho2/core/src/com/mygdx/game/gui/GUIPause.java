@@ -44,4 +44,9 @@ public class GUIPause {
         exit.render(buttons);
         buttons.end();
     }
+    public void dispose(){
+        background.dispose();
+        resume.dispose();
+        exit.dispose();
+    }
 }

@@ -26,7 +26,7 @@ public class BounceBallJUnit extends ApplicationAdapter {
         test4();
 
         System.out.println("Finished tests");
-        
+
         System.exit(0);
     }
 

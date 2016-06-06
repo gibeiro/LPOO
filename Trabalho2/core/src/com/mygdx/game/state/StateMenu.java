@@ -58,6 +58,7 @@ public class StateMenu extends State {
 
     @Override
     public void dispose() {
+        menuGUI.dispose();
 
     }
 }

@@ -66,4 +66,13 @@ public class GUIWaiting {
         pauseButton.render(sprites);
         sprites.end();
     }
+    public void dispose(){
+        background.dispose();
+        pauseButton.dispose();
+        waitingforoponent.dispose();
+        timedout.dispose();
+        enemyleft.dispose();
+        youwon.dispose();
+        youlost.dispose();
+    }
 }

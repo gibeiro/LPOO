@@ -136,6 +136,8 @@ public class Game {
         player2.body.setLinearVelocity(0,0);
     }
     public void checkPowers(double dt){
+        player1.usedPowerTimer -= dt;
+        player2.usedPowerTimer -= dt;
         player1.usePower(this,dt);
         player2.usePower(this,dt);
     }
@@ -150,6 +152,8 @@ public class Game {
         player1.getInputs().movingRight = g.p1i.movingRight;
         player1.getInputs().jump = g.p1i.jump;
         player1.getInputs().power = g.p1i.power;
+        player1.usedPowerTimer = g.p1t;
+        player2.usedPowerTimer = g.p2t;
         player2.getInputs().movingLeft = g.p2i.movingLeft;
         player2.getInputs().movingRight = g.p2i.movingRight;
         player2.getInputs().jump = g.p2i.jump;

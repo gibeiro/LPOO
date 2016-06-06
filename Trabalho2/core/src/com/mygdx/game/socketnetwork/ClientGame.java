@@ -88,11 +88,13 @@ public class ClientGame {
                     info.p1vx = Float.parseFloat(in.readLine());
                     info.p1vy = Float.parseFloat(in.readLine());
                     info.p1m = Float.parseFloat(in.readLine());
+                    info.p1t = Float.parseFloat(in.readLine());
                     info.p2x = Float.parseFloat(in.readLine());
                     info.p2y = Float.parseFloat(in.readLine());
                     info.p2vx = Float.parseFloat(in.readLine());
                     info.p2vy = Float.parseFloat(in.readLine());
                     info.p2m = Float.parseFloat(in.readLine());
+                    info.p2t = Float.parseFloat(in.readLine());
                     info.bx = Float.parseFloat(in.readLine());
                     info.by = Float.parseFloat(in.readLine());
                     info.bvx = Float.parseFloat(in.readLine());

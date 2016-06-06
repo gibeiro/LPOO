@@ -73,4 +73,13 @@ public class RectButton {
         return buttonpressed;
     }
 
+    public void dispose(){
+        if(buttonidle != null){
+            buttonidle.dispose();
+        }
+        if(buttonpressed != null){
+            buttonpressed.dispose();
+        }
+    }
+
 }

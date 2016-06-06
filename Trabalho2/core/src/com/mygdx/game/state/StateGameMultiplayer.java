@@ -165,5 +165,9 @@ public class StateGameMultiplayer extends State {
 
     @Override
     public void dispose(){
+        gameGUI.dispose();
+        waitGUI.dispose();
+        pauseGUI.dispose();
+        selectGUI.dispose();
     }
 }

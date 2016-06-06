@@ -23,6 +23,11 @@ public class GUIGame {
     private Texture grass;
     private Texture sky;
     private TextureRegion ball;
+    private Texture stop;
+    private TextureRegion fireball;
+    private float fireballrotatecounter;
+    private Texture switchdir;
+    private Texture magnet;
     private Texture defaultTex;
     private Texture stopTex;
     private Texture flipTex;
@@ -56,6 +61,12 @@ public class GUIGame {
         sky = new Texture("sprites/sky.png");
 
         ball = new TextureRegion(new Texture("sprites/ball.png"));
+
+        stop = new Texture("sprites/stop.png");
+        fireball = new TextureRegion(new Texture("sprites/fireball.png"));
+        fireballrotatecounter = 0;
+        switchdir = new Texture("sprites/flip.png");
+        magnet = new Texture("sprites/magnet.png");
 
         net = new Texture("sprites/net.png");
 
@@ -109,6 +120,30 @@ public class GUIGame {
 
 
     }
+    public void dispose(){
+        ball.getTexture().dispose();
+        n0.dispose();
+        n1.dispose();
+        n2.dispose();
+        n3.dispose();
+        n4.dispose();
+        n5.dispose();
+        leftButton.dispose();
+        rightButton.dispose();
+        jumpButton.dispose();
+        powerButton.dispose();
+        pauseButton.dispose();
+        grass.dispose();
+        sky.dispose();
+        net.dispose();
+        defaultTex.dispose();
+        magnetTex.dispose();
+        flipTex.dispose();
+        rocketTex.dispose();
+        stopTex.dispose();
+        mana.dispose();
+        manabar.dispose();
+    }
 
     public void render(Game game){
         //Preenche o ecra com preto
@@ -127,12 +162,9 @@ public class GUIGame {
         drawPlayers(objects,game);
 
 
-        //Bola
-        float bx = game.getBall().body.getPosition().x;
-        float by = game.getBall().body.getPosition().y;
-        float bdrawx = Gdx.graphics.getWidth()*(bx/100f)-Gdx.graphics.getWidth()*0.046f/2;
-        float bdrawy = Gdx.graphics.getHeight()*(by/100f)/SCREENRESPROP-Gdx.graphics.getHeight()*0.046f/2/SCREENRESPROP;
-        objects.draw(ball,bdrawx,bdrawy,Gdx.graphics.getWidth()*0.046f/2,Gdx.graphics.getHeight()*0.046f/SCREENRESPROP/2,Gdx.graphics.getWidth()*0.046f,Gdx.graphics.getHeight()*0.046f/SCREENRESPROP,1.1f,1.1f,game.getBall().body.getAngle()*(180f/(float)Math.PI));
+        //Bola e poderes
+        drawBallAndPowers(objects,game);
+
 
         //Balizas
         objects.draw(net, Gdx.graphics.getWidth() * (4 / 100f), Gdx.graphics.getHeight() * (10 / 100f) / SCREENRESPROP, Gdx.graphics.getWidth() * (8 / 100f), Gdx.graphics.getHeight() * (16 / 100f) / SCREENRESPROP, 0, 0, net.getWidth(), net.getHeight(), true, false);
@@ -151,12 +183,7 @@ public class GUIGame {
         drawCountDown(objects, game);
         objects.end();
 
-
-
-
         //b2dr.render(game.getWorld(),camera.combined);//render fixtures only
-
-
 
         //Desenha sprites dos botoes
         buttons.begin();
@@ -202,8 +229,6 @@ public class GUIGame {
         float p1y = game.getPlayer1().body.getPosition().y;
         float p2x = game.getPlayer2().body.getPosition().x;
         float p2y = game.getPlayer2().body.getPosition().y;
-        float bx = game.getBall().body.getPosition().x;
-        float by = game.getBall().body.getPosition().y;
         Texture todraw1;
         Texture todraw2;
         if(game.getPlayer1().getPower()== 0) {
@@ -256,6 +281,35 @@ public class GUIGame {
         objects.draw(manabar,Gdx.graphics.getWidth()*0.05f,Gdx.graphics.getHeight()*0.85f,Gdx.graphics.getWidth()*0.3f,Gdx.graphics.getHeight()*0.1f);
         objects.draw(manabar,Gdx.graphics.getWidth()*0.65f,Gdx.graphics.getHeight()*0.85f,Gdx.graphics.getWidth()*0.3f,Gdx.graphics.getHeight()*0.1f);
 
+    }
+    void drawBallAndPowers(SpriteBatch objects,Game game){
+        float bx = game.getBall().body.getPosition().x;
+        float by = game.getBall().body.getPosition().y;
+        float bdrawx = Gdx.graphics.getWidth()*(bx/100f)-Gdx.graphics.getWidth()*0.046f/2;
+        float bdrawy = Gdx.graphics.getHeight()*(by/100f)/SCREENRESPROP-Gdx.graphics.getHeight()*0.046f/2/SCREENRESPROP;
+        if(game.getPlayer1().usingPower && game.getPlayer1().getPower() == 1 || game.getPlayer2().usingPower && game.getPlayer2().getPower() == 1){
+            objects.draw(fireball,bdrawx,bdrawy,Gdx.graphics.getWidth()*0.046f/2,Gdx.graphics.getHeight()*0.046f/SCREENRESPROP/2,Gdx.graphics.getWidth()*0.046f,Gdx.graphics.getHeight()*0.046f/SCREENRESPROP,1.1f,1.1f,fireballrotatecounter);
+            fireballrotatecounter -= Gdx.graphics.getDeltaTime()*2000;
+        }
+        else objects.draw(ball,bdrawx,bdrawy,Gdx.graphics.getWidth()*0.046f/2,Gdx.graphics.getHeight()*0.046f/SCREENRESPROP/2,Gdx.graphics.getWidth()*0.046f,Gdx.graphics.getHeight()*0.046f/SCREENRESPROP,1.1f,1.1f,game.getBall().body.getAngle()*(180f/(float)Math.PI));
+
+        if(game.getPlayer1().getPower() == 2 && game.getPlayer1().usedPowerTimer > 0 ||game.getPlayer2().getPower() == 2 && game.getPlayer2().usedPowerTimer > 0){
+            objects.draw(stop,bdrawx,bdrawy,Gdx.graphics.getWidth()*0.046f,Gdx.graphics.getHeight()*0.046f/SCREENRESPROP);
+        }
+        if(game.getPlayer1().getPower() == 3 && game.getPlayer1().usedPowerTimer > 0 ||game.getPlayer2().getPower() == 3 && game.getPlayer2().usedPowerTimer > 0){
+            objects.draw(switchdir,bdrawx,bdrawy,Gdx.graphics.getWidth()*0.046f,Gdx.graphics.getHeight()*0.046f/SCREENRESPROP);
+        }
+        float p1x = game.getPlayer1().body.getPosition().x;
+        float p1y = game.getPlayer1().body.getPosition().y;
+        float p2x = game.getPlayer2().body.getPosition().x;
+        float p2y = game.getPlayer2().body.getPosition().y;
+        if(game.getPlayer1().usingPower && game.getPlayer1().getPower() == 4){
+            System.out.println("draw magnet");
+            objects.draw(magnet, Gdx.graphics.getWidth() * (p1x / 100f) - Gdx.graphics.getWidth() * 0.04f / 2, Gdx.graphics.getHeight() / SCREENRESPROP * (p1y / 100f)+Gdx.graphics.getHeight()*0.04f/SCREENRESPROP, Gdx.graphics.getWidth() * 0.04f, Gdx.graphics.getHeight() * 0.03f / SCREENRESPROP);
+        }
+        if(game.getPlayer2().usingPower && game.getPlayer2().getPower() == 4){
+            objects.draw(magnet,game.getPlayer2().body.getPosition().x*Gdx.graphics.getWidth()/100,game.getPlayer2().body.getPosition().y+Gdx.graphics.getHeight() * 0.05f / SCREENRESPROP,Gdx.graphics.getWidth()/0.1f,Gdx.graphics.getHeight()/0.1f);
+        }
     }
 
 }

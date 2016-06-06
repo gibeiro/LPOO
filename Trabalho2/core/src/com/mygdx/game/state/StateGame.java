@@ -133,5 +133,8 @@ public class StateGame extends State{
 
     @Override
     public void dispose(){
+        gameGUI.dispose();
+        selectGUI.dispose();
+        pauseGUI.dispose();
     }
 }

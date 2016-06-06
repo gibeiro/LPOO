@@ -124,6 +124,8 @@ public class ServerGame {
             s+="\n";
             s+=info.p1m;
             s+="\n";
+            s+=info.p1t;
+            s+="\n";
             s+=info.p2x;
             s+="\n";
             s+=info.p2y;
@@ -133,6 +135,8 @@ public class ServerGame {
             s+=info.p2vy;
             s+="\n";
             s+=info.p2m;
+            s+="\n";
+            s+=info.p2t;
             s+="\n";
             s+=info.bx;
             s+="\n";

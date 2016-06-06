@@ -39,7 +39,7 @@ public class Power {
         }else if(!player.getPowerPressed()){
             player.inputs.setClickedPower(false);
             player.usingPower = false;
-        }
+        }else player.usingPower = false;
     }
     //Para a bola
     public static void power2(Game game, double dt,Player player){
@@ -82,6 +82,6 @@ public class Power {
         }else if(!player.getPowerPressed()){
             player.inputs.setClickedPower(false);
             player.usingPower = false;
-        }
+        }else player.usingPower = false;
     }
 }

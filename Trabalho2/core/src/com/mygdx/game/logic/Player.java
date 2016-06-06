@@ -18,8 +18,8 @@ public class Player extends Object {
     double jumpCounter;
     int powerIndex;
     double mana;
-    public boolean usingPower;//Usado para verificar se o jogador usou um poder continuo(como atrair a bola)
-    public int usedPowerTimer;//Usado para verificar se o jogador usou um poder instantaneo(como parar a bola)
+    public boolean usingPower;//Usado para verificar se o jogador esta a usar um poder continuo(como atrair a bola)
+    public float usedPowerTimer;//Usado para verificar se o jogador usou um poder instantaneo(como parar a bola)
     public Player(World world, int x, int y){
         inputs = new Inputs(false,false,false,false);
         goals = 0;
