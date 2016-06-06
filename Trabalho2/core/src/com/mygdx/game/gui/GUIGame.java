@@ -1,6 +1,7 @@
 package com.mygdx.game.gui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -85,31 +86,31 @@ public class GUIGame {
                 (int)(Gdx.graphics.getHeight()*0.7),
                 (int)(Gdx.graphics.getWidth()*0.20),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "buttons/leftbuttonup.png","buttons/leftbuttondown.png");
+                "buttons/leftbuttonup.png","buttons/leftbuttondown.png",false);
         rightButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.20),
                 (int)(Gdx.graphics.getHeight()*0.7),
                 (int)(Gdx.graphics.getWidth()*0.40),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "buttons/rightbuttonup.png","buttons/rightbuttondown.png");
+                "buttons/rightbuttonup.png","buttons/rightbuttondown.png",false);
         powerButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.6),
                 (int)(Gdx.graphics.getHeight()*0.7),
                 (int)(Gdx.graphics.getWidth()*0.8),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "buttons/powerbuttonup.png","buttons/powerbuttondown.png");
+                "buttons/powerbuttonup.png","buttons/powerbuttondown.png",false);
         jumpButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.8),
                 (int)(Gdx.graphics.getHeight()*0.7),
                 (int)(Gdx.graphics.getWidth()*1),
                 (int)(Gdx.graphics.getHeight()*1.0),
-                "buttons/jumpbuttonup.png","buttons/jumpbuttondown.png");
+                "buttons/jumpbuttonup.png","buttons/jumpbuttondown.png",false);
         pauseButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.9),
                 (int)(Gdx.graphics.getHeight()*0.02),
                 (int)(Gdx.graphics.getWidth()*1),
                 (int)(Gdx.graphics.getHeight()*0.17),
-                "buttons/pausebuttonup.png","buttons/pausebuttondown.png");
+                "buttons/pausebuttonup.png","buttons/pausebuttondown.png",true);
 
         n0 = new Texture("text/0.png");
         n1 = new Texture("text/1.png");
@@ -117,7 +118,6 @@ public class GUIGame {
         n3 = new Texture("text/3.png");
         n4 = new Texture("text/4.png");
         n5 = new Texture("text/5.png");
-
 
     }
     public void dispose(){
@@ -143,6 +143,11 @@ public class GUIGame {
         stopTex.dispose();
         mana.dispose();
         manabar.dispose();
+        stop.dispose();
+        fireball.getTexture().dispose();;
+        switchdir.dispose();
+        magnet.dispose();
+
     }
 
     public void render(Game game){

@@ -28,37 +28,37 @@ public class GUISelection {
                 (int)(Gdx.graphics.getHeight()*0.17),
                 (int)(Gdx.graphics.getWidth()*0.17),
                 (int)(Gdx.graphics.getHeight()*0.37),
-                "buttons/defaultbutton.png");
+                "buttons/defaultbutton.png",true);
         power1 = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.23),
                 (int)(Gdx.graphics.getHeight()*0.17),
                 (int)(Gdx.graphics.getWidth()*0.37),
                 (int)(Gdx.graphics.getHeight()*0.37),
-                "buttons/rocketbutton.png");
+                "buttons/rocketbutton.png",true);
         power2 = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.43),
                 (int)(Gdx.graphics.getHeight()*0.17),
                 (int)(Gdx.graphics.getWidth()*0.57),
                 (int)(Gdx.graphics.getHeight()*0.37),
-                "buttons/stopbutton.png");
+                "buttons/stopbutton.png",true);
         power3 = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.63),
                 (int)(Gdx.graphics.getHeight()*0.17),
                 (int)(Gdx.graphics.getWidth()*0.77),
                 (int)(Gdx.graphics.getHeight()*0.37),
-                "buttons/flipbutton.png");
+                "buttons/flipbutton.png",true);
         power4 = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.83),
                 (int)(Gdx.graphics.getHeight()*0.17),
                 (int)(Gdx.graphics.getWidth()*0.97),
                 (int)(Gdx.graphics.getHeight()*0.37),
-                "buttons/magnetbutton.png");
+                "buttons/magnetbutton.png",true);
         pauseButton = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.9),
                 (int)(Gdx.graphics.getHeight()*0.02),
                 (int)(Gdx.graphics.getWidth()*1),
                 (int)(Gdx.graphics.getHeight()*0.17),
-                "buttons/pausebuttonup.png","buttons/pausebuttondown.png");
+                "buttons/pausebuttonup.png","buttons/pausebuttondown.png",true);
 
         background = new Texture("sprites/background.png");
         sprites = new SpriteBatch();

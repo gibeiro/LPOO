@@ -24,13 +24,13 @@ public class GUIPause {
                 (int)(Gdx.graphics.getHeight()*0.2),
                 (int)(Gdx.graphics.getWidth()*0.7),
                 (int)(Gdx.graphics.getHeight()*0.4),
-                "buttons/resumebuttonup.png","buttons/resumebuttondown.png");
+                "buttons/resumebuttonup.png","buttons/resumebuttondown.png",true);
         exit = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.3),
                 (int)(Gdx.graphics.getHeight()*0.6),
                 (int)(Gdx.graphics.getWidth()*0.7),
                 (int)(Gdx.graphics.getHeight()*0.8),
-                "buttons/leavebuttonup.png","buttons/leavebuttondown.png");
+                "buttons/leavebuttonup.png","buttons/leavebuttondown.png",true);
         backgroundSprite.enableBlending();
         backgroundSprite.setColor(backgroundSprite.getColor().r,backgroundSprite.getColor().g,backgroundSprite.getColor().b,0.5f);
     }

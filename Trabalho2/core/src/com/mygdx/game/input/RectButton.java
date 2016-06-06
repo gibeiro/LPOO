@@ -1,6 +1,7 @@
 package com.mygdx.game.input;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -11,13 +12,16 @@ public class RectButton {
     int x1,y1,x2,y2;
     Texture buttonidle;
     Texture buttonpressed;
+    Sound click;
 
-    public RectButton(int x1,int y1,int x2,int y2, String a){
+    public RectButton(int x1,int y1,int x2,int y2, String a,boolean sound){
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
-
+        if(sound == true)
+            click = Gdx.audio.newSound(Gdx.files.internal("sound/click.mp3"));
+        else click = null;
 
         if(a != "null"){
             buttonidle = new Texture(a);
@@ -28,12 +32,14 @@ public class RectButton {
         }
 
     }
-    public RectButton(int x1,int y1,int x2,int y2, String a, String b){
+    public RectButton(int x1,int y1,int x2,int y2, String a, String b,boolean sound){
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
-
+        if(sound == true)
+            click = Gdx.audio.newSound(Gdx.files.internal("sound/click.mp3"));
+        else click = null;
         buttonidle = new Texture(a);
         buttonpressed = new Texture(b);
 
@@ -49,6 +55,10 @@ public class RectButton {
                     x < x2 &&
                     y > y1 &&
                     y < y2){
+                if(click != null){
+                    click.stop();
+                    click.play();
+                }
                 return true;
             }
         }
@@ -80,6 +90,8 @@ public class RectButton {
         if(buttonpressed != null){
             buttonpressed.dispose();
         }
+        if(click != null)
+            click.dispose();
     }
 
 }

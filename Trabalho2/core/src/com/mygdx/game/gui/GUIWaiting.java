@@ -40,7 +40,7 @@ public class GUIWaiting {
                 (int)(Gdx.graphics.getHeight()*0.02),
                 (int)(Gdx.graphics.getWidth()*1),
                 (int)(Gdx.graphics.getHeight()*0.17),
-                "buttons/pausebuttonup.png","buttons/pausebuttondown.png");
+                "buttons/pausebuttonup.png","buttons/pausebuttondown.png",true);
         waitingforoponent = new Texture("text/waiting.png");
         timedout = new Texture("text/timeout.png");
         enemyleft = new Texture("text/oponentleft.png");

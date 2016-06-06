@@ -23,13 +23,13 @@ public class GUIMenu {
                 (int)(Gdx.graphics.getHeight()*0.2),
                 (int)(Gdx.graphics.getWidth()*0.7),
                 (int)(Gdx.graphics.getHeight()*0.4),
-                "buttons/playBtn.png");
+                "buttons/playBtn.png",true);
         playButtonMult = new RectButton(
                 (int)(Gdx.graphics.getWidth()*0.3),
                 (int)(Gdx.graphics.getHeight()*0.6),
                 (int)(Gdx.graphics.getWidth()*0.7),
                 (int)(Gdx.graphics.getHeight()*0.8),
-                "buttons/playBtnMult.png");
+                "buttons/playBtnMult.png",true);
         background = new Texture("sprites/background.png");
         sprites = new SpriteBatch();
     }
