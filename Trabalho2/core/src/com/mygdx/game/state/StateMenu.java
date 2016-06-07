@@ -4,14 +4,26 @@ import com.badlogic.gdx.Gdx;
 import com.mygdx.game.gui.GUIMenu;
 import com.mygdx.game.logic.Menu;
 
+// TODO: Auto-generated Javadoc
 /**
- * Estado que representa o Menu principal
+ * Estado que representa o Menu principal.
  */
 public class StateMenu extends State {
+    
+    /** The menu. */
     Menu menu;
+    
+    /** The menu gui. */
     GUIMenu menuGUI;
+    
+    /** The safecounter. */
     float safecounter; // Para nao carregar acidentalmente num botao logo depois de o menu abrir
 
+    /**
+     * Instantiates a new state menu.
+     *
+     * @param s the s
+     */
     public StateMenu(StateManager s) {
         super(s);
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -20,6 +32,9 @@ public class StateMenu extends State {
         safecounter = 1;
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.state.State#handleInput()
+     */
     @Override
     public void handleInput(){
 
@@ -32,6 +47,9 @@ public class StateMenu extends State {
 
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.state.State#update(double)
+     */
     @Override
     public void update(double dt) {
         safecounter-= dt;
@@ -50,12 +68,18 @@ public class StateMenu extends State {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.state.State#render()
+     */
     @Override
     public void render() {
         menuGUI.render(menu);
 
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.state.State#dispose()
+     */
     @Override
     public void dispose() {
         menuGUI.dispose();

@@ -5,11 +5,19 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
+// TODO: Auto-generated Javadoc
 /**
- * Representa a bola
+ * Representa a bola.
  */
 public class Ball extends Object {
 
+    /**
+     * Instantiates a new ball.
+     *
+     * @param world the world
+     * @param x the x
+     * @param y the y
+     */
     public Ball(World world,int x, int y){
         BodyDef def = new BodyDef();
         def.type = BodyDef.BodyType.DynamicBody;

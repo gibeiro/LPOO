@@ -1,13 +1,19 @@
 package com.mygdx.game.logic;
 
+// TODO: Auto-generated Javadoc
 /**
- * Poder que pode ser usado por um certo jogador
+ * Poder que pode ser usado por um certo jogador.
  */
 public class Power {
 
 
     /**
-     * É utilizado um poder pelo jogador player do jogo game, com o id powerId e delta T dt
+     * É utilizado um poder pelo jogador player do jogo game, com o id powerId e delta T dt.
+     *
+     * @param game the game
+     * @param dt the dt
+     * @param powerId the power id
+     * @param player the player
      */
     public static void usePower(Game game,double dt,int powerId,Player player){
         if(powerId ==1){
@@ -29,7 +35,11 @@ public class Power {
     }
 
     /**
-     * Poder que aumenta a velocidade da bola
+     * Poder que aumenta a velocidade da bola.
+     *
+     * @param game the game
+     * @param dt the dt
+     * @param player the player
      */
     public static void power1(Game game, double dt,Player player){
         if(player.getPowerPressed() && player.getMana() >= 80 && !player.inputs.getClickedPower() || player.getPowerPressed() && player.getMana() >0.05 && player.inputs.getClickedPower()){
@@ -49,7 +59,11 @@ public class Power {
     }
 
     /**
-     * Poder que faz a bola parar
+     * Poder que faz a bola parar.
+     *
+     * @param game the game
+     * @param dt the dt
+     * @param player the player
      */
     public static void power2(Game game, double dt,Player player){
         if(player.getPowerPressed() && !player.inputs.getClickedPower() && player.mana >= 80){
@@ -63,7 +77,11 @@ public class Power {
     }
 
     /**
-     * Poder que troca a direcao horizontal da bola
+     * Poder que troca a direcao horizontal da bola.
+     *
+     * @param game the game
+     * @param dt the dt
+     * @param player the player
      */
     public static void power3(Game game, double dt,Player player){
         if(player.getPowerPressed() && !player.inputs.getClickedPower() && player.mana >= 80){
@@ -77,7 +95,11 @@ public class Power {
     }
 
     /**
-     * Poder que atrai a bola para o jogador que o invocou
+     * Poder que atrai a bola para o jogador que o invocou.
+     *
+     * @param game the game
+     * @param dt the dt
+     * @param player the player
      */
     public static void power4(Game game, double dt,Player player){
         if(player.getPowerPressed() && player.getMana() >= 80 && !player.inputs.getClickedPower() || player.getPowerPressed() && player.getMana() >0.05 && player.inputs.getClickedPower()){

@@ -4,46 +4,43 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.socketnetwork.InfoGame;
 
+// TODO: Auto-generated Javadoc
 /**
- * Created by up201403877 on 09-05-2016.
+ * Logica do jogo
  */
 public class Game {
-    /**
-     * Gravidade do jogo
-     */
+    
+    /** Gravidade do jogo. */
     private final static float  GRAVITY = -120f;
-    /**
-     * Mundo do jogo onde vao ser colocadas as entidades
-     */
+    
+    /** Mundo do jogo onde vao ser colocadas as entidades. */
     private World world;
-    /**
-     * Jogador 1
-     */
+    
+    /** Jogador 1. */
     private Player player1;
-    /**
-     * Jogador 2
-     */
+    
+    /** Jogador 2. */
     private Player player2;
-    /**
-     * Bola
-     */
+    
+    /** Bola. */
     private Ball ball;
-    /**
-     * Campo de jogo
-     */
+    
+    /** Campo de jogo. */
     private Obstacle field;
-    /**
-     * Limite de golos
-     */
+    
+    /** Limite de golos. */
     private int limitGoals;
-    /**
-     * Indica se o jogo já terminou
-     */
+    
+    /** Indica se o jogo já terminou. */
     private boolean gameEnd;
     /**
      * Float que representa o tempo de contagem decrescente.Quando toma valor negativo, a contagem terminou.
      */
     private float countdown;
+    
+    /**
+     * Instantiates a new game.
+     */
     public Game(){
         countdown = 3;
         world = new World(new Vector2(0,GRAVITY),false);
@@ -52,44 +49,100 @@ public class Game {
         gameEnd = false;
         limitGoals = 5;
     }
+    
+    /**
+     * Gets the world.
+     *
+     * @return the world
+     */
     public World getWorld(){
         return world;
     }
 
+    /**
+     * Gets the player1.
+     *
+     * @return the player1
+     */
     public Player getPlayer1(){
         return player1;
     }
 
+    /**
+     * Gets the player2.
+     *
+     * @return the player2
+     */
     public Player getPlayer2() {
         return player2;
     }
 
+    /**
+     * Gets the ball.
+     *
+     * @return the ball
+     */
     public Ball getBall(){return ball;}
 
+    /**
+     * Sets the world.
+     *
+     * @param world the new world
+     */
     public void setWorld(World world) {
         this.world = world;
     }
 
+    /**
+     * Sets the player1.
+     *
+     * @param player1 the new player1
+     */
     public void setPlayer1(Player player1) {
         this.player1 = player1;
     }
 
+    /**
+     * Sets the player2.
+     *
+     * @param player2 the new player2
+     */
     public void setPlayer2(Player player2) {
         this.player2 = player2;
     }
 
+    /**
+     * Sets the limit goals.
+     *
+     * @param limitGoals the new limit goals
+     */
     public void setLimitGoals(int limitGoals) {
         this.limitGoals = limitGoals;
     }
 
+    /**
+     * Sets the ball.
+     *
+     * @param ball the new ball
+     */
     public void setBall(Ball ball) {
         this.ball = ball;
     }
 
+    /**
+     * Sets the field.
+     *
+     * @param field the new field
+     */
     public void setField(Obstacle field) {
         this.field = field;
     }
 
+    /**
+     * Sets the game end.
+     *
+     * @param b the new game end
+     */
     public void setGameEnd(boolean b){this.gameEnd = b;}
 
     /**
@@ -99,6 +152,8 @@ public class Game {
      * -Movimenta jogadores consoante seus inputs
      * -Aumenta mana dos jogadores
      * -Utiliza poderes caso estes estejam a ser usados
+     *
+     * @param dt the dt
      */
     public void update(double dt){
         /*
@@ -141,6 +196,8 @@ public class Game {
     /**
      * Verifica se está a ser marcado algum golo, reiniciado a posição das entidades caso tenha sido marcado um, assim como
      * aumentando o contador de golos do jogador e terminando o jogo caso o limite de golos tenha sido alcançado.
+     *
+     * @return the int
      */
     public int checkGoals(){
         float x = ball.body.getPosition().x;
@@ -180,6 +237,8 @@ public class Game {
 
     /**
      * Utiliza poderes e atualiza variaveis indicativas da sua utilização.
+     *
+     * @param dt the dt
      */
     public void checkPowers(double dt){
         player1.usedPowerTimer -= dt;
@@ -189,7 +248,9 @@ public class Game {
     }
 
     /**
-     * Atualiza o jogo com informação recebida do servidor
+     * Atualiza o jogo com informação recebida do servidor.
+     *
+     * @param g the g
      */
     public void updateGame(InfoGame g){
         player1.body.setTransform(new Vector2(g.p1x,g.p1y),0);
@@ -214,7 +275,10 @@ public class Game {
     }
 
     /**
-     * Move ou usa o poder dos jogadores consoante os seus inputs
+     * Move ou usa o poder dos jogadores consoante os seus inputs.
+     *
+     * @param p the p
+     * @param dt the dt
      */
     public void updateInputs(Player p,float dt){
         if(p.inputs.getMovingLeft()){
@@ -241,23 +305,49 @@ public class Game {
         }
     }
 
+    /**
+     * Dispose.
+     */
     public void dispose() {
         world.dispose();
     }
 
 
+    /**
+     * Checks if is game end.
+     *
+     * @return true, if is game end
+     */
     public boolean isGameEnd() {
         return gameEnd;
     }
 
+    /**
+     * Gets the countdown.
+     *
+     * @return the countdown
+     */
     public float getCountdown() {
         return countdown;
     }
 
+    /**
+     * Sets the countdown.
+     *
+     * @param countdown the new countdown
+     */
     public void setCountdown(float countdown) {
         this.countdown = countdown;
     }
 
+    /**
+     * Player coliding with ground.
+     *
+     * @param world the world
+     * @param o1 the o1
+     * @param o2 the o2
+     * @return true, if successful
+     */
     public static boolean PlayerColidingWithGround(World world, Player o1, Obstacle o2){
         for(int i = 0;i < world.getContactList().size;i++){
             if((world.getContactList().get(i).getFixtureA() == o1.body.getFixtureList().get(1) && world.getContactList().get(i).getFixtureB() == o2.body.getFixtureList().get(0))||

@@ -9,41 +9,41 @@ import com.mygdx.game.input.Inputs;
 
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
- * Claase que representa um jogador
+ * Claase que representa um jogador.
  */
 public class Player extends Object {
-    /**
-     * Inputs do jogador
-     */
+    
+    /** Inputs do jogador. */
     Inputs inputs;
-    /**
-     * Golos marcados
-     */
+    
+    /** Golos marcados. */
     int goals;
     /**
      * Contador usado para que o jogador nao salte varias vezes no mesmo instante.
      */
     double jumpCounter;
-    /**
-     * Indice que representa o poder
-     */
+    
+    /** Indice que representa o poder. */
     int powerIndex;
     /**
      * Mana disponivel para usar poderes.
      */
     double mana;
-    /**
-     * Booleano que indica se um poder continuo esta a ser usado(atrair ou acelerar bola)
-     */
+    
+    /** Booleano que indica se um poder continuo esta a ser usado(atrair ou acelerar bola). */
     public boolean usingPower;
-    /**
-     * Timer que indica há quanto tempo foi invocado um poder instantaneo(parar a bola ou trocar sua direção)
-     */
+    
+    /** Timer que indica há quanto tempo foi invocado um poder instantaneo(parar a bola ou trocar sua direção). */
     public float usedPowerTimer;
 
     /**
-     * Cria novo jogador
+     * Cria novo jogador.
+     *
+     * @param world the world
+     * @param x the x
+     * @param y the y
      */
     public Player(World world, int x, int y){
         inputs = new Inputs(false,false,false,false);
@@ -106,13 +106,18 @@ public class Player extends Object {
     }
 
     /**
-     * Define o poder do jogador
+     * Define o poder do jogador.
+     *
+     * @param i the new power
      */
     public void setPower(int i) {
         powerIndex = i;
     }
+    
     /**
      *  Retorna false se o poder nao estiver a ser premido.Caso contrario, retorna true
+     *
+     * @return the power pressed
      */
     public boolean getPowerPressed(){
         if(inputs.getPower())
@@ -121,45 +126,93 @@ public class Player extends Object {
     }
 
     /**
-     * Usa poder do jogador
+     * Usa poder do jogador.
+     *
+     * @param game the game
+     * @param dt the dt
      */
     public void usePower(Game game, double dt){
         Power.usePower(game,dt,powerIndex,this);
     }
 
+    /**
+     * Gets the inputs.
+     *
+     * @return the inputs
+     */
     public Inputs getInputs() {
         return inputs;
     }
 
+    /**
+     * Sets the inputs.
+     *
+     * @param inputs the new inputs
+     */
     public void setInputs(Inputs inputs) {
         this.inputs = inputs;
     }
 
+    /**
+     * Gets the goals.
+     *
+     * @return the goals
+     */
     public int getGoals() {
         return goals;
     }
 
+    /**
+     * Sets the goals.
+     *
+     * @param goals the new goals
+     */
     public void setGoals(int goals) {
         this.goals = goals;
     }
 
+    /**
+     * Gets the power.
+     *
+     * @return the power
+     */
     public int getPower() {
         return powerIndex;
     }
 
 
+    /**
+     * Gets the jump counter.
+     *
+     * @return the jump counter
+     */
     public double getJumpCounter() {
         return jumpCounter;
     }
 
+    /**
+     * Sets the jump counter.
+     *
+     * @param jumpCounter the new jump counter
+     */
     public void setJumpCounter(double jumpCounter) {
         this.jumpCounter = jumpCounter;
     }
 
+    /**
+     * Gets the mana.
+     *
+     * @return the mana
+     */
     public double getMana() {
         return mana;
     }
 
+    /**
+     * Sets the mana.
+     *
+     * @param mana the new mana
+     */
     public void setMana(double mana) {
         this.mana = mana;
         if(this.mana > 100)

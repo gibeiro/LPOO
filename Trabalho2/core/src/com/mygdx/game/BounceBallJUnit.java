@@ -9,12 +9,18 @@ import com.mygdx.game.logic.Power;
 import org.junit.Test;
 import org.junit.Assert;
 
+// TODO: Auto-generated Javadoc
 /**
- * Testes unitarios usando JUnit
+ * Testes unitarios usando JUnit.
  */
 public class BounceBallJUnit extends ApplicationAdapter {
 
+    /** The game. */
     Game game;
+    
+    /**
+     * Creates the.
+     */
     @Override
     public void create () {
         System.out.println("Starting tests");
@@ -30,13 +36,16 @@ public class BounceBallJUnit extends ApplicationAdapter {
         System.exit(0);
     }
 
+    /**
+     * Render.
+     */
     @Override
     public void render () {
 
     }
 
     /**
-     * Testa se é marcado golo quando bola entra em qualquer das balizas
+     * Testa se é marcado golo quando bola entra em qualquer das balizas.
      */
     @Test
     public void test0(){
@@ -48,8 +57,9 @@ public class BounceBallJUnit extends ApplicationAdapter {
         game.getBall().body.setTransform(10,20,0);
         Assert.assertEquals(game.checkGoals(),2);
     }
+    
     /**
-     * Testar se poder 1 acelera a bola
+     * Testar se poder 1 acelera a bola.
      */
     @Test
     public void test1(){
@@ -68,8 +78,9 @@ public class BounceBallJUnit extends ApplicationAdapter {
         //Verifica se a velocidade X da bola é superior a 1
         Assert.assertEquals(game.getBall().body.getLinearVelocity().x > 1,true);
     }
+    
     /**
-     * Testar se poder 2 pára bola
+     * Testar se poder 2 pára bola.
      */
     @Test
     public void test2(){
@@ -84,8 +95,9 @@ public class BounceBallJUnit extends ApplicationAdapter {
         Power.usePower(game,0.1,2,game.getPlayer1());
         Assert.assertEquals(game.getBall().body.getLinearVelocity().y,0,0.01);
     }
+    
     /**
-     * Testar se poder 3 troca direcao da bola
+     * Testar se poder 3 troca direcao da bola.
      */
     @Test
     public void test3(){
@@ -101,8 +113,9 @@ public class BounceBallJUnit extends ApplicationAdapter {
         Power.usePower(game,0.1,3,game.getPlayer1());
         Assert.assertEquals(game.getBall().body.getLinearVelocity().x,-10,0.01);
     }
+    
     /**
-     * Testar se poder 4 atrai a bola
+     * Testar se poder 4 atrai a bola.
      */
     @Test
     public void test4(){

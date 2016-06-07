@@ -12,86 +12,70 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
+// TODO: Auto-generated Javadoc
 /**
  * Representa um client que se vai juntar a um servidor.
  */
 public class ClientGame {
-    /**
-     * Indica se o jogador está num estado de espera (aguardando jogador || timeout || vitoria || derrota || inimigo saiu)
-     */
+    
+    /** Indica se o jogador está num estado de espera (aguardando jogador || timeout || vitoria || derrota || inimigo saiu). */
     public boolean inWait;
-    /**
-     * Contador para mensagem temporaria indicativa de timeout
-     */
+    
+    /** Contador para mensagem temporaria indicativa de timeout. */
     public float timeOutTimer;
-    /**
-     * Contador para mensagem temporaria indicativa da saída do inimigo
-     */
+    
+    /** Contador para mensagem temporaria indicativa da saída do inimigo. */
     public float enemyLeftTimer;
-    /**
-     * Contador para mensagem temporaria indicativa da vitoria do jogador
-     */
+    
+    /** Contador para mensagem temporaria indicativa da vitoria do jogador. */
     public float youWonTimer;
-    /**
-     * Contador para mensagem temporaria indicativa da derrota do jogador
-     */
+    
+    /** Contador para mensagem temporaria indicativa da derrota do jogador. */
     public float youLostTimer;
-    /**
-     * Indica se o jogador está na seleção da personagem
-     */
+    
+    /** Indica se o jogador está na seleção da personagem. */
     public boolean inSelect;
-    /**
-     * Indica se o jogador está no jogo
-     */
+    
+    /** Indica se o jogador está no jogo. */
     public boolean inGame;
-    /**
-     * Indica se o jogador tem o menu pause aberto
-     */
+    
+    /** Indica se o jogador tem o menu pause aberto. */
     public boolean inPause;
-    /**
-     * Indica o poder selecionado pelo jogador e a ser enviado para o servidor
-     */
+    
+    /** Indica o poder selecionado pelo jogador e a ser enviado para o servidor. */
 
 
     public int powerSelected;
-    /**
-     * Indica se o jogador está pronto a começar o jogo
-     */
+    
+    /** Indica se o jogador está pronto a começar o jogo. */
     public boolean ready;
 
-    /**
-     * Jogo local do cliente usado para fazer render e prever os updates do servidor para maior suavidade
-     */
+    /** Jogo local do cliente usado para fazer render e prever os updates do servidor para maior suavidade. */
     public Game game;
-    /**
-     * Inputs do jogador a ser enviados para o servidor
-     */
+    
+    /** Inputs do jogador a ser enviados para o servidor. */
     public Inputs i;
-    /**
-     * Id do jogador(pode ser 1 ou 2)
-     */
+    
+    /** Id do jogador(pode ser 1 ou 2). */
     public int id;
-    /**
-     * Leitor de informação do servidor
-     */
+    
+    /** Leitor de informação do servidor. */
     public BufferedReader in;
-    /**
-     * Imprime informacao para o servidor
-     */
+    
+    /** Imprime informacao para o servidor. */
     PrintWriter out;
 
+    /** The socket. */
     Socket socket;
-    /**
-     * Booleano que indica se o jogador está ligado ao servidor
-     */
+    
+    /** Booleano que indica se o jogador está ligado ao servidor. */
     public boolean connected;
-    /**
-     * Booleano que indica se o jogador deu timeout
-     */
+    
+    /** Booleano que indica se o jogador deu timeout. */
     public boolean timedOut;
 
     /**
-     * Cria um novo client, criando tambem o handler
+     * Cria um novo client, criando tambem o handler.
      */
     public ClientGame(){
         powerSelected = -1;
@@ -115,6 +99,10 @@ public class ClientGame {
 
         new ClientHandler();
     }
+    
+    /**
+     * Send info.
+     */
     public void sendInfo(){
         String s = new String();
         s+="INPUTS";
@@ -128,12 +116,18 @@ public class ClientGame {
         s+=i.power ? 1 : 0;
         out.println(s);
     }
+    
+    /**
+     * Send message.
+     *
+     * @param s the s
+     */
     public void sendMessage(String s){
         out.println(s);
     }
 
     /**
-     * Recebe informacao do servidor e atualiza o estado do jogo consoante a informação(informação presente no comentário da funcao render da classe BounceBallServer)
+     * Recebe informacao do servidor e atualiza o estado do jogo consoante a informação(informação presente no comentário da funcao render da classe BounceBallServer).
      */
     public void readInfo(){
         try{
@@ -233,12 +227,19 @@ public class ClientGame {
      * Ao abrir handler,é pedido o ip do servidor numa caixa de texto.
      */
     public class ClientHandler extends Thread implements Input.TextInputListener{
+        
+        /** The ip. */
         String ip;
+        
+        /**
+         * Instantiates a new client handler.
+         */
         public ClientHandler(){
 
             this.start();
 
         }
+
         public void run(){
             try{
                 Gdx.input.getTextInput(this,"IP Address","","");
@@ -268,11 +269,19 @@ public class ClientGame {
             connected = false;
         }
 
+        /**
+         * Input.
+         *
+         * @param text the text
+         */
         @Override
         public void input(String text) {
             ip = text;
         }
 
+        /**
+         * Canceled.
+         */
         @Override
         public void canceled() {
             ip = "";

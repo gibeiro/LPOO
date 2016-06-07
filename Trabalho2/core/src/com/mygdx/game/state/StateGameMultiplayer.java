@@ -8,32 +8,49 @@ import com.mygdx.game.gui.GUIWaiting;
 import com.mygdx.game.socketnetwork.ClientGame;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * Estado do jogo no modo multijogador
+ * Estado do jogo no modo multijogador.
  */
 public class StateGameMultiplayer extends State {
+    
+    /** The Constant SCREENRESPROP. */
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
-    /**
-     * Taxa de envio de informacao ao servidor
-     */
+    
+    /** Taxa de envio de informacao ao servidor. */
     private final static float RATE = 0.05f;
     /**
      * Taxa de envio de mensagens de teste para evitar timeout.
      */
     private final static float TESTRATE = 1;
+    
+    /** The client. */
     private ClientGame client;
+    
+    /** The game gui. */
     private GUIGame gameGUI;
+    
+    /** The pause gui. */
     private GUIPause pauseGUI;
+    
+    /** The wait gui. */
     private GUIWaiting waitGUI;
+    
+    /** The select gui. */
     private GUISelection selectGUI;
-    /**
-     * Contador da taxa de envio de informacao ao servidor
-     */
+    
+    /** Contador da taxa de envio de informacao ao servidor. */
     private float ratecounter;
     /**
      * Contador da taxa de envio de mensagens de teste para evitar timeout.
      */
     private float testcounter;
+    
+    /**
+     * Instantiates a new state game multiplayer.
+     *
+     * @param s the s
+     */
     public StateGameMultiplayer(StateManager s) {
         super(s);
         ratecounter = 0f;
@@ -49,11 +66,10 @@ public class StateGameMultiplayer extends State {
         pauseGUI = new GUIPause();
     }
 
-
-    @Override
     /**
      * Recebe input do jogador e atualiza
      */
+    @Override
     public void handleInput(){
         if(client.inPause){
             if(pauseGUI.resume.isPressed()){
@@ -120,6 +136,9 @@ public class StateGameMultiplayer extends State {
     }
 
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.state.State#update(double)
+     */
     @Override
     public void update(double dt) {
         client.timeOutTimer -= dt;
@@ -162,6 +181,9 @@ public class StateGameMultiplayer extends State {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.state.State#render()
+     */
     @Override
     public void render() {
         if(client.inWait){
@@ -177,6 +199,9 @@ public class StateGameMultiplayer extends State {
 
     }
 
+    /* (non-Javadoc)
+     * @see com.mygdx.game.state.State#dispose()
+     */
     @Override
     public void dispose(){
         gameGUI.dispose();

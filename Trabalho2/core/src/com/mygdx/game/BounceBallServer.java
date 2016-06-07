@@ -7,35 +7,36 @@ import com.mygdx.game.logic.Player;
 import com.mygdx.game.socketnetwork.InfoGame;
 import com.mygdx.game.socketnetwork.ServerGame;
 
+// TODO: Auto-generated Javadoc
 /**
- * Servidor a ser criado no computador
+ * Servidor a ser criado no computador.
  */
 public class BounceBallServer extends ApplicationAdapter {
-    /**
-     * Taxa de envio de informacao do servidor para client
-     */
+    
+    /** Taxa de envio de informacao do servidor para client. */
     private final static float RATE = 0.06f;
     /**
      * Taxa de envio de informacao da mensagem de teste para client, para evitar timeout.
      */
     private final static float TESTRATE = 1;
-    /**
-     * Contador da taxa de envio de informacao do servidor para client
-     */
+    
+    /** Contador da taxa de envio de informacao do servidor para client. */
     float rateCounter;
     /**
      * Contador da taxa de envio de informacao da mensagem de teste para client, para evitar timeout.
      */
     float testCounter;
-    /**
-     * Servidor
-     */
+    
+    /** Servidor. */
     ServerGame server;
+    
+    /** The dt. */
     float dt;
-    @Override
+
     /**
      * Cria novo servidor
      */
+    @Override
     public void create () {
         rateCounter = 0;
         testCounter = 0;
@@ -46,7 +47,6 @@ public class BounceBallServer extends ApplicationAdapter {
         }
     }
 
-    @Override
     /**
      * 1-Se um dos handlers for null, cria um novo(um handler pode tornar-se null ao sair um client do jogo ou na criacao do servidor)
      * 2-Se um dos handlers nao estiver ligado a um client, é enviado uma mensagem de espera ao outro client.
@@ -55,6 +55,7 @@ public class BounceBallServer extends ApplicationAdapter {
      * 5-Ao terminar o jogo, volta-se ao passo 3, selecao de personagem, de forma a dar inicio a um novo jogo.
      * 6-Se um jogador sair ou der timeout, volta-se ao passo 1.
      */
+    @Override
     public void render () {
 
         while(server.handler1 == null || server.handler2 == null){
@@ -140,7 +141,7 @@ public class BounceBallServer extends ApplicationAdapter {
     }
 
     /**
-     * Envia mensagem de espera ao unico jogador ligado, e coloca o poder do jogador ligado a -1 para o caso de ele já ter o poder definido do jogo anterior
+     * Envia mensagem de espera ao unico jogador ligado, e coloca o poder do jogador ligado a -1 para o caso de ele já ter o poder definido do jogo anterior.
      */
     public void sendWaitMessage(){
         if(server.handler1.connected == true && server.handler2.connected == false){
@@ -152,8 +153,9 @@ public class BounceBallServer extends ApplicationAdapter {
             server.handler2.sendMessage("WAIT");
         }
     }
+    
     /**
-     * Envia mensagem de teste para evitar timeout
+     * Envia mensagem de teste para evitar timeout.
      */
     public void sendPassiveMessage(){
         if(server.handler1.connected == true){

@@ -10,6 +10,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+// TODO: Auto-generated Javadoc
 /**
  * Servidor que terá 2 clientes.
  * A transmissão de informação é feita com Sockets.
@@ -20,29 +21,24 @@ public class ServerGame {
      * Jogo corrido no servidor cuja informação é periodicamente enviada aos clients.
      */
     public Game game;
-    /**
-     * Handler para o jogador 1
-     */
+    
+    /** Handler para o jogador 1. */
     public ServerHandler handler1;
-    /**
-     * Handler para o jogador 2
-     */
+    
+    /** Handler para o jogador 2. */
     public ServerHandler handler2;
-    /**
-     * Servidor
-     */
+    
+    /** Servidor. */
     ServerSocket server;
-    /**
-     * Booleano que indica se se está em jogo
-     */
+    
+    /** Booleano que indica se se está em jogo. */
     public boolean inGame;
-    /**
-     * Booleano que indica se se está na seleção da personagem OU quando se está à espera de jogadores
-     */
+    
+    /** Booleano que indica se se está na seleção da personagem OU quando se está à espera de jogadores. */
     public boolean inSelect;
 
     /**
-     * Cria um novo server sem handlers
+     * Cria um novo server sem handlers.
      */
     public ServerGame(){
         inGame = false;
@@ -84,17 +80,33 @@ public class ServerGame {
      * Ao sair um dos clients, o handler deste é terminado, e de seguida iniciado um novo.
      */
     public class ServerHandler extends Thread{
+        
+        /** The socket. */
         private Socket  socket;
+        
+        /** The id. */
         int id;
+        
+        /** The power selected. */
         public int powerSelected;
+        
+        /** The in. */
         BufferedReader in;
+        
+        /** The out. */
         PrintWriter out;
+        
+        /** The connected. */
         public boolean connected;
 
+        /**
+         * Instantiates a new server handler.
+         */
         public ServerHandler(){
             powerSelected = -1;
             this.start();
         }
+
         public void run(){
             try{
                 this.socket = server.accept();
@@ -152,7 +164,8 @@ public class ServerGame {
 
         /**
          * Envia todas as informações relativas às entidades presentes no jogo para o cliente(apenas é usada depois de o jogo dar inicio).
-         * @param info
+         *
+         * @param info the info
          */
         public void sendPos(InfoGame info){
             String s = new String();
@@ -212,6 +225,8 @@ public class ServerGame {
 
         /**
          * Envia uma certa mensagem ao client.
+         *
+         * @param s the s
          */
         public void sendMessage(String s){
             out.println(s);

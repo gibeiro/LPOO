@@ -8,10 +8,17 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
- * Representa o campo em conjunto com as balizas
+ * Representa o campo em conjunto com as balizas.
  */
 public class Obstacle extends Object {
+    
+    /**
+     * Instantiates a new obstacle.
+     *
+     * @param world the world
+     */
     public Obstacle(World world){
         //Fixtures: 1- chao, 2- parede esq ,3- parede dir, 4- teto, 5- baliza esq, 6-baliza dir, 7-sensor baliza esq, 8-sensor baliza dir
         BodyDef def = new BodyDef();

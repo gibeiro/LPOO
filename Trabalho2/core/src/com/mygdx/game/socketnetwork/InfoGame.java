@@ -3,18 +3,37 @@ package com.mygdx.game.socketnetwork;
 import com.mygdx.game.input.Inputs;
 import com.mygdx.game.logic.Game;
 
+// TODO: Auto-generated Javadoc
 /**
- * Classe que encapsula toda a informação do jogo a enviar pelo servidor ao client, e ao usar pelo client para atualizar o jogo
+ * Classe que encapsula toda a informação do jogo a enviar pelo servidor ao client, e ao usar pelo client para atualizar o jogo.
  */
 public class InfoGame {
+    
+    /** The p1t. */
     public float p1x,p1y,p1vx,p1vy,p1m,p1t;//Posicao, velocidade, mana, timer de poder instantaneo
+    
+    /** The p2t. */
     public float p2x,p2y,p2vx,p2vy,p2m,p2t;//Posicao, velocidade, mana, timer de poder instantaneo
+    
+    /** The bav. */
     public float bx,by,bvx,bvy,ba,bav;//Posicao, velocidade e velocidade angular
+    
+    /** The p2i. */
     public Inputs p1i,p2i;
+    
+    /**
+     * Instantiates a new info game.
+     */
     public InfoGame(){
         p1i = new Inputs(false,false,false,false);
         p2i = new Inputs(false,false,false,false);
     }
+    
+    /**
+     * Instantiates a new info game.
+     *
+     * @param game the game
+     */
     public InfoGame(Game game){
         p1i = new Inputs(false,false,false,false);
         p2i = new Inputs(false,false,false,false);

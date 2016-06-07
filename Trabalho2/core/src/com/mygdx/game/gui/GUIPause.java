@@ -5,16 +5,30 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.input.RectButton;
 
+// TODO: Auto-generated Javadoc
 /**
  * Menu mostrado ao jogador quando coloca o jogo em pausa.Tem um fundo transparente, escurecendo o render do estado atrás.
  */
 public class GUIPause {
+    
+    /** The background. */
     Texture background;
+    
+    /** The background sprite. */
     SpriteBatch backgroundSprite;
+    
+    /** The buttons. */
     SpriteBatch buttons;
+    
+    /** The resume. */
     public RectButton resume;
+    
+    /** The exit. */
     public RectButton exit;
 
+    /**
+     * Instantiates a new GUI pause.
+     */
     public GUIPause(){
         background = new Texture("sprites/black.png");
         backgroundSprite = new SpriteBatch();
@@ -34,6 +48,10 @@ public class GUIPause {
         backgroundSprite.enableBlending();
         backgroundSprite.setColor(backgroundSprite.getColor().r,backgroundSprite.getColor().g,backgroundSprite.getColor().b,0.5f);
     }
+    
+    /**
+     * Render.
+     */
     public void render(){
 
         backgroundSprite.begin();
@@ -44,6 +62,10 @@ public class GUIPause {
         exit.render(buttons);
         buttons.end();
     }
+    
+    /**
+     * Dispose.
+     */
     public void dispose(){
         background.dispose();
         resume.dispose();

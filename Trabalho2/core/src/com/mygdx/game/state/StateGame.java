@@ -8,21 +8,40 @@ import com.mygdx.game.logic.Game;
 import com.mygdx.game.logic.Player;
 
 
+// TODO: Auto-generated Javadoc
 //import lipermi.handler.CallHandler;
 
 /**
- * Estado do jogo no modo de treino
+ * Estado do jogo no modo de treino.
  */
 public class StateGame extends State{
 
+    /** The Constant SCREENRESPROP. */
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
+    
+    /** The game. */
     private Game game;
+    
+    /** The game gui. */
     private GUIGame gameGUI;
+    
+    /** The pause gui. */
     private GUIPause pauseGUI;
+    
+    /** The select gui. */
     private GUISelection selectGUI;
+    
+    /** The select hero. */
     private boolean selectHero;
+    
+    /** The paused. */
     private boolean paused;
 
+    /**
+     * Instantiates a new state game.
+     *
+     * @param s the s
+     */
     public StateGame(StateManager s) {
         super(s);
         selectHero = true;
@@ -35,6 +54,7 @@ public class StateGame extends State{
         gameGUI = new GUIGame();
 
     }
+
 
 
     @Override
@@ -96,6 +116,7 @@ public class StateGame extends State{
     }
 
 
+
     @Override
     public void update(double dt) {
         if(selectHero){
@@ -117,6 +138,7 @@ public class StateGame extends State{
 
     }
 
+
     @Override
     public void render() {
         if(selectHero){
@@ -130,6 +152,7 @@ public class StateGame extends State{
         }
 
     }
+
 
     @Override
     public void dispose(){

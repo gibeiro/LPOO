@@ -6,20 +6,42 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.input.RectButton;
 
+// TODO: Auto-generated Javadoc
 /**
- * Interface mostrada ao jogador na selecao da personagem
+ * Interface mostrada ao jogador na selecao da personagem.
  */
 public class GUISelection {
+    
+    /** The sprites. */
     public SpriteBatch sprites;
+    
+    /** The power0. */
     public RectButton power0;
+    
+    /** The power1. */
     public RectButton power1;
+    
+    /** The power2. */
     public RectButton power2;
+    
+    /** The power3. */
     public RectButton power3;
+    
+    /** The power4. */
     public RectButton power4;
+    
+    /** The pause button. */
     public RectButton pauseButton;
+    
+    /** The background. */
     private Texture background;
+    
+    /** The selected. */
     public int selected;
 
+    /**
+     * Instantiates a new GUI selection.
+     */
     public GUISelection(){
         selected = -1;
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -63,6 +85,10 @@ public class GUISelection {
         background = new Texture("sprites/background.png");
         sprites = new SpriteBatch();
     }
+    
+    /**
+     * Render.
+     */
     public void render(){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -94,6 +120,10 @@ public class GUISelection {
         }
         sprites.end();
     }
+    
+    /**
+     * Dispose.
+     */
     public void dispose(){
         background.dispose();
         power0.dispose();

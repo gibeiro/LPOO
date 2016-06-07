@@ -1,0 +1,8 @@
+com.mygdx.game
+com.mygdx.game.desktop
+com.mygdx.game.gui
+com.mygdx.game.input
+com.mygdx.game.logic
+com.mygdx.game.socketnetwork
+com.mygdx.game.state
+com.mygdx.game.test

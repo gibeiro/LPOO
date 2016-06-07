@@ -12,42 +12,111 @@ import com.mygdx.game.input.RectButton;
 import com.mygdx.game.logic.Game;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * Interface do jogo
+ * Interface do jogo.
  */
 public class GUIGame {
+    
+    /** The Constant SCREENRESPROP. */
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
+    
+    /** The camera. */
     private OrthographicCamera camera;
+    
+    /** The debug renderer. */
     private Box2DDebugRenderer b2dr;
+    
+    /** The buttons. */
     private SpriteBatch buttons;
+    
+    /** The objects. */
     private SpriteBatch objects;
+    
+    /** The grass. */
     private Texture grass;
+    
+    /** The sky. */
     private Texture sky;
+    
+    /** The ball. */
     private TextureRegion ball;
+    
+    /** The stop. */
     private Texture stop;
+    
+    /** The fireball. */
     private TextureRegion fireball;
+    
+    /** The fireballrotatecounter. */
     private float fireballrotatecounter;
+    
+    /** The switchdir. */
     private Texture switchdir;
+    
+    /** The magnet. */
     private Texture magnet;
+    
+    /** The default tex. */
     private Texture defaultTex;
+    
+    /** The stop tex. */
     private Texture stopTex;
+    
+    /** The flip tex. */
     private Texture flipTex;
+    
+    /** The magnet tex. */
     private Texture magnetTex;
+    
+    /** The rocket tex. */
     private Texture rocketTex;
+    
+    /** The net. */
     private Texture net;
+    
+    /** The n0. */
     private Texture n0;
+    
+    /** The n1. */
     private Texture n1;
+    
+    /** The n2. */
     private Texture n2;
+    
+    /** The n3. */
     private Texture n3;
+    
+    /** The n4. */
     private Texture n4;
+    
+    /** The n5. */
     private Texture n5;
+    
+    /** The manabar. */
     private Texture manabar;
+    
+    /** The mana. */
     private Texture mana;
+    
+    /** The left button. */
     public RectButton leftButton;
+    
+    /** The right button. */
     public RectButton rightButton;
+    
+    /** The jump button. */
     public RectButton jumpButton;
+    
+    /** The power button. */
     public RectButton powerButton;
+    
+    /** The pause button. */
     public RectButton pauseButton;
+    
+    /**
+     * Instantiates a new GUI game.
+     */
     public GUIGame(){
         camera = new OrthographicCamera();
         camera.setToOrtho(false,100,100*SCREENRESPROP);
@@ -120,6 +189,10 @@ public class GUIGame {
         n5 = new Texture("text/5.png");
 
     }
+    
+    /**
+     * Dispose.
+     */
     public void dispose(){
         ball.getTexture().dispose();
         n0.dispose();
@@ -150,6 +223,11 @@ public class GUIGame {
 
     }
 
+    /**
+     * Render.
+     *
+     * @param game the game
+     */
     public void render(Game game){
         //Preenche o ecra com preto
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -201,7 +279,10 @@ public class GUIGame {
     }
 
     /**
-     * Desenha as pontuações usando as sprites 0 a 5
+     * Desenha as pontuações usando as sprites 0 a 5.
+     *
+     * @param objects the objects
+     * @param game the game
      */
     void drawScores(SpriteBatch objects,Game game){
         if(game.getPlayer1().getGoals() == 0){
@@ -234,7 +315,10 @@ public class GUIGame {
     }
 
     /**
-     * Desenha os jogadores consoante os poderes escolhidos
+     * Desenha os jogadores consoante os poderes escolhidos.
+     *
+     * @param objects the objects
+     * @param game the game
      */
     void drawPlayers(SpriteBatch objects,Game game){
         float p1x = game.getPlayer1().body.getPosition().x;
@@ -271,7 +355,10 @@ public class GUIGame {
     }
 
     /**
-     * Desenha a contagem decrescente caso esta seja >0
+     * Desenha a contagem decrescente caso esta seja >0.
+     *
+     * @param objects the objects
+     * @param game the game
      */
     void drawCountDown(SpriteBatch objects,Game game){
         float d = game.getCountdown();
@@ -291,7 +378,10 @@ public class GUIGame {
     }
 
     /**
-     * Desenha barras de mana de cada jogador, crescendo em direção ao meio do ecra
+     * Desenha barras de mana de cada jogador, crescendo em direção ao meio do ecra.
+     *
+     * @param objects the objects
+     * @param game the game
      */
 
     void drawMana(SpriteBatch objects,Game game){
@@ -304,7 +394,10 @@ public class GUIGame {
     }
 
     /**
-     * Desenha a bola e os poderes utilizados pelos jogadores
+     * Desenha a bola e os poderes utilizados pelos jogadores.
+     *
+     * @param objects the objects
+     * @param game the game
      */
     void drawBallAndPowers(SpriteBatch objects,Game game){
         float bx = game.getBall().body.getPosition().x;

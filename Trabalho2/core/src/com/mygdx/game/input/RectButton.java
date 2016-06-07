@@ -5,25 +5,34 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+// TODO: Auto-generated Javadoc
 /**
- * Representa um botao a ser usado numa interface grafica
+ * Representa um botao a ser usado numa interface grafica.
  */
 public class RectButton {
 
+    /** The y2. */
     int x1,y1,x2,y2;
-    /**
-     * Textura do botao quando nao está a ser carregado
-     */
+    
+    /** Textura do botao quando nao está a ser carregado. */
     Texture buttonidle;
-    /**
-     * Textura do botao quando está a ser carregado
-     */
+    
+    /** Textura do botao quando está a ser carregado. */
     Texture buttonpressed;
-    /**
-     * Som feito ao ser largado
-     */
+    
+    /** Som feito ao ser largado. */
     Sound click;
 
+    /**
+     * Instantiates a new rect button.
+     *
+     * @param x1 the x1
+     * @param y1 the y1
+     * @param x2 the x2
+     * @param y2 the y2
+     * @param a the a
+     * @param sound the sound
+     */
     public RectButton(int x1,int y1,int x2,int y2, String a,boolean sound){
         this.x1 = x1;
         this.y1 = y1;
@@ -42,6 +51,18 @@ public class RectButton {
         }
 
     }
+    
+    /**
+     * Instantiates a new rect button.
+     *
+     * @param x1 the x1
+     * @param y1 the y1
+     * @param x2 the x2
+     * @param y2 the y2
+     * @param a the a
+     * @param b the b
+     * @param sound the sound
+     */
     public RectButton(int x1,int y1,int x2,int y2, String a, String b,boolean sound){
         this.x1 = x1;
         this.y1 = y1;
@@ -57,6 +78,8 @@ public class RectButton {
 
     /**
      * Retorna true se o botao estiver a ser tocado, false se nao.
+     *
+     * @return true, if is pressed
      */
     public boolean isPressed(){
         for(int i = 0;i < 10;i++){
@@ -79,7 +102,9 @@ public class RectButton {
     }
 
     /**
-     * Render ao botao
+     * Render ao botao.
+     *
+     * @param s the s
      */
     public void render(SpriteBatch s){
         if(buttonidle == null)
@@ -91,15 +116,28 @@ public class RectButton {
         }
     }
 
+    /**
+     * Gets the buttonidle.
+     *
+     * @return the buttonidle
+     */
     public Texture getButtonidle() {
         return buttonidle;
     }
 
 
+    /**
+     * Gets the buttonpressed.
+     *
+     * @return the buttonpressed
+     */
     public Texture getButtonpressed() {
         return buttonpressed;
     }
 
+    /**
+     * Dispose.
+     */
     public void dispose(){
         if(buttonidle != null){
             buttonidle.dispose();

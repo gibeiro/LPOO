@@ -7,15 +7,27 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.input.RectButton;
 import com.mygdx.game.logic.Menu;
 
+// TODO: Auto-generated Javadoc
 /**
- * Menu principal
+ * Menu principal.
  */
 public class GUIMenu {
+    
+    /** The sprites. */
     public SpriteBatch sprites;
+    
+    /** The play button. */
     public RectButton playButton;
+    
+    /** The play button mult. */
     public RectButton playButtonMult;
+    
+    /** The background. */
     private Texture background;
 
+    /**
+     * Instantiates a new GUI menu.
+     */
     public GUIMenu(){
         Gdx.gl.glClearColor(0, 0, 0, 1);
         playButton = new RectButton(
@@ -33,6 +45,12 @@ public class GUIMenu {
         background = new Texture("sprites/background.png");
         sprites = new SpriteBatch();
     }
+    
+    /**
+     * Render.
+     *
+     * @param menu the menu
+     */
     public void render(Menu menu){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -43,6 +61,10 @@ public class GUIMenu {
         sprites.end();
 
     }
+    
+    /**
+     * Dispose.
+     */
     public void dispose(){
         background.dispose();
         playButton.dispose();

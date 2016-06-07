@@ -10,24 +10,51 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.input.RectButton;
 
+// TODO: Auto-generated Javadoc
 /**
- * Interface mostrada ao jogador quando está num estado de espera no modo multijogador(aguardando jogador || timeout || vitoria || derrota || inimigo saiu)
+ * Interface mostrada ao jogador quando está num estado de espera no modo multijogador(aguardando jogador || timeout || vitoria || derrota || inimigo saiu).
  */
 public class GUIWaiting {
+    
+    /** The sprites. */
     SpriteBatch sprites;
+    
+    /** The pause button. */
     public RectButton pauseButton;
 
+    /** The background. */
     private Texture background;
+    
+    /** The waitingforoponent. */
     private Texture waitingforoponent;
+    
+    /** The timedout. */
     private Texture timedout;
+    
+    /** The enemyleft. */
     private Texture enemyleft;
+    
+    /** The youwon. */
     private Texture youwon;
+    
+    /** The youlost. */
     private Texture youlost;
 
+    /** The time out timer. */
     public float timeOutTimer;
+    
+    /** The enemy left timer. */
     public float enemyLeftTimer;
+    
+    /** The you won timer. */
     public float youWonTimer;
+    
+    /** The you lost timer. */
     public float youLostTimer;
+    
+    /**
+     * Instantiates a new GUI waiting.
+     */
     public GUIWaiting(){
         timeOutTimer = -1;//4 nao tem efeito
         enemyLeftTimer = -1;
@@ -47,6 +74,10 @@ public class GUIWaiting {
         youwon = new Texture("text/youwon.png");
         youlost = new Texture("text/youlost.png");
     }
+    
+    /**
+     * Render.
+     */
     public void render(){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -66,6 +97,10 @@ public class GUIWaiting {
         pauseButton.render(sprites);
         sprites.end();
     }
+    
+    /**
+     * Dispose.
+     */
     public void dispose(){
         background.dispose();
         pauseButton.dispose();
