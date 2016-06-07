@@ -3,13 +3,28 @@ package com.mygdx.game.input;
 import java.io.Serializable;
 
 /**
- * Created by up201403877 on 09-05-2016.
+ * Representa inputs do jogador
  */
 public class Inputs implements Serializable {
+    /**
+     * Indica se o jogador está a carregar no botao de mover para esquerda
+     */
     public boolean movingLeft;
+    /**
+     * Indica se o jogador está a carregar no botao de mover para direita
+     */
     public boolean movingRight;
+    /**
+     * Indica se o jogador está a carregar no botao de mover para saltar
+     */
     public boolean jump;
+    /**
+     * Indica se o jogador está a carregar no botao de usar poder
+     */
     public boolean power;
+    /**
+     * Indica se o jogador está a segurar o botao (para nao repetir poderes instantaneos)
+     */
     public boolean clickedPower;
     public Inputs(boolean i1,boolean i2,boolean i3,boolean i4){
         movingLeft = i1;

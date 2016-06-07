@@ -4,7 +4,7 @@ import com.mygdx.game.input.Inputs;
 import com.mygdx.game.logic.Game;
 
 /**
- * Created by Nuno on 30/05/2016.
+ * Classe que encapsula toda a informação do jogo a enviar pelo servidor ao client, e ao usar pelo client para atualizar o jogo
  */
 public class InfoGame {
     public float p1x,p1y,p1vx,p1vy,p1m,p1t;//Posicao, velocidade, mana, timer de poder instantaneo

@@ -9,19 +9,30 @@ import com.mygdx.game.socketnetwork.ClientGame;
 
 
 /**
- * Created by Nuno on 09/05/2016.
+ * Estado do jogo no modo multijogador
  */
 public class StateGameMultiplayer extends State {
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
+    /**
+     * Taxa de envio de informacao ao servidor
+     */
     private final static float RATE = 0.05f;
+    /**
+     * Taxa de envio de mensagens de teste para evitar timeout.
+     */
     private final static float TESTRATE = 1;
     private ClientGame client;
     private GUIGame gameGUI;
     private GUIPause pauseGUI;
     private GUIWaiting waitGUI;
     private GUISelection selectGUI;
-
+    /**
+     * Contador da taxa de envio de informacao ao servidor
+     */
     private float ratecounter;
+    /**
+     * Contador da taxa de envio de mensagens de teste para evitar timeout.
+     */
     private float testcounter;
     public StateGameMultiplayer(StateManager s) {
         super(s);
@@ -40,6 +51,9 @@ public class StateGameMultiplayer extends State {
 
 
     @Override
+    /**
+     * Recebe input do jogador e atualiza
+     */
     public void handleInput(){
         if(client.inPause){
             if(pauseGUI.resume.isPressed()){

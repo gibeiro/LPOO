@@ -3,7 +3,7 @@ package com.mygdx.game.logic;
 import com.badlogic.gdx.physics.box2d.Body;
 
 /**
- * Created by Nuno on 04/05/2016.
+ * Classe abstrata que representa uma entidade no jogo
  */
 public abstract class Object {
 

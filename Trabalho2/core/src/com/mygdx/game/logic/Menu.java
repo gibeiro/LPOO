@@ -1,11 +1,20 @@
 package com.mygdx.game.logic;
 
 /**
- * Created by Nuno on 10/05/2016.
+ * Logica do menu
  */
 public class Menu {
+    /**
+     * Booleano que indica se o botao pratice está premido
+     */
     Boolean playButtonPressed;
+    /**
+     * Booleano que indica se o botao multiplayer está premido
+     */
     Boolean playButtonMultiplayerPressed;
+    /**
+     * Booleano que indica se o menu deve ser fechado por ja ter sido selecionada uma opção.
+     */
     boolean menuEnd;
     public Menu(){
         playButtonPressed = false;

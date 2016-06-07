@@ -13,32 +13,86 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 /**
- * Created by Nuno on 30/05/2016.
+ * Representa um client que se vai juntar a um servidor.
  */
 public class ClientGame {
+    /**
+     * Indica se o jogador está num estado de espera (aguardando jogador || timeout || vitoria || derrota || inimigo saiu)
+     */
     public boolean inWait;
+    /**
+     * Contador para mensagem temporaria indicativa de timeout
+     */
     public float timeOutTimer;
+    /**
+     * Contador para mensagem temporaria indicativa da saída do inimigo
+     */
     public float enemyLeftTimer;
+    /**
+     * Contador para mensagem temporaria indicativa da vitoria do jogador
+     */
     public float youWonTimer;
+    /**
+     * Contador para mensagem temporaria indicativa da derrota do jogador
+     */
     public float youLostTimer;
+    /**
+     * Indica se o jogador está na seleção da personagem
+     */
     public boolean inSelect;
+    /**
+     * Indica se o jogador está no jogo
+     */
     public boolean inGame;
+    /**
+     * Indica se o jogador tem o menu pause aberto
+     */
     public boolean inPause;
+    /**
+     * Indica o poder selecionado pelo jogador e a ser enviado para o servidor
+     */
+
+
     public int powerSelected;
+    /**
+     * Indica se o jogador está pronto a começar o jogo
+     */
     public boolean ready;
 
+    /**
+     * Jogo local do cliente usado para fazer render e prever os updates do servidor para maior suavidade
+     */
     public Game game;
+    /**
+     * Inputs do jogador a ser enviados para o servidor
+     */
     public Inputs i;
+    /**
+     * Id do jogador(pode ser 1 ou 2)
+     */
     public int id;
-
+    /**
+     * Leitor de informação do servidor
+     */
     public BufferedReader in;
+    /**
+     * Imprime informacao para o servidor
+     */
     PrintWriter out;
 
     Socket socket;
+    /**
+     * Booleano que indica se o jogador está ligado ao servidor
+     */
     public boolean connected;
+    /**
+     * Booleano que indica se o jogador deu timeout
+     */
     public boolean timedOut;
 
-
+    /**
+     * Cria um novo client, criando tambem o handler
+     */
     public ClientGame(){
         powerSelected = -1;
         inWait = true;
@@ -77,6 +131,10 @@ public class ClientGame {
     public void sendMessage(String s){
         out.println(s);
     }
+
+    /**
+     * Recebe informacao do servidor e atualiza o estado do jogo consoante a informação(informação presente no comentário da funcao render da classe BounceBallServer)
+     */
     public void readInfo(){
         try{
             if(in.ready()){
@@ -169,6 +227,11 @@ public class ClientGame {
             handleTimeOut();
         }
     }
+
+    /**
+     * Handler do client.Thread cuja função é receber a informação do servidor em paralelo.
+     * Ao abrir handler,é pedido o ip do servidor numa caixa de texto.
+     */
     public class ClientHandler extends Thread implements Input.TextInputListener{
         String ip;
         public ClientHandler(){
@@ -215,6 +278,9 @@ public class ClientGame {
             ip = "";
         }
     }
+    /**
+     * No caso de perder ligaçao ao servidor, esta funcao é chamada para mostrar uma mensagem de timeOut durante 3 segundos e finalmente fechar.
+     */
     void handleTimeOut(){
         System.out.println("Timed out");
         try{

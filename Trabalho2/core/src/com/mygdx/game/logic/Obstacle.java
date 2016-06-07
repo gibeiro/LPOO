@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
 
 /**
- * Created by Nuno on 04/05/2016.
+ * Representa o campo em conjunto com as balizas
  */
 public class Obstacle extends Object {
     public Obstacle(World world){

@@ -8,15 +8,41 @@ import com.mygdx.game.socketnetwork.InfoGame;
  * Created by up201403877 on 09-05-2016.
  */
 public class Game {
-
+    /**
+     * Gravidade do jogo
+     */
     private final static float  GRAVITY = -120f;
+    /**
+     * Mundo do jogo onde vao ser colocadas as entidades
+     */
     private World world;
+    /**
+     * Jogador 1
+     */
     private Player player1;
+    /**
+     * Jogador 2
+     */
     private Player player2;
+    /**
+     * Bola
+     */
     private Ball ball;
+    /**
+     * Campo de jogo
+     */
     private Obstacle field;
+    /**
+     * Limite de golos
+     */
     private int limitGoals;
+    /**
+     * Indica se o jogo já terminou
+     */
     private boolean gameEnd;
+    /**
+     * Float que representa o tempo de contagem decrescente.Quando toma valor negativo, a contagem terminou.
+     */
     private float countdown;
     public Game(){
         countdown = 3;
@@ -66,7 +92,14 @@ public class Game {
 
     public void setGameEnd(boolean b){this.gameEnd = b;}
 
-
+    /**
+     * Atualiza o jogo:
+     * -Reduz o countdown.
+     * -Avança world
+     * -Movimenta jogadores consoante seus inputs
+     * -Aumenta mana dos jogadores
+     * -Utiliza poderes caso estes estejam a ser usados
+     */
     public void update(double dt){
         /*
          * Verifica se a bola está dentro das balizas
@@ -104,6 +137,11 @@ public class Game {
         checkPowers(dt);
 
     }
+
+    /**
+     * Verifica se está a ser marcado algum golo, reiniciado a posição das entidades caso tenha sido marcado um, assim como
+     * aumentando o contador de golos do jogador e terminando o jogo caso o limite de golos tenha sido alcançado.
+     */
     public int checkGoals(){
         float x = ball.body.getPosition().x;
         float y = ball.body.getPosition().y;
@@ -126,6 +164,10 @@ public class Game {
         }
         return 0;
     }
+
+    /**
+     * Reinicia a posição de todas as entidades no campo.
+     */
     public void resetPositions(){
         ball.body.setTransform(50,50,0);
         ball.body.setLinearVelocity(0,0);
@@ -135,6 +177,10 @@ public class Game {
         player2.body.setTransform(80,15,0);
         player2.body.setLinearVelocity(0,0);
     }
+
+    /**
+     * Utiliza poderes e atualiza variaveis indicativas da sua utilização.
+     */
     public void checkPowers(double dt){
         player1.usedPowerTimer -= dt;
         player2.usedPowerTimer -= dt;
@@ -142,7 +188,9 @@ public class Game {
         player2.usePower(this,dt);
     }
 
-
+    /**
+     * Atualiza o jogo com informação recebida do servidor
+     */
     public void updateGame(InfoGame g){
         player1.body.setTransform(new Vector2(g.p1x,g.p1y),0);
         player2.body.setTransform(new Vector2(g.p2x,g.p2y),0);
@@ -164,6 +212,10 @@ public class Game {
         ball.body.setLinearVelocity(g.bvx,g.bvy);
         ball.body.setAngularVelocity(g.bav);
     }
+
+    /**
+     * Move ou usa o poder dos jogadores consoante os seus inputs
+     */
     public void updateInputs(Player p,float dt){
         if(p.inputs.getMovingLeft()){
             if(p.body.getLinearVelocity().x > 0)

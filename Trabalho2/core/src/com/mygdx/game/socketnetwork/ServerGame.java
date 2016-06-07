@@ -11,15 +11,39 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * Created by Nuno on 30/05/2016.
+ * Servidor que terá 2 clientes.
+ * A transmissão de informação é feita com Sockets.
+ * Ao ligarem 2 clientes ao servidor, o jogo dará início, com a seleção das personagens seguido do countdown e por fim o jogo.
  */
 public class ServerGame {
+    /**
+     * Jogo corrido no servidor cuja informação é periodicamente enviada aos clients.
+     */
     public Game game;
+    /**
+     * Handler para o jogador 1
+     */
     public ServerHandler handler1;
+    /**
+     * Handler para o jogador 2
+     */
     public ServerHandler handler2;
+    /**
+     * Servidor
+     */
     ServerSocket server;
+    /**
+     * Booleano que indica se se está em jogo
+     */
     public boolean inGame;
+    /**
+     * Booleano que indica se se está na seleção da personagem OU quando se está à espera de jogadores
+     */
     public boolean inSelect;
+
+    /**
+     * Cria um novo server sem handlers
+     */
     public ServerGame(){
         inGame = false;
         inSelect = true;
@@ -37,6 +61,10 @@ public class ServerGame {
             System.exit(0);
        }
     }
+
+    /**
+     * Abre um novo handler para um client.
+     */
     public void openPlayerSlot(){
 
         try{
@@ -49,6 +77,12 @@ public class ServerGame {
 
         }
     }
+
+    /**
+     * Handler para um client, que vai receber informação deste passivamente num thread separado.
+     * So devem existir 2, sendo cada um para cada client.
+     * Ao sair um dos clients, o handler deste é terminado, e de seguida iniciado um novo.
+     */
     public class ServerHandler extends Thread{
         private Socket  socket;
         int id;
@@ -56,6 +90,7 @@ public class ServerGame {
         BufferedReader in;
         PrintWriter out;
         public boolean connected;
+
         public ServerHandler(){
             powerSelected = -1;
             this.start();
@@ -84,6 +119,10 @@ public class ServerGame {
                 handleTimeout();
             }
         }
+
+        /**
+         * Lê informação recebida pelo socket, define que tipo de informação é através da primeira string.
+         */
         public void readInfo(){
             try{
                 String s = in.readLine();
@@ -110,6 +149,11 @@ public class ServerGame {
                 handleTimeout();
             }
         }
+
+        /**
+         * Envia todas as informações relativas às entidades presentes no jogo para o cliente(apenas é usada depois de o jogo dar inicio).
+         * @param info
+         */
         public void sendPos(InfoGame info){
             String s = new String();
             s+="POSITIONS";
@@ -165,10 +209,17 @@ public class ServerGame {
             s+=info.p2i.power? 1 : 0;
             out.println(s);
         }
+
+        /**
+         * Envia uma certa mensagem ao client.
+         */
         public void sendMessage(String s){
             out.println(s);
         }
 
+        /**
+         * No caso de um client dar Timeout, esta função é chamada para retornar ao estado de aguardar por um 2º jogador.
+         */
         public void handleTimeout(){
 
             System.out.println("Client "+ id + " timed out.");
@@ -194,6 +245,10 @@ public class ServerGame {
             }
             return;
         }
+
+        /**
+         * No caso de um client sair, esta função é chamada para retornar ao estado de aguardar por um 2º jogador.
+         */
         public void handleLeave(){
             System.out.println("Client "+ id + " left.");
             if(id == 1 && handler2.connected == true)

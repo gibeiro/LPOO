@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
- * Created by Nuno on 04/05/2016.
+ * Representa a bola
  */
 public class Ball extends Object {
 

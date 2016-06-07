@@ -13,7 +13,7 @@ import com.mygdx.game.logic.Game;
 
 
 /**
- * Created by Nuno on 10/05/2016.
+ * Interface do jogo
  */
 public class GUIGame {
     private final static float SCREENRESPROP = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
@@ -200,6 +200,9 @@ public class GUIGame {
         buttons.end();
     }
 
+    /**
+     * Desenha as pontuações usando as sprites 0 a 5
+     */
     void drawScores(SpriteBatch objects,Game game){
         if(game.getPlayer1().getGoals() == 0){
             objects.draw(n0,Gdx.graphics.getWidth()*0.35f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
@@ -229,6 +232,10 @@ public class GUIGame {
             objects.draw(n5,Gdx.graphics.getWidth()*0.55f,Gdx.graphics.getHeight()*0.8f,Gdx.graphics.getWidth()*0.1f,Gdx.graphics.getHeight()*0.1f/SCREENRESPROP);
         }
     }
+
+    /**
+     * Desenha os jogadores consoante os poderes escolhidos
+     */
     void drawPlayers(SpriteBatch objects,Game game){
         float p1x = game.getPlayer1().body.getPosition().x;
         float p1y = game.getPlayer1().body.getPosition().y;
@@ -262,6 +269,10 @@ public class GUIGame {
         objects.draw(todraw2, Gdx.graphics.getWidth() * (p2x / 100f) - Gdx.graphics.getWidth() * 0.1f / 2, Gdx.graphics.getHeight() / SCREENRESPROP * (p2y / 100f), Gdx.graphics.getWidth() * 0.1f, Gdx.graphics.getHeight() * 0.05f / SCREENRESPROP);
 
     }
+
+    /**
+     * Desenha a contagem decrescente caso esta seja >0
+     */
     void drawCountDown(SpriteBatch objects,Game game){
         float d = game.getCountdown();
         int number = (int)d;
@@ -279,6 +290,10 @@ public class GUIGame {
 
     }
 
+    /**
+     * Desenha barras de mana de cada jogador, crescendo em direção ao meio do ecra
+     */
+
     void drawMana(SpriteBatch objects,Game game){
         float p2length = Gdx.graphics.getWidth()*0.3f*(float)(game.getPlayer2().getMana()/100)*0.95f;
         objects.draw(mana,Gdx.graphics.getWidth()*0.06f,Gdx.graphics.getHeight()*0.87f,Gdx.graphics.getWidth()*0.3f*(float)(game.getPlayer1().getMana()/100)*0.95f,Gdx.graphics.getHeight()*0.06f);
@@ -287,6 +302,10 @@ public class GUIGame {
         objects.draw(manabar,Gdx.graphics.getWidth()*0.65f,Gdx.graphics.getHeight()*0.85f,Gdx.graphics.getWidth()*0.3f,Gdx.graphics.getHeight()*0.1f);
 
     }
+
+    /**
+     * Desenha a bola e os poderes utilizados pelos jogadores
+     */
     void drawBallAndPowers(SpriteBatch objects,Game game){
         float bx = game.getBall().body.getPosition().x;
         float by = game.getBall().body.getPosition().y;

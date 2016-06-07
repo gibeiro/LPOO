@@ -5,7 +5,7 @@ import com.mygdx.game.gui.GUIMenu;
 import com.mygdx.game.logic.Menu;
 
 /**
- * Created by Nuno on 02/05/2016.
+ * Estado que representa o Menu principal
  */
 public class StateMenu extends State {
     Menu menu;

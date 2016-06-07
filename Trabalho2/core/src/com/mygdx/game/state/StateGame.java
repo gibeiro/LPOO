@@ -11,7 +11,7 @@ import com.mygdx.game.logic.Player;
 //import lipermi.handler.CallHandler;
 
 /**
- * Created by Nuno on 02/05/2016.
+ * Estado do jogo no modo de treino
  */
 public class StateGame extends State{
 

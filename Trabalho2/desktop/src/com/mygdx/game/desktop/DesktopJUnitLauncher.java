@@ -6,7 +6,7 @@ import com.mygdx.game.BounceBallJUnit;
 import com.mygdx.game.BounceBallServer;
 
 /**
- * Created by Nuno on 05/06/2016.
+ * Launcher de Testes unitários
  */
 public class DesktopJUnitLauncher {
     public static void main (String[] arg) {

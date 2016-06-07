@@ -6,12 +6,22 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * Created by Nuno on 12/05/2016.
+ * Representa um botao a ser usado numa interface grafica
  */
 public class RectButton {
+
     int x1,y1,x2,y2;
+    /**
+     * Textura do botao quando nao está a ser carregado
+     */
     Texture buttonidle;
+    /**
+     * Textura do botao quando está a ser carregado
+     */
     Texture buttonpressed;
+    /**
+     * Som feito ao ser largado
+     */
     Sound click;
 
     public RectButton(int x1,int y1,int x2,int y2, String a,boolean sound){
@@ -45,6 +55,9 @@ public class RectButton {
 
     }
 
+    /**
+     * Retorna true se o botao estiver a ser tocado, false se nao.
+     */
     public boolean isPressed(){
         for(int i = 0;i < 10;i++){
             if(!Gdx.input.isTouched(i))
@@ -64,6 +77,10 @@ public class RectButton {
         }
         return false;
     }
+
+    /**
+     * Render ao botao
+     */
     public void render(SpriteBatch s){
         if(buttonidle == null)
             return;

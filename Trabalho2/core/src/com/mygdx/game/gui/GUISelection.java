@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.input.RectButton;
 
 /**
- * Created by Nuno on 30/05/2016.
+ * Interface mostrada ao jogador na selecao da personagem
  */
 public class GUISelection {
     public SpriteBatch sprites;

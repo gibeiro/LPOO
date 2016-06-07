@@ -6,6 +6,9 @@ import com.badlogic.gdx.audio.Sound;
 import com.mygdx.game.state.StateManager;
 import com.mygdx.game.state.StateMenu;
 
+/**
+ * Utilizador do jogo na plataforma android
+ */
 public class BounceBall extends ApplicationAdapter {
 	StateManager states;
 	Sound s;

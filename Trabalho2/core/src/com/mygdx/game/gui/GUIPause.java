@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.input.RectButton;
 
 /**
- * Created by Nuno on 30/05/2016.
+ * Menu mostrado ao jogador quando coloca o jogo em pausa.Tem um fundo transparente, escurecendo o render do estado atrás.
  */
 public class GUIPause {
     Texture background;

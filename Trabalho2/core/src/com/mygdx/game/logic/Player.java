@@ -10,16 +10,41 @@ import com.mygdx.game.input.Inputs;
 import java.util.ArrayList;
 
 /**
- * Created by Nuno on 04/05/2016.
+ * Claase que representa um jogador
  */
 public class Player extends Object {
+    /**
+     * Inputs do jogador
+     */
     Inputs inputs;
+    /**
+     * Golos marcados
+     */
     int goals;
+    /**
+     * Contador usado para que o jogador nao salte varias vezes no mesmo instante.
+     */
     double jumpCounter;
+    /**
+     * Indice que representa o poder
+     */
     int powerIndex;
+    /**
+     * Mana disponivel para usar poderes.
+     */
     double mana;
-    public boolean usingPower;//Usado para verificar se o jogador esta a usar um poder continuo(como atrair a bola)
-    public float usedPowerTimer;//Usado para verificar se o jogador usou um poder instantaneo(como parar a bola)
+    /**
+     * Booleano que indica se um poder continuo esta a ser usado(atrair ou acelerar bola)
+     */
+    public boolean usingPower;
+    /**
+     * Timer que indica há quanto tempo foi invocado um poder instantaneo(parar a bola ou trocar sua direção)
+     */
+    public float usedPowerTimer;
+
+    /**
+     * Cria novo jogador
+     */
     public Player(World world, int x, int y){
         inputs = new Inputs(false,false,false,false);
         goals = 0;
@@ -80,11 +105,14 @@ public class Player extends Object {
 
     }
 
+    /**
+     * Define o poder do jogador
+     */
     public void setPower(int i) {
         powerIndex = i;
     }
-    /*
-     *  Returns 0 if the user has no power or he has one but is not being used, returns its index if it's being used
+    /**
+     *  Retorna false se o poder nao estiver a ser premido.Caso contrario, retorna true
      */
     public boolean getPowerPressed(){
         if(inputs.getPower())
@@ -92,6 +120,9 @@ public class Player extends Object {
         return false;
     }
 
+    /**
+     * Usa poder do jogador
+     */
     public void usePower(Game game, double dt){
         Power.usePower(game,dt,powerIndex,this);
     }

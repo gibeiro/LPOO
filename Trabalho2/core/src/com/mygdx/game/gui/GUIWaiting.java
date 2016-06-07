@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.input.RectButton;
 
 /**
- * Interface shown to the client when waiting for enemy player after joining server
+ * Interface mostrada ao jogador quando está num estado de espera no modo multijogador(aguardando jogador || timeout || vitoria || derrota || inimigo saiu)
  */
 public class GUIWaiting {
     SpriteBatch sprites;

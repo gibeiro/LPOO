@@ -7,15 +7,35 @@ import com.mygdx.game.logic.Player;
 import com.mygdx.game.socketnetwork.InfoGame;
 import com.mygdx.game.socketnetwork.ServerGame;
 
-
+/**
+ * Servidor a ser criado no computador
+ */
 public class BounceBallServer extends ApplicationAdapter {
+    /**
+     * Taxa de envio de informacao do servidor para client
+     */
     private final static float RATE = 0.06f;
+    /**
+     * Taxa de envio de informacao da mensagem de teste para client, para evitar timeout.
+     */
     private final static float TESTRATE = 1;
+    /**
+     * Contador da taxa de envio de informacao do servidor para client
+     */
     float rateCounter;
+    /**
+     * Contador da taxa de envio de informacao da mensagem de teste para client, para evitar timeout.
+     */
     float testCounter;
+    /**
+     * Servidor
+     */
     ServerGame server;
     float dt;
     @Override
+    /**
+     * Cria novo servidor
+     */
     public void create () {
         rateCounter = 0;
         testCounter = 0;
@@ -27,6 +47,14 @@ public class BounceBallServer extends ApplicationAdapter {
     }
 
     @Override
+    /**
+     * 1-Se um dos handlers for null, cria um novo(um handler pode tornar-se null ao sair um client do jogo ou na criacao do servidor)
+     * 2-Se um dos handlers nao estiver ligado a um client, é enviado uma mensagem de espera ao outro client.
+     * 3-Quando ambos os jogadores estao ligados, é enviada mensagem de seleção de personagem a ambos os clients.
+     * 4-Quando forem recebidas as informações do poder do jogador, o jogo dá inicio, e são enviadas as posições das entidades, contagem decrescente, e se foi marcado um golo.
+     * 5-Ao terminar o jogo, volta-se ao passo 3, selecao de personagem, de forma a dar inicio a um novo jogo.
+     * 6-Se um jogador sair ou der timeout, volta-se ao passo 1.
+     */
     public void render () {
 
         while(server.handler1 == null || server.handler2 == null){

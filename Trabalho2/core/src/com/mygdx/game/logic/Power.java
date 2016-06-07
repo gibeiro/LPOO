@@ -1,11 +1,14 @@
 package com.mygdx.game.logic;
 
 /**
- * Created by Nuno on 11/05/2016.
+ * Poder que pode ser usado por um certo jogador
  */
 public class Power {
 
 
+    /**
+     * É utilizado um poder pelo jogador player do jogo game, com o id powerId e delta T dt
+     */
     public static void usePower(Game game,double dt,int powerId,Player player){
         if(powerId ==1){
             power1(game,dt,player);
@@ -24,7 +27,10 @@ public class Power {
             return;
         }
     }
-    //Aumenta velocidade da bola
+
+    /**
+     * Poder que aumenta a velocidade da bola
+     */
     public static void power1(Game game, double dt,Player player){
         if(player.getPowerPressed() && player.getMana() >= 80 && !player.inputs.getClickedPower() || player.getPowerPressed() && player.getMana() >0.05 && player.inputs.getClickedPower()){
             game.getBall().body.setLinearVelocity(
@@ -41,7 +47,10 @@ public class Power {
             player.usingPower = false;
         }else player.usingPower = false;
     }
-    //Para a bola
+
+    /**
+     * Poder que faz a bola parar
+     */
     public static void power2(Game game, double dt,Player player){
         if(player.getPowerPressed() && !player.inputs.getClickedPower() && player.mana >= 80){
             game.getBall().body.setLinearVelocity(0,0);
@@ -52,7 +61,10 @@ public class Power {
         }else if(!player.getPowerPressed())
             player.inputs.setClickedPower(false);
     }
-    //Troca direcao da bola
+
+    /**
+     * Poder que troca a direcao horizontal da bola
+     */
     public static void power3(Game game, double dt,Player player){
         if(player.getPowerPressed() && !player.inputs.getClickedPower() && player.mana >= 80){
             game.getBall().body.setLinearVelocity(-game.getBall().body.getLinearVelocity().x,game.getBall().body.getLinearVelocity().y);
@@ -63,7 +75,10 @@ public class Power {
         }else if(!player.getPowerPressed())
             player.inputs.setClickedPower(false);
     }
-    //Íman
+
+    /**
+     * Poder que atrai a bola para o jogador que o invocou
+     */
     public static void power4(Game game, double dt,Player player){
         if(player.getPowerPressed() && player.getMana() >= 80 && !player.inputs.getClickedPower() || player.getPowerPressed() && player.getMana() >0.05 && player.inputs.getClickedPower()){
             float playerx = player.body.getPosition().x;

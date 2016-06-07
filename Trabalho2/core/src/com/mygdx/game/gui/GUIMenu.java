@@ -8,7 +8,7 @@ import com.mygdx.game.input.RectButton;
 import com.mygdx.game.logic.Menu;
 
 /**
- * Created by Nuno on 10/05/2016.
+ * Menu principal
  */
 public class GUIMenu {
     public SpriteBatch sprites;
